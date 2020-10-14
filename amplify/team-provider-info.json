@@ -1,0 +1,46 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-prime-care-pulse-oximetry-dev-144954-authRole",
+      "UnauthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-dev-144954-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-dev-144954-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-prime-care-pulse-oximetry-dev-144954-deployment",
+      "UnauthRoleName": "amplify-prime-care-pulse-oximetry-dev-144954-unauthRole",
+      "StackName": "amplify-prime-care-pulse-oximetry-dev-144954",
+      "StackId": "arn:aws:cloudformation:us-east-1:277057902465:stack/amplify-prime-care-pulse-oximetry-dev-144954/65292dc0-1ce8-11eb-b4d2-0a8742d8c83d",
+      "AmplifyAppId": "d1ppi0x538uzmb"
+    },
+    "categories": {
+      "auth": {
+        "primecarepulseoximetry28e75f4b": {}
+      }
+    }
+  },
+  "test": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-prime-care-pulse-oximetry-test-145120-authRole",
+      "UnauthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-test-145120-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-test-145120-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-prime-care-pulse-oximetry-test-145120-deployment",
+      "UnauthRoleName": "amplify-prime-care-pulse-oximetry-test-145120-unauthRole",
+      "StackName": "amplify-prime-care-pulse-oximetry-test-145120",
+      "StackId": "arn:aws:cloudformation:us-east-1:277057902465:stack/amplify-prime-care-pulse-oximetry-test-145120/96d03530-1ce8-11eb-addc-12d8771823f5",
+      "AmplifyAppId": "d1ppi0x538uzmb"
+    }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-prime-care-pulse-oximetry-prod-152303-authRole",
+      "UnauthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-prod-152303-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-prod-152303-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-prime-care-pulse-oximetry-prod-152303-deployment",
+      "UnauthRoleName": "amplify-prime-care-pulse-oximetry-prod-152303-unauthRole",
+      "StackName": "amplify-prime-care-pulse-oximetry-prod-152303",
+      "StackId": "arn:aws:cloudformation:us-east-1:277057902465:stack/amplify-prime-care-pulse-oximetry-prod-152303/06137f20-1ced-11eb-88aa-0efa5da0ad91",
+      "AmplifyAppId": "d1ppi0x538uzmb"
+    }
+  }
+}
