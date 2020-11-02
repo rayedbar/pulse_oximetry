@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "primecarepulseoximetry",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authprimecarepulseoximetry28e75f4b",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
