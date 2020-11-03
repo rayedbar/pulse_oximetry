@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  Grid,
   FormControl,
   InputLabel,
   Input,
@@ -65,10 +66,10 @@ const AddOximeter = () => {
         display: "flex",
         justifyContent: "center",
         margin: 20,
-        padding: 20,
       }}
     >
-      <form style={{ width: "50%" }} onSubmit={handleSubmit(handleClickOpen)}>
+      <Grid container direction="column" alignItems="center">
+      <form onSubmit={handleSubmit(handleClickOpen)}>
         <h1>Pulse Oximetry</h1>
 
         <FormControl margin="normal" fullWidth>
@@ -90,7 +91,7 @@ const AddOximeter = () => {
           <Input
             name="heartRate"
             type="number"
-            inputRef={register({ min: 40, max: 200, required: true })}
+            inputRef={register({ min: 20, max: 200, required: true })}
           />
           {errors.heartRate && (
             <Typography color="error">
@@ -109,6 +110,7 @@ const AddOximeter = () => {
           Save
         </Button>
       </form>
+      </Grid>
 
       <Dialog
         open={confirmationOpen}

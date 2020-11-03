@@ -9,12 +9,11 @@ import {
   TableBody,
   TableCell,
 } from "@material-ui/core";
-// import { makeStyles } from "@material-ui/core/styles";
 
 const OximeterTable = ({ spo2Data }) => {
   return (
     <TableContainer component={Paper}>
-      <Table style={{ minWidth: 650 }} aria-label="spo2 table">
+      <Table style={{ width: "100%" }} aria-label="spo2 table">
         <TableHead>
           <TableRow>
             <TableCell>Date</TableCell>

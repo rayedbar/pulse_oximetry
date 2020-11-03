@@ -50,7 +50,7 @@ const IndividualList = () => {
   return (
     <Grid container direction="row" spacing={2} className={classes.root}>
       {individuals.map((individual) => (
-        <Grid item key={individual.id} xs={6} sm={5} md={4} lg={3} xl={2}>
+        <Grid item key={individual.id} xs={12} sm={6} md={4} lg={3} xl={2}>
           <IndividualListItem individual={individual} />
         </Grid>
       ))}

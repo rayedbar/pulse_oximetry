@@ -8,6 +8,7 @@ const useStyles = makeStyles({
   plot: {
     height: "100%",
     width: "100%",
+    marginTop: 20,
   },
 });
 
@@ -17,25 +18,30 @@ const OximeterChart = ({ spo2Data }) => {
 
   const plotData = {
     spo2: {
-      x: spo2Data.map(data =>
+      x: spo2Data.map((data) =>
         format(new Date(data.createdAt), "yyyy-MM-dd HH:mm:ss")
       ),
-      y: spo2Data.map(data => data.spo2),
+      y: spo2Data.map((data) => data.spo2),
       type: "scatter",
       mode: "lines+markers",
       name: "Spo2",
       marker: { color: "red" },
     },
     heartRate: {
-      x: spo2Data.map(data =>
+      x: spo2Data.map((data) =>
         format(new Date(data.createdAt), "yyyy-MM-dd HH:mm:ss")
       ),
-      y: spo2Data.map(data => data.heartRate),
+      y: spo2Data.map((data) => data.heartRate),
       type: "scatter",
       mode: "lines+markers",
       name: "Heart rate",
       marker: { color: "blue" },
     },
+  };
+
+  const plotlyConfig = {
+    displaylogo: false,
+    modeBarButtonsToRemove: ["sendDataToCloud", "toggleSpikelines", "lasso2d"],
   };
 
   return (
@@ -51,6 +57,7 @@ const OximeterChart = ({ spo2Data }) => {
         },
         autosize: true,
       }}
+      config={plotlyConfig}
     />
   );
 };

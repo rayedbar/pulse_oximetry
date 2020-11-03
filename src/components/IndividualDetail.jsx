@@ -77,6 +77,7 @@ const IndividualDetail = () => {
                 direction="row"
                 justify="space-between"
                 alignItems="center"
+                spacing={4}
               >
                 <Grid item>
                   <Typography color="textSecondary">First Name</Typography>
@@ -117,7 +118,7 @@ const IndividualDetail = () => {
       <Grid item container direction="column" spacing={1}>
         <Grid item container justify="space-between">
           <Grid item>
-            <Typography variant="h4">Pulse Oximetry History</Typography>
+            <Typography variant="h5">Pulse Oximetry History</Typography>
           </Grid>
           <Grid item>
             <Button
@@ -137,15 +138,15 @@ const IndividualDetail = () => {
             <Sp02Chart spo2Data={individualDetail.oximeter.items} />
           </Grid>
         ) : null}
-      </Grid>
-      <Grid item>
-        {individualDetail.oximeter &&
-        individualDetail.oximeter.items &&
-        individualDetail.oximeter.items.length > 0 ? (
-          <Sp02Table spo2Data={individualDetail.oximeter.items} />
-        ) : (
-          <Typography variant="subtitle1">No Data</Typography>
-        )}
+        <Grid item xs={11}>
+          {individualDetail.oximeter &&
+          individualDetail.oximeter.items &&
+          individualDetail.oximeter.items.length > 0 ? (
+            <Sp02Table spo2Data={individualDetail.oximeter.items} />
+          ) : (
+            <Typography variant="subtitle2">No Data</Typography>
+          )}
+        </Grid>
       </Grid>
     </Grid>
   ) : (

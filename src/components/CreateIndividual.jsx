@@ -4,6 +4,7 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
+  Grid,
   InputLabel,
   Input,
   Button,
@@ -84,10 +85,10 @@ const CreateIndividual = () => {
         display: "flex",
         justifyContent: "center",
         margin: 20,
-        padding: 20,
       }}
     >
-      <form style={{ width: "50%" }}>
+      <Grid container direction="column" alignItems="center">
+      <form>
         <h1>Add Individual</h1>
 
         <FormControl margin="normal" fullWidth>
@@ -154,6 +155,7 @@ const CreateIndividual = () => {
           Submit
         </Button>
       </form>
+      </Grid>
     </div>
   );
 };

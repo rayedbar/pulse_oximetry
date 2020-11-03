@@ -1,14 +1,14 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-prime-care-pulse-oximetry-dev-144954-authRole",
-      "UnauthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-dev-144954-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-dev-144954-authRole",
+      "AuthRoleName": "amplify-prime-care-pulse-oximetry-dev-113743-authRole",
+      "UnauthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-dev-113743-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-dev-113743-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-prime-care-pulse-oximetry-dev-144954-deployment",
-      "UnauthRoleName": "amplify-prime-care-pulse-oximetry-dev-144954-unauthRole",
-      "StackName": "amplify-prime-care-pulse-oximetry-dev-144954",
-      "StackId": "arn:aws:cloudformation:us-east-1:277057902465:stack/amplify-prime-care-pulse-oximetry-dev-144954/65292dc0-1ce8-11eb-b4d2-0a8742d8c83d",
+      "DeploymentBucketName": "amplify-prime-care-pulse-oximetry-dev-113743-deployment",
+      "UnauthRoleName": "amplify-prime-care-pulse-oximetry-dev-113743-unauthRole",
+      "StackName": "amplify-prime-care-pulse-oximetry-dev-113743",
+      "StackId": "arn:aws:cloudformation:us-east-1:277057902465:stack/amplify-prime-care-pulse-oximetry-dev-113743/bd5bebf0-1d96-11eb-9dcc-12b94cd95a93",
       "AmplifyAppId": "d1ppi0x538uzmb"
     },
     "categories": {
