@@ -96,7 +96,9 @@ const IndividualDetail = () => {
                   <Typography color="textSecondary">Latest SpO2</Typography>
                   <Typography variant="h6">
                     {individualDetail.oximeter.items[0]
-                      ? individualDetail.oximeter.items[0].spo2
+                      ? individualDetail.oximeter.items[
+                          individualDetail.oximeter.items.length - 1
+                        ].spo2
                       : "Not Available"}
                   </Typography>
                 </Grid>
@@ -106,7 +108,9 @@ const IndividualDetail = () => {
                   </Typography>
                   <Typography variant="h6">
                     {individualDetail.oximeter.items[0]
-                      ? individualDetail.oximeter.items[0].heartRate
+                      ? individualDetail.oximeter.items[
+                          individualDetail.oximeter.items.length - 1
+                        ].heartRate
                       : "Not Available"}
                   </Typography>
                 </Grid>
