@@ -25,14 +25,14 @@ const OximeterTable = ({ spo2Data }) => {
         <TableBody>
           {spo2Data.reverse().map((data) => (
             <TableRow key={data.id}>
-              <TableCell>
+              <TableCell align="center">
                 {new Date(data.createdAt).toLocaleDateString()}
               </TableCell>
-              <TableCell>
+              <TableCell align="center">
                 {new Date(data.createdAt).toLocaleTimeString()}
               </TableCell>
-              <TableCell>{data.spo2}</TableCell>
-              <TableCell>{data.heartRate}</TableCell>
+              <TableCell align="center">{data.spo2}</TableCell>
+              <TableCell align="center">{data.heartRate}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -13,7 +13,9 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     height: theme.spacing(40),
   },
-  profileBackground: {},
+  individualName:{
+    marginBottom:10,
+  },
 }));
 
 const IndividualListItem = ({ individual }) => {
@@ -46,7 +48,7 @@ const IndividualListItem = ({ individual }) => {
             </Grid>
 
             <Grid item container direction="column" alignItems="center">
-              <Grid item>
+              <Grid item className={classes.individualName}>
                 <Typography variant="h5">
                   {individual.firstName + " " + individual.lastName}
                 </Typography>
