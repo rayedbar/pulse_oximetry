@@ -46,6 +46,11 @@
       "StackName": "amplify-prime-care-pulse-oximetry-prod-152303",
       "StackId": "arn:aws:cloudformation:us-east-1:277057902465:stack/amplify-prime-care-pulse-oximetry-prod-152303/06137f20-1ced-11eb-88aa-0efa5da0ad91",
       "AmplifyAppId": "d1ppi0x538uzmb"
+    },
+    "categories": {
+      "auth": {
+        "primecarepulseoximetry28e75f4b": {}
+      }
     }
   }
 }
