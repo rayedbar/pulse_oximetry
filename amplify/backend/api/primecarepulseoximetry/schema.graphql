@@ -1,0 +1,19 @@
+type Individual @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  gender: String!
+  dob: AWSDate!
+  oximeter: [Oximeter] @connection(keyName: "byIndividual", fields: ["id"])
+}
+
+type Oximeter
+  @model
+  @auth(rules: [{ allow: owner }])
+  @key(name: "byIndividual", fields: ["individualID", "createdAt"]) {
+  id: ID!
+  individualID: ID!
+  spo2: Int!
+  heartRate: Int! 
+  createdAt: AWSDateTime
+}
