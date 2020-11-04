@@ -43,6 +43,24 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    margin: 20,
+  },
+  imagePreview: {
+    width: 200,
+    height: 200,
+  },
+  iconSize: {
+    fontSize: 50,
+  },
+  amplifyComponent: {
+    padding: 0,
+  },
+}));
+
 const CreateIndividual = () => {
   const classes = useStyles();
   const history = useHistory();
