@@ -8,7 +8,7 @@ import Header from "./Header";
 import IndividualList from "./IndividualList";
 import IndividualDetail from "./IndividualDetail";
 import CreateIndividual from "./CreateIndividual";
-import AddOximeter from "./AddOximeter";
+import AddOximeter from "./AddPulseOximetry";
 
 const useStyles = makeStyles({
   root: {

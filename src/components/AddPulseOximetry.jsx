@@ -15,49 +15,41 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-import { createOximeter as createOximeterMutation } from "../graphql/mutations";
+import { createOximeter as createPulseOximetryMutation } from "../graphql/mutations";
 
 const AddOximeter = () => {
-  const { individualID } = useParams();
   const history = useHistory();
+  const { individualID } = useParams();
   const { register, errors, handleSubmit } = useForm();
-  const [confirmationOpen, setConfirmationOpen] = useState(false);
-  const [formData, setFormData] = useState();
 
-  const handleClickOpen = (data) => {
-    setFormData(data);
-    setConfirmationOpen(true);
+  const [pulseOximetryData, setPulseOximetryData] = useState(null);
+  const [showDialog, setShowDialog] = useState(false);
+
+  const onSubmit = (data) => {
+    setPulseOximetryData(data);
+    setShowDialog(true);
   };
 
-  const handleCloseConfirm = () => {
-    setConfirmationOpen(false);
-    saveOximeterData();
+  const handleDialogConfirm = () => {
+    setShowDialog(false);
+    savePulseOximetry();
   };
 
-  const handleCloseCancel = () => {
-    setConfirmationOpen(false);
-  };
-
-  const saveOximeterData = () => {
-    async function createOximeter() {
-      try {
-        const oximeterData = await API.graphql(
-          graphqlOperation(createOximeterMutation, {
-            input: {
-              individualID: individualID,
-              heartRate: parseInt(formData.heartRate, 10),
-              spo2: parseInt(formData.spo2, 10),
-            },
-          })
-        );
-        console.log(oximeterData);
-        history.goBack();
-      } catch {
-        console.log("Error adding oximeter reading");
-      }
+  const savePulseOximetry = async () => {
+    try {
+      await API.graphql(
+        graphqlOperation(createPulseOximetryMutation, {
+          input: {
+            individualID: individualID,
+            heartRate: parseInt(pulseOximetryData.heartRate, 10),
+            spo2: parseInt(pulseOximetryData.spo2, 10),
+          },
+        })
+      );
+      history.goBack();
+    } catch {
+      console.log("Error adding oximeter reading");
     }
-    handleClickOpen();
-    createOximeter();
   };
 
   return (
@@ -69,7 +61,7 @@ const AddOximeter = () => {
       }}
     >
       <Grid container direction="column" alignItems="center">
-        <form onSubmit={handleSubmit(handleClickOpen)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <h1>Pulse Oximetry</h1>
 
           <FormControl margin="normal" fullWidth>
@@ -120,28 +112,32 @@ const AddOximeter = () => {
         </form>
       </Grid>
 
-      <Dialog
-        open={confirmationOpen}
-        onClose={handleCloseCancel}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">Are you sure?</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Please make sure that you entered the data correctly. You cannot
-            modify it later.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseCancel} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleCloseConfirm} color="primary" autoFocus>
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {pulseOximetryData ? (
+        <Dialog
+          open={showDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            SpO2: {pulseOximetryData.spo2}, Heart Rate:{" "}
+            {pulseOximetryData.heartRate}?
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Please make sure that you entered the data correctly. You cannot
+              modify it later.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setShowDialog(false)} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleDialogConfirm} color="primary" autoFocus>
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
+      ) : null}
     </div>
   );
 };

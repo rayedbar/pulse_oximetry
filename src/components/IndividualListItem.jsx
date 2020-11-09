@@ -2,8 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Card, CardContent, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import IndividualAvatar from "./IndividualAvatar";
 import { formatRelative } from "date-fns";
+
+import IndividualAvatar from "./IndividualAvatar";
 
 const useStyles = makeStyles((theme) => ({
   root: {

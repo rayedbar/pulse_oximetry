@@ -16,10 +16,10 @@ const OximeterTable = ({ spo2Data }) => {
       <Table style={{ width: "100%" }} aria-label="spo2 table">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Time</TableCell>
-            <TableCell>SpO2</TableCell>
-            <TableCell>Heart Rate</TableCell>
+            <TableCell align="center">Date</TableCell>
+            <TableCell align="center">Time</TableCell>
+            <TableCell align="center">SpO2</TableCell>
+            <TableCell align="center">Heart Rate</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
