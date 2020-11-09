@@ -9,13 +9,11 @@ import {
   DialogContentText,
   DialogActions,
   Grid,
-  FormControl,
-  InputLabel,
-  Input,
   Button,
-  Typography,
 } from "@material-ui/core";
-import { createOximeter as createPulseOximetryMutation } from "../graphql/mutations";
+
+import { createOximeter as createPulseOximetryMutation } from "../../graphql/mutations";
+import NumericInputField from "../shared/NumericInputField";
 
 const AddOximeter = () => {
   const history = useHistory();
@@ -64,41 +62,29 @@ const AddOximeter = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <h1>Pulse Oximetry</h1>
 
-          <FormControl margin="normal" fullWidth>
-            <InputLabel htmlFor="spo2">SpO2</InputLabel>
-            <Input
-              name="spo2"
-              type="number"
-              inputRef={register({
-                min: 75,
-                max: 100,
-                required: true,
-              })}
-            />
-            {errors.spo2 && (
-              <Typography color="error">
-                SpO2 should be between 75 and 100
-              </Typography>
-            )}
-          </FormControl>
+          <NumericInputField
+            name="spo2"
+            label="SpO2"
+            inputRef={register({
+              min: 75,
+              max: 100,
+              required: true,
+            })}
+            errors={errors}
+            errorText="SpO2 should be between 75 and 100"
+          />
 
-          <FormControl margin="normal" fullWidth>
-            <InputLabel htmlFor="heartRate">Heart Rate</InputLabel>
-            <Input
-              name="heartRate"
-              type="number"
-              inputRef={register({
-                min: 20,
-                max: 200,
-                required: true,
-              })}
-            />
-            {errors.heartRate && (
-              <Typography color="error">
-                Heart Rate should be between 20 and 200
-              </Typography>
-            )}
-          </FormControl>
+          <NumericInputField
+            name="heartRate"
+            label="Heart Rate"
+            inputRef={register({
+              min: 20,
+              max: 200,
+              required: true,
+            })}
+            errors={errors}
+            errorText="Heart Rate should be between 20 and 200"
+          />
 
           <Button
             variant="contained"
