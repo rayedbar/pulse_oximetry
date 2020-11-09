@@ -33,9 +33,7 @@ const IndividualAvatar = ({ individualID, individualName }) => {
     fetchImageUrl();
   }, [individualID]);
 
-  return (
-    <Avatar className={classes.avatar} alt={individualName} src={image}/>
-  );
+  return <Avatar className={classes.avatar} alt={individualName} src={image} />;
 };
 
 export default IndividualAvatar;

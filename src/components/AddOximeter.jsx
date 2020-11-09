@@ -24,7 +24,7 @@ const AddOximeter = () => {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [formData, setFormData] = useState();
 
-  const handleClickOpen = data => {
+  const handleClickOpen = (data) => {
     setFormData(data);
     setConfirmationOpen(true);
   };
@@ -69,47 +69,55 @@ const AddOximeter = () => {
       }}
     >
       <Grid container direction="column" alignItems="center">
-      <form onSubmit={handleSubmit(handleClickOpen)}>
-        <h1>Pulse Oximetry</h1>
+        <form onSubmit={handleSubmit(handleClickOpen)}>
+          <h1>Pulse Oximetry</h1>
 
-        <FormControl margin="normal" fullWidth>
-          <InputLabel htmlFor="spo2">SpO2</InputLabel>
-          <Input
-            name="spo2"
-            type="number"
-            inputRef={register({ min: 75, max: 100, required: true })}
-          />
-          {errors.spo2 && (
-            <Typography color="error">
-              SpO2 should be between 75 and 100
-            </Typography>
-          )}
-        </FormControl>
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="spo2">SpO2</InputLabel>
+            <Input
+              name="spo2"
+              type="number"
+              inputRef={register({
+                min: 75,
+                max: 100,
+                required: true,
+              })}
+            />
+            {errors.spo2 && (
+              <Typography color="error">
+                SpO2 should be between 75 and 100
+              </Typography>
+            )}
+          </FormControl>
 
-        <FormControl margin="normal" fullWidth>
-          <InputLabel htmlFor="heartRate">Heart Rate</InputLabel>
-          <Input
-            name="heartRate"
-            type="number"
-            inputRef={register({ min: 20, max: 200, required: true })}
-          />
-          {errors.heartRate && (
-            <Typography color="error">
-              Heart Rate should be between 20 and 200
-            </Typography>
-          )}
-        </FormControl>
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="heartRate">Heart Rate</InputLabel>
+            <Input
+              name="heartRate"
+              type="number"
+              inputRef={register({
+                min: 20,
+                max: 200,
+                required: true,
+              })}
+            />
+            {errors.heartRate && (
+              <Typography color="error">
+                Heart Rate should be between 20 and 200
+              </Typography>
+            )}
+          </FormControl>
 
-        <Button
-          variant="contained"
-          color="primary"
-          size="medium"
-          type="submit"
-          style={{ marginTop: 20 }}
-        >
-          Save
-        </Button>
-      </form>
+          <Button
+            variant="contained"
+            color="primary"
+            size="medium"
+            type="submit"
+            style={{ marginTop: 20 }}
+          >
+            Save
+          </Button>
+        </form>
       </Grid>
 
       <Dialog

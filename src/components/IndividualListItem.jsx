@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     height: theme.spacing(40),
   },
-  individualName:{
-    marginBottom:10,
+  individualName: {
+    marginBottom: 10,
   },
 }));
 
@@ -77,7 +77,10 @@ const IndividualListItem = ({ individual }) => {
                 <Typography color="textSecondary">
                   {"Last updated "}
                   {individual.oximeter.items[0]
-                    ? formatRelative(new Date(individual.oximeter.items[0].createdAt), new Date())
+                    ? formatRelative(
+                        new Date(individual.oximeter.items[0].createdAt),
+                        new Date()
+                      )
                     : "not available"}
                 </Typography>
               </Grid>

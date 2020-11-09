@@ -23,7 +23,7 @@ const initialState = {
   gender: "",
 };
 
-const formatDate = date => {
+const formatDate = (date) => {
   let d = new Date(date),
     month = "" + (d.getMonth() + 1),
     day = "" + d.getDate(),
@@ -48,16 +48,16 @@ const CreateIndividual = () => {
     fileInput.current.click();
   };
 
-  const onProcessFile = event => {
+  const onProcessFile = (event) => {
     event.preventDefault();
     setProfilePhotoFile(event.target.files[0]);
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setFormState({ ...formState, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     async function createIndividual() {
       try {
@@ -88,73 +88,77 @@ const CreateIndividual = () => {
       }}
     >
       <Grid container direction="column" alignItems="center">
-      <form>
-        <h1>Add Individual</h1>
+        <form>
+          <h1>Add Individual</h1>
 
-        <FormControl margin="normal" fullWidth>
-          <InputLabel htmlFor="firstName">First Name</InputLabel>
-          <Input
-            name="firstName"
-            type="text"
-            value={formState.firstName}
-            onChange={handleChange}
-          />
-        </FormControl>
-
-        <FormControl margin="normal" fullWidth>
-          <InputLabel htmlFor="LastName">Last Name</InputLabel>
-          <Input
-            name="lastName"
-            type="text"
-            value={formState.lastName}
-            onChange={handleChange}
-          />
-        </FormControl>
-
-        <FormControl component="fieldset" margin="normal" fullWidth>
-          <FormLabel component="legend">Gender</FormLabel>
-          <RadioGroup
-            aria-label="gender"
-            name="gender"
-            value={formState.gender}
-            onChange={handleChange}
-          >
-            <FormControlLabel
-              value="female"
-              control={<Radio />}
-              label="Female"
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="firstName">First Name</InputLabel>
+            <Input
+              name="firstName"
+              type="text"
+              value={formState.firstName}
+              onChange={handleChange}
             />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="other" control={<Radio />} label="Other" />
-          </RadioGroup>
-        </FormControl>
+          </FormControl>
 
-        <FormControl margin="normal" fullWidth>
-          <MuiDatePicker
-            selectedDate={dob}
-            handleDateChange={handleDobChange}
-          />
-        </FormControl>
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="LastName">Last Name</InputLabel>
+            <Input
+              name="lastName"
+              type="text"
+              value={formState.lastName}
+              onChange={handleChange}
+            />
+          </FormControl>
 
-        <FormControl margin="normal" fullWidth>
-          <input
-            type="file"
-            onChange={onProcessFile}
-            ref={fileInput}
-            hidden={true}
-          />
-          <Button onClick={onOpenFileDialog}>Upload Picture</Button>
-        </FormControl>
+          <FormControl component="fieldset" margin="normal" fullWidth>
+            <FormLabel component="legend">Gender</FormLabel>
+            <RadioGroup
+              aria-label="gender"
+              name="gender"
+              value={formState.gender}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="female"
+                control={<Radio />}
+                label="Female"
+              />
+              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel
+                value="other"
+                control={<Radio />}
+                label="Other"
+              />
+            </RadioGroup>
+          </FormControl>
 
-        <Button
-          variant="contained"
-          color="primary"
-          size="medium"
-          onClick={handleSubmit}
-        >
-          Submit
-        </Button>
-      </form>
+          <FormControl margin="normal" fullWidth>
+            <MuiDatePicker
+              selectedDate={dob}
+              handleDateChange={handleDobChange}
+            />
+          </FormControl>
+
+          <FormControl margin="normal" fullWidth>
+            <input
+              type="file"
+              onChange={onProcessFile}
+              ref={fileInput}
+              hidden={true}
+            />
+            <Button onClick={onOpenFileDialog}>Upload Picture</Button>
+          </FormControl>
+
+          <Button
+            variant="contained"
+            color="primary"
+            size="medium"
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+        </form>
       </Grid>
     </div>
   );
