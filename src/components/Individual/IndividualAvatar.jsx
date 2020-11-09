@@ -4,7 +4,7 @@ import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Cache } from "aws-amplify";
 
-import constants from "../utils/constants";
+import constants from "../../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {

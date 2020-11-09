@@ -5,10 +5,10 @@ import { onAuthUIStateChange, AuthState } from "@aws-amplify/ui-components";
 import { AmplifyAuthenticator, AmplifySignUp } from "@aws-amplify/ui-react";
 
 import Header from "./Header";
-import IndividualList from "./IndividualList";
-import IndividualDetail from "./IndividualDetail";
-import CreateIndividual from "./CreateIndividual";
-import AddOximeter from "./AddPulseOximetry";
+import IndividualList from "./Individual/IndividualList";
+import IndividualDetail from "./Individual/IndividualDetail";
+import CreateIndividual from "./Individual/CreateIndividual";
+import AddOximeter from "./PulseOximetry/AddPulseOximetry";
 
 const useStyles = makeStyles({
   root: {

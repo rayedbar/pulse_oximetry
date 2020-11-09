@@ -14,8 +14,8 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import MuiDatePicker from "./MuiDatePicker";
-import { createIndividual as CreateIndividualMutation } from "../graphql/mutations";
+import MuiDatePicker from "../shared/MuiDatePicker";
+import { createIndividual as CreateIndividualMutation } from "../../graphql/mutations";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { AmplifyS3ImagePicker } from "@aws-amplify/ui-react";
 import { useForm, Controller } from "react-hook-form";

@@ -13,7 +13,7 @@ import {
 const OximeterTable = ({ spo2Data }) => {
   return (
     <TableContainer component={Paper}>
-      <Table style={{ width: "100%" }} aria-label="spo2 table">
+      <Table style={{ width: "100%" }} aria-label="SpO2 table">
         <TableHead>
           <TableRow>
             <TableCell align="center">Date</TableCell>
