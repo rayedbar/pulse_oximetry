@@ -2,7 +2,7 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
-const OximetryWarning = ({ latestPulseOximetry }) => {
+const PulseOximetryWarning = ({ latestPulseOximetry }) => {
   return latestPulseOximetry ? (
     <Grid item container direction="column" spacing={2}>
       {latestPulseOximetry.spo2 < 96 ? (
@@ -29,4 +29,4 @@ const OximetryWarning = ({ latestPulseOximetry }) => {
   ) : null;
 };
 
-export default OximetryWarning;
+export default PulseOximetryWarning;

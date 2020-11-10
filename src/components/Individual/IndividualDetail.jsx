@@ -11,9 +11,9 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { getIndividual } from "../../graphql/queries";
-import Sp02Table from "../PulseOximetry/OximeterTable";
-import Sp02Chart from "../PulseOximetry/OximeterChart";
-import OximetryWarning from "../PulseOximetry/OximetryWarning";
+import PulseOximetryTable from "../PulseOximetry/PulseOximetryTable";
+import PulseOximetryChart from "../PulseOximetry/PulseOximetryChart";
+import PulseOximetryWarning from "../PulseOximetry/PulseOximetryWarning";
 import IndividualDetailCard from "./IndividualDetailCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +65,7 @@ const IndividualDetail = () => {
   };
   return individualDetail ? (
     <Grid container direction="column" spacing={3} className={classes.root}>
-      <OximetryWarning
+      <PulseOximetryWarning
         latestPulseOximetry={
           individualDetail.oximeter.items[
             individualDetail.oximeter.items.length - 1
@@ -101,14 +101,18 @@ const IndividualDetail = () => {
         individualDetail.oximeter.items &&
         individualDetail.oximeter.items.length > 0 ? (
           <Grid item xs={11}>
-            <Sp02Chart spo2Data={individualDetail.oximeter.items} />
+            <PulseOximetryChart
+              pulseOximetryData={individualDetail.oximeter.items}
+            />
           </Grid>
         ) : null}
         <Grid item xs={12}>
           {individualDetail.oximeter &&
           individualDetail.oximeter.items &&
           individualDetail.oximeter.items.length > 0 ? (
-            <Sp02Table spo2Data={individualDetail.oximeter.items} />
+            <PulseOximetryTable
+              pulseOximetryData={individualDetail.oximeter.items}
+            />
           ) : (
             <Typography variant="subtitle2">No Data</Typography>
           )}

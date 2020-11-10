@@ -12,29 +12,29 @@ const useStyles = makeStyles({
   },
 });
 
-const OximeterChart = ({ spo2Data }) => {
+const PulseOximetryChart = ({ pulseOximetryData }) => {
   const classes = useStyles();
   const Plot = createPlotlyComponent(Plotly);
 
+  const formattedDateTime = pulseOximetryData.map((data) =>
+    format(new Date(data.createdAt), "yyyy-MM-dd HH:mm:ss")
+  );
+
   const plotData = {
     spo2: {
-      x: spo2Data.map((data) =>
-        format(new Date(data.createdAt), "yyyy-MM-dd HH:mm:ss")
-      ),
-      y: spo2Data.map((data) => data.spo2),
+      x: formattedDateTime,
+      y: pulseOximetryData.map((data) => data.spo2),
       type: "scatter",
       mode: "lines+markers",
-      name: "Spo2",
+      name: "SpO2",
       marker: { color: "red" },
     },
     heartRate: {
-      x: spo2Data.map((data) =>
-        format(new Date(data.createdAt), "yyyy-MM-dd HH:mm:ss")
-      ),
-      y: spo2Data.map((data) => data.heartRate),
+      x: formattedDateTime,
+      y: pulseOximetryData.map((data) => data.heartRate),
       type: "scatter",
       mode: "lines+markers",
-      name: "Heart rate",
+      name: "Heart Rate",
       marker: { color: "blue" },
     },
   };
@@ -62,4 +62,4 @@ const OximeterChart = ({ spo2Data }) => {
   );
 };
 
-export default OximeterChart;
+export default PulseOximetryChart;
