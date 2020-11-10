@@ -34,7 +34,7 @@ const IndividualList = () => {
   const [individuals, setIndividuals] = useState([]);
 
   useEffect(() => {
-    async function fetchIndiviuals() {
+    const fetchIndiviuals = async () => {
       try {
         const individualData = await API.graphql(
           graphqlOperation(listIndividualsQuery)
@@ -43,7 +43,7 @@ const IndividualList = () => {
       } catch {
         console.log("Error Fetching Data!");
       }
-    }
+    };
     fetchIndiviuals();
   }, []);
 

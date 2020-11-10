@@ -12,13 +12,13 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MuiDatePicker from "../shared/MuiDatePicker";
-import { createIndividual as CreateIndividualMutation } from "../../graphql/mutations";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { AmplifyS3ImagePicker } from "@aws-amplify/ui-react";
 import { useForm, Controller } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { format as formatDate } from "date-fns";
 
+import { createIndividual as CreateIndividualMutation } from "../../graphql/mutations";
 import TextInputField from "../shared/TextInputField";
 import SaveButton from "../shared/SaveButton";
 import { VALIDATION_REQUIRED } from "../../utils/constants";
@@ -30,13 +30,6 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
     margin: 20,
-  },
-  imagePreview: {
-    width: 200,
-    height: 200,
-  },
-  iconSize: {
-    fontSize: 50,
   },
   imagePickerContainer: {
     display: "flex",
