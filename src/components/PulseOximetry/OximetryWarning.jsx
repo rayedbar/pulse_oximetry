@@ -2,13 +2,10 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
-const OximetryWarning = ({ individualDetail }) => {
-  return (
+const OximetryWarning = ({ latestPulseOximetry }) => {
+  return latestPulseOximetry ? (
     <Grid item container direction="column" spacing={2}>
-      {individualDetail.oximeter.items[0] &&
-      individualDetail.oximeter.items[
-        individualDetail.oximeter.items.length - 1
-      ].spo2 < 96 ? (
+      {latestPulseOximetry.spo2 < 96 ? (
         <Grid item>
           <Alert severity="error">
             <AlertTitle>SpO2 Warning</AlertTitle>
@@ -18,13 +15,8 @@ const OximetryWarning = ({ individualDetail }) => {
         </Grid>
       ) : null}
 
-      {individualDetail.oximeter.items[0] &&
-      (individualDetail.oximeter.items[
-        individualDetail.oximeter.items.length - 1
-      ].heartRate < 60 ||
-        individualDetail.oximeter.items[
-          individualDetail.oximeter.items.length - 1
-        ].heartRate > 100) ? (
+      {latestPulseOximetry.heartRate < 60 ||
+      latestPulseOximetry.heartRate > 100 ? (
         <Grid item>
           <Alert severity="error">
             <AlertTitle>Heart Rate Warning</AlertTitle>
@@ -34,7 +26,7 @@ const OximetryWarning = ({ individualDetail }) => {
         </Grid>
       ) : null}
     </Grid>
-  );
+  ) : null;
 };
 
 export default OximetryWarning;

@@ -2,20 +2,28 @@ import React, { useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Grid,
-  Button,
-} from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { createOximeter as createPulseOximetryMutation } from "../../graphql/mutations";
 import NumericInputField from "../shared/NumericInputField";
+import SaveButton from "../shared/SaveButton";
+import {
+  SPO2_VALIDATION_ERROR,
+  HEART_RATE_VALIDATION_ERROR,
+} from "../../utils/constants";
+import ConfirmationDialog from "../shared/ConfirmationDialog";
+
+const useStyles = makeStyles(() => ({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    margin: 20,
+  },
+}));
 
 const AddOximeter = () => {
+  const classes = useStyles();
   const history = useHistory();
   const { individualID } = useParams();
   const { register, errors, handleSubmit } = useForm();
@@ -51,16 +59,10 @@ const AddOximeter = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        margin: 20,
-      }}
-    >
+    <div className={classes.root}>
       <Grid container direction="column" alignItems="center">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Pulse Oximetry</h1>
+          <Typography variant="h4">Pulse Oximetry</Typography>
 
           <NumericInputField
             name="spo2"
@@ -70,8 +72,8 @@ const AddOximeter = () => {
               max: 100,
               required: true,
             })}
-            errors={errors}
-            errorText="SpO2 should be between 75 and 100"
+            errors={errors.spo2}
+            errorText={SPO2_VALIDATION_ERROR}
           />
 
           <NumericInputField
@@ -82,47 +84,24 @@ const AddOximeter = () => {
               max: 200,
               required: true,
             })}
-            errors={errors}
-            errorText="Heart Rate should be between 20 and 200"
+            errors={errors.heartRate}
+            errorText={HEART_RATE_VALIDATION_ERROR}
           />
 
-          <Button
-            variant="contained"
-            color="primary"
-            size="medium"
-            type="submit"
-            style={{ marginTop: 20 }}
-          >
-            Save
-          </Button>
+          <SaveButton />
         </form>
       </Grid>
 
       {pulseOximetryData ? (
-        <Dialog
-          open={showDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            SpO2: {pulseOximetryData.spo2}, Heart Rate:{" "}
-            {pulseOximetryData.heartRate}?
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Please make sure that you entered the data correctly. You cannot
-              modify it later.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setShowDialog(false)} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={handleDialogConfirm} color="primary" autoFocus>
-              Confirm
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <ConfirmationDialog
+          showDialog={showDialog}
+          dialogTitle={`SpO2: ${pulseOximetryData.spo2}, Heart Rate: ${pulseOximetryData.heartRate}?`}
+          dialogContent={
+            "Please make sure that you entered the data correctly. You cannot modify it later."
+          }
+          handleCancel={() => setShowDialog(false)}
+          handleConfirm={handleDialogConfirm}
+        />
       ) : null}
     </div>
   );

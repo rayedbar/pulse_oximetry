@@ -31,13 +31,6 @@ const useStyles = makeStyles((theme) => ({
   oximetryTitle: {
     marginLeft: 10,
   },
-  individualInfo: {
-    display: "flex",
-    flexDirection: "column",
-    alignContent: "center",
-    alignItems: "center",
-    justifyContent: "center",
-  },
 }));
 
 const useIndividualDetail = () => {
@@ -72,7 +65,13 @@ const IndividualDetail = () => {
   };
   return individualDetail ? (
     <Grid container direction="column" spacing={3} className={classes.root}>
-      <OximetryWarning individualDetail={individualDetail} />
+      <OximetryWarning
+        latestPulseOximetry={
+          individualDetail.oximeter.items[
+            individualDetail.oximeter.items.length - 1
+          ]
+        }
+      />
       <Grid item>
         <IndividualDetailCard individualDetail={individualDetail} />
       </Grid>
