@@ -48,7 +48,7 @@ const IndividualListItem = ({ individual }) => {
         elevation={2}
         className={classes.card}
         onClick={() => {
-          history.push(URL.individual + "/" + individual.id);
+          history.push(URL.INDIVIDUALS + "/" + individual.id);
         }}
       >
         <CardContent>

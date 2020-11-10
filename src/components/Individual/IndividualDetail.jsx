@@ -68,7 +68,7 @@ const IndividualDetail = () => {
   const { individualDetail, latestPulseOximetry } = useIndividualDetail();
 
   const handleClick = () => {
-    history.push(URL.OXIMETRY + "/" + individualDetail.id);
+    history.push(URL.PULSE_OXIMETRY + "/" + individualDetail.id);
   };
 
   const hasPulseOximetryData = () => individualDetail.oximeter.items.length > 0;

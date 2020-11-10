@@ -5,6 +5,6 @@ export const HEART_RATE_VALIDATION_ERROR =
   "Heart Rate should be between 20 and 200";
 export const URL = {
   HOME: "/",
-  INDIVIDUAL: "/individuals",
-  OXIMETRY: "/oximetry",
+  INDIVIDUALS: "/individuals",
+  PULSE_OXIMETRY: "/pulseOximetry",
 };
