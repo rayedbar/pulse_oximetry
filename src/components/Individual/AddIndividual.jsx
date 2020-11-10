@@ -18,10 +18,10 @@ import { useForm, Controller } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { format as formatDate } from "date-fns";
 
-import { createIndividual as CreateIndividualMutation } from "../../graphql/mutations";
+import { createIndividual as AddIndividualMutation } from "../../graphql/mutations";
 import TextInputField from "../shared/TextInputField";
 import SaveButton from "../shared/SaveButton";
-import { VALIDATION_REQUIRED } from "../../utils/constants";
+import { VALIDATION_REQUIRED, URL } from "../../utils/constants";
 
 Storage.configure({ track: true, level: "private" });
 
@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CreateIndividual = () => {
+const AddIndividual = () => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -52,7 +52,7 @@ const CreateIndividual = () => {
     async function createIndividual() {
       try {
         await API.graphql(
-          graphqlOperation(CreateIndividualMutation, {
+          graphqlOperation(AddIndividualMutation, {
             input: {
               ...data,
               dob: formatDate(dob, "yyyy-MM-dd"),
@@ -60,7 +60,7 @@ const CreateIndividual = () => {
             },
           })
         );
-        history.push("/");
+        history.push(URL.HOME);
       } catch {
         console.log("Error creating individual");
       }
@@ -146,4 +146,4 @@ const CreateIndividual = () => {
   );
 };
 
-export default CreateIndividual;
+export default AddIndividual;

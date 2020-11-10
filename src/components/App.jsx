@@ -7,7 +7,7 @@ import { AmplifyAuthenticator, AmplifySignUp } from "@aws-amplify/ui-react";
 import Header from "./Header";
 import IndividualList from "./Individual/IndividualList";
 import IndividualDetail from "./Individual/IndividualDetail";
-import CreateIndividual from "./Individual/CreateIndividual";
+import AddIndividual from "./Individual/AddIndividual";
 import AddOximeter from "./PulseOximetry/AddPulseOximetry";
 
 const useStyles = makeStyles({
@@ -52,7 +52,7 @@ const App = () => {
             <IndividualList />
           </Route>
           <Route path="/individuals/create">
-            <CreateIndividual />
+            <AddIndividual />
           </Route>
           <Route path="/individuals/:individualID">
             <IndividualDetail />

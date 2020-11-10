@@ -14,7 +14,12 @@ const useStyles = makeStyles({
   },
 });
 
-const IndividualDetailCard = ({ individualDetail }) => {
+const IndividualDetailCard = ({
+  individualID,
+  firstName,
+  lastName,
+  latestPulseOximetry,
+}) => {
   const classes = useStyles();
 
   return (
@@ -30,8 +35,8 @@ const IndividualDetailCard = ({ individualDetail }) => {
         >
           <Grid item>
             <IndividualAvatar
-              individualID={individualDetail.id}
-              individualName={individualDetail.firstName}
+              individualID={individualID}
+              individualName={firstName}
             />
           </Grid>
           <Grid
@@ -45,28 +50,21 @@ const IndividualDetailCard = ({ individualDetail }) => {
             <Grid item>
               <div className={classes.individualInfo}>
                 <Typography color="textSecondary">First Name</Typography>
-                <Typography variant="h6">
-                  {individualDetail.firstName}
-                </Typography>
+                <Typography variant="h6">{firstName}</Typography>
               </div>
             </Grid>
             <Grid item>
               <div className={classes.individualInfo}>
                 <Typography color="textSecondary">Last Name</Typography>
-                <Typography variant="h6">
-                  {" "}
-                  {individualDetail.lastName}
-                </Typography>
+                <Typography variant="h6">{lastName}</Typography>
               </div>
             </Grid>
             <Grid item>
               <div className={classes.individualInfo}>
                 <Typography color="textSecondary">Latest SpO2</Typography>
                 <Typography variant="h6">
-                  {individualDetail.oximeter.items[0]
-                    ? individualDetail.oximeter.items[
-                        individualDetail.oximeter.items.length - 1
-                      ].spo2
+                  {latestPulseOximetry
+                    ? latestPulseOximetry.spo2
                     : "Not Available"}
                 </Typography>
               </div>
@@ -75,10 +73,8 @@ const IndividualDetailCard = ({ individualDetail }) => {
               <div className={classes.individualInfo}>
                 <Typography color="textSecondary">Latest Heart Rate</Typography>
                 <Typography variant="h6">
-                  {individualDetail.oximeter.items[0]
-                    ? individualDetail.oximeter.items[
-                        individualDetail.oximeter.items.length - 1
-                      ].heartRate
+                  {latestPulseOximetry
+                    ? latestPulseOximetry.heartRate
                     : "Not Available"}
                 </Typography>
               </div>

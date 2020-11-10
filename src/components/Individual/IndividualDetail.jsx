@@ -15,6 +15,7 @@ import PulseOximetryTable from "../PulseOximetry/PulseOximetryTable";
 import PulseOximetryChart from "../PulseOximetry/PulseOximetryChart";
 import PulseOximetryWarning from "../PulseOximetry/PulseOximetryWarning";
 import IndividualDetailCard from "./IndividualDetailCard";
+import { URL } from "../../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,44 +37,52 @@ const useStyles = makeStyles((theme) => ({
 const useIndividualDetail = () => {
   const { individualID } = useParams();
   const [individualDetail, setIndividualDetail] = useState(null);
+  const [latestPulseOximetry, setLatestPulseOximetry] = useState(null);
 
   useEffect(() => {
-    async function fetchIndividualDetail() {
+    const fetchIndividualDetail = async () => {
       try {
         const individualData = await API.graphql(
           graphqlOperation(getIndividual, { id: individualID })
         );
         setIndividualDetail(individualData.data.getIndividual);
+        setLatestPulseOximetry(
+          individualData.data.getIndividual.oximeter.items[
+            individualData.data.getIndividual.oximeter.items.length - 1
+          ]
+        );
       } catch {
         console.log("Error Fetching Individual details");
       }
-    }
+    };
     fetchIndividualDetail();
   }, [individualID]);
 
-  return individualDetail;
+  return { individualDetail, latestPulseOximetry };
 };
 
 const IndividualDetail = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const individualDetail = useIndividualDetail();
+  const { individualDetail, latestPulseOximetry } = useIndividualDetail();
 
   const handleClick = () => {
-    history.push("/oximetry/" + individualDetail.id);
+    history.push(URL.OXIMETRY + "/" + individualDetail.id);
   };
+
+  const hasPulseOximetryData = () => individualDetail.oximeter.items.length > 0;
+
   return individualDetail ? (
     <Grid container direction="column" spacing={3} className={classes.root}>
-      <PulseOximetryWarning
-        latestPulseOximetry={
-          individualDetail.oximeter.items[
-            individualDetail.oximeter.items.length - 1
-          ]
-        }
-      />
+      <PulseOximetryWarning latestPulseOximetry={latestPulseOximetry} />
       <Grid item>
-        <IndividualDetailCard individualDetail={individualDetail} />
+        <IndividualDetailCard
+          individualID={individualDetail.id}
+          firstName={individualDetail.firstName}
+          lastName={individualDetail.lastName}
+          latestPulseOximetry={latestPulseOximetry}
+        />
       </Grid>
       <Grid item container direction="column" spacing={1}>
         <Grid
@@ -97,9 +106,7 @@ const IndividualDetail = () => {
             </IconButton>
           </Grid>
         </Grid>
-        {individualDetail.oximeter &&
-        individualDetail.oximeter.items &&
-        individualDetail.oximeter.items.length > 0 ? (
+        {hasPulseOximetryData() ? (
           <Grid item xs={11}>
             <PulseOximetryChart
               pulseOximetryData={individualDetail.oximeter.items}
@@ -107,9 +114,7 @@ const IndividualDetail = () => {
           </Grid>
         ) : null}
         <Grid item xs={12}>
-          {individualDetail.oximeter &&
-          individualDetail.oximeter.items &&
-          individualDetail.oximeter.items.length > 0 ? (
+          {hasPulseOximetryData() ? (
             <PulseOximetryTable
               pulseOximetryData={individualDetail.oximeter.items}
             />
