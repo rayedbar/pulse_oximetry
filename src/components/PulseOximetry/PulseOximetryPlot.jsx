@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PulseOximetryChart = ({ pulseOximetryData }) => {
+const PulseOximetryPlot = ({ pulseOximetryData }) => {
   const classes = useStyles();
   const Plot = createPlotlyComponent(Plotly);
 
@@ -62,4 +62,4 @@ const PulseOximetryChart = ({ pulseOximetryData }) => {
   );
 };
 
-export default PulseOximetryChart;
+export default PulseOximetryPlot;
