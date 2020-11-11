@@ -5,22 +5,23 @@ import {
   FormControlLabel,
   FormLabel,
   Grid,
-  InputLabel,
-  Input,
-  Button,
   Radio,
   RadioGroup,
   Typography,
   CircularProgress,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import MuiDatePicker from "./MuiDatePicker";
-import { createIndividual as CreateIndividualMutation } from "../graphql/mutations";
+import MuiDatePicker from "../shared/MuiDatePicker";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { AmplifyS3ImagePicker } from "@aws-amplify/ui-react";
 import { useForm, Controller } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { format as formatDate } from "date-fns";
+
+import { createIndividual as AddIndividualMutation } from "../../graphql/mutations";
+import TextInputField from "../shared/TextInputField";
+import SaveButton from "../shared/SaveButton";
+import { VALIDATION_REQUIRED, URL } from "../../utils/constants";
 
 Storage.configure({ track: true, level: "private" });
 
@@ -30,20 +31,13 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     margin: 20,
   },
-  imagePreview: {
-    width: 200,
-    height: 200,
-  },
-  iconSize: {
-    fontSize: 50,
-  },
   imagePickerContainer: {
     display: "flex",
     margin: "auto",
   },
 }));
 
-const CreateIndividual = () => {
+const AddIndividual = () => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -58,7 +52,7 @@ const CreateIndividual = () => {
     async function createIndividual() {
       try {
         await API.graphql(
-          graphqlOperation(CreateIndividualMutation, {
+          graphqlOperation(AddIndividualMutation, {
             input: {
               ...data,
               dob: formatDate(dob, "yyyy-MM-dd"),
@@ -66,7 +60,7 @@ const CreateIndividual = () => {
             },
           })
         );
-        history.push("/");
+        history.push(URL.HOME);
       } catch {
         console.log("Error creating individual");
       }
@@ -81,31 +75,23 @@ const CreateIndividual = () => {
       ) : (
         <Grid container direction="column" alignItems="center">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Add Individual</h1>
+            <Typography variant="h4">Add Individual</Typography>
 
-            <FormControl margin="normal" fullWidth>
-              <InputLabel htmlFor="firstName">First Name</InputLabel>
-              <Input
-                name="firstName"
-                type="text"
-                inputRef={register({ required: true })}
-              />
-              {errors.firstName && (
-                <Typography color="error">Required</Typography>
-              )}
-            </FormControl>
+            <TextInputField
+              name="firstName"
+              label="First Name"
+              inputRef={register({ required: true })}
+              errors={errors.firstName}
+              errorText={VALIDATION_REQUIRED}
+            />
 
-            <FormControl margin="normal" fullWidth>
-              <InputLabel htmlFor="LastName">Last Name</InputLabel>
-              <Input
-                name="lastName"
-                type="text"
-                inputRef={register({ required: true })}
-              />
-              {errors.lastName && (
-                <Typography color="error">Required</Typography>
-              )}
-            </FormControl>
+            <TextInputField
+              name="lastName"
+              label="Last Name"
+              inputRef={register({ required: true })}
+              errors={errors.lastName}
+              errorText={VALIDATION_REQUIRED}
+            />
 
             <FormControl component="fieldset" margin="normal" fullWidth>
               <FormLabel component="legend">Gender</FormLabel>
@@ -146,21 +132,13 @@ const CreateIndividual = () => {
 
             <div className={classes.imagePickerContainer}>
               <AmplifyS3ImagePicker
+                headerTitle="Add Photo"
                 fileToKey={() => individualID}
                 level="private"
               />
             </div>
 
-            <FormControl margin="normal">
-              <Button
-                variant="contained"
-                color="primary"
-                size="medium"
-                type="submit"
-              >
-                Save
-              </Button>
-            </FormControl>
+            <SaveButton />
           </form>
         </Grid>
       )}
@@ -168,4 +146,4 @@ const CreateIndividual = () => {
   );
 };
 
-export default CreateIndividual;
+export default AddIndividual;

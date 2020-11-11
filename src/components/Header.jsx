@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
+import { URL } from "../utils/constants";
+
 const useStyles = makeStyles({
   grow: {
     flexGrow: 1,
@@ -40,14 +42,14 @@ const Header = () => {
         <img
           src={process.env.PUBLIC_URL + "/navbar.png"}
           className={classes.logo}
-          onClick={() => history.push("/")}
+          onClick={() => history.push(URL.HOME)}
           alt="Therap Logo"
         />
         <div className={classes.grow} />
         <IconButton
           title="Add Individual"
           variant="contained"
-          onClick={() => history.push("/individuals/create")}
+          onClick={() => history.push(URL.INDIVIDUALS + "/add")}
           color="inherit"
           className={classes.addIndividualButton}
         >

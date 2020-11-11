@@ -10,10 +10,10 @@ import {
   TableCell,
 } from "@material-ui/core";
 
-const OximeterTable = ({ spo2Data }) => {
+const PulseOximetryTable = ({ pulseOximetryData }) => {
   return (
     <TableContainer component={Paper}>
-      <Table style={{ width: "100%" }} aria-label="spo2 table">
+      <Table style={{ width: "100%" }} aria-label="SpO2 table">
         <TableHead>
           <TableRow>
             <TableCell align="center">Date</TableCell>
@@ -23,7 +23,7 @@ const OximeterTable = ({ spo2Data }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {spo2Data.reverse().map((data) => (
+          {pulseOximetryData.reverse().map((data) => (
             <TableRow key={data.id}>
               <TableCell align="center">
                 {new Date(data.createdAt).toLocaleDateString()}
@@ -41,4 +41,4 @@ const OximeterTable = ({ spo2Data }) => {
   );
 };
 
-export default OximeterTable;
+export default PulseOximetryTable;

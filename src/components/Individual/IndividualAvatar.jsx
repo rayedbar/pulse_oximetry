@@ -4,7 +4,7 @@ import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Cache } from "aws-amplify";
 
-import constants from "../utils/constants";
+import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -23,11 +23,11 @@ const IndividualAvatar = ({ individualID, individualName }) => {
   useEffect(() => {
     const fetchImageUrl = async () => {
       try {
-        let imageUrl = Cache.getItem(individualID + constants.individualPhoto);
+        let imageUrl = Cache.getItem(individualID + INDIVIDUAL_PHOTO);
         if (!imageUrl) {
           // set expires to match cache config defaultTTL
           imageUrl = await Storage.get(individualID, { expires: 60 * 60 * 72 });
-          Cache.setItem(individualID + constants.individualPhoto, imageUrl);
+          Cache.setItem(individualID + INDIVIDUAL_PHOTO, imageUrl);
         }
         setImageUrl(imageUrl);
       } catch (error) {
