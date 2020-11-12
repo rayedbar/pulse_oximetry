@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import {
   FormControl,
   FormControlLabel,
@@ -19,6 +19,7 @@ import { v4 as uuidv4 } from "uuid";
 import { format as formatDate } from "date-fns";
 
 import { createIndividual as AddIndividualMutation } from "../../graphql/mutations";
+import { getIndividual } from "../../graphql/queries";
 import TextInputField from "../shared/TextInputField";
 import SaveButton from "../shared/SaveButton";
 import { VALIDATION_REQUIRED, URL } from "../../utils/constants";
@@ -37,6 +38,27 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const useIndividualDetail = () => {
+  const { individualID } = useParams();
+  const [individualDetail, setIndividualDetail] = useState(null);
+
+  useEffect(() => {
+    const fetchIndividualDetail = async () => {
+      try {
+        const individualData = await API.graphql(
+          graphqlOperation(getIndividual, { id: individualID })
+        );
+        setIndividualDetail(individualData.data.getIndividual);
+      } catch {
+        // ignore
+      }
+    };
+    fetchIndividualDetail();
+  }, [individualID]);
+
+  return individualDetail;
+};
+
 const AddIndividual = () => {
   const classes = useStyles();
   const history = useHistory();
@@ -46,6 +68,7 @@ const AddIndividual = () => {
   const [showProgressBar, setShowProgressBar] = useState(false);
   const [individualID, setIndividualID] = useState(uuidv4());
   const domRef = React.useRef();
+  const individualDetail = useIndividualDetail();
 
   const onSubmit = (data) => {
     setShowProgressBar(true);
@@ -73,74 +96,93 @@ const AddIndividual = () => {
       {showProgressBar === true ? (
         <CircularProgress />
       ) : (
-        <Grid container direction="column" alignItems="center">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography variant="h4">Add Individual</Typography>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid container spacing={6} alignItems="stretch">
+            <Grid item xs={6}>
+              {individualDetail ? (
+                <Typography variant="h4">Edit Individual</Typography>
+              ) : (
+                <Typography variant="h4">Add Individual</Typography>
+              )}
 
-            <TextInputField
-              name="firstName"
-              label="First Name"
-              inputRef={register({ required: true })}
-              errors={errors.firstName}
-              errorText={VALIDATION_REQUIRED}
-            />
-
-            <TextInputField
-              name="lastName"
-              label="Last Name"
-              inputRef={register({ required: true })}
-              errors={errors.lastName}
-              errorText={VALIDATION_REQUIRED}
-            />
-
-            <FormControl component="fieldset" margin="normal" fullWidth>
-              <FormLabel component="legend">Gender</FormLabel>
-              <Controller
-                as={RadioGroup}
-                aria-label="gender"
-                name="gender"
-                defaultValue="other"
-                control={control}
-                rules={{ required: true }}
-              >
-                <FormControlLabel
-                  value="female"
-                  control={<Radio />}
-                  label="Female"
-                />
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="Male"
-                />
-                <FormControlLabel
-                  value="other"
-                  control={<Radio />}
-                  label="Other"
-                />
-              </Controller>
-              {errors.gender && <Typography color="error">Required</Typography>}
-            </FormControl>
-
-            <FormControl margin="normal" fullWidth>
-              <MuiDatePicker
-                selectedDate={dob}
-                handleDateChange={handleDobChange}
-                domRef={domRef}
+              <TextInputField
+                name="firstName"
+                label="First Name"
+                placeholder={individualDetail ? individualDetail.firstName : ""}
+                inputRef={register({ required: true })}
+                errors={errors.firstName}
+                errorText={VALIDATION_REQUIRED}
               />
-            </FormControl>
 
-            <div className={classes.imagePickerContainer}>
-              <AmplifyS3ImagePicker
-                headerTitle="Add Photo"
-                fileToKey={() => individualID}
-                level="private"
+              <TextInputField
+                name="lastName"
+                label="Last Name"
+                placeholder={individualDetail ? individualDetail.lastName : ""}
+                inputRef={register({ required: true })}
+                errors={errors.lastName}
+                errorText={VALIDATION_REQUIRED}
               />
-            </div>
 
-            <SaveButton />
-          </form>
-        </Grid>
+              <FormControl component="fieldset" margin="normal" fullWidth>
+                <FormLabel component="legend">Gender</FormLabel>
+                <Controller
+                  as={RadioGroup}
+                  aria-label="gender"
+                  name="gender"
+                  defaultValue={
+                    individualDetail ? individualDetail.gender : "other"
+                  }
+                  control={control}
+                  rules={{ required: true }}
+                >
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={<Radio />}
+                    label="Other"
+                  />
+                </Controller>
+                {errors.gender && (
+                  <Typography color="error">Required</Typography>
+                )}
+              </FormControl>
+
+              <FormControl margin="normal" fullWidth>
+                <MuiDatePicker
+                  selectedDate={dob}
+                  initialFocusedDate={
+                    individualDetail ? individualDetail.dob : ""
+                  }
+                  handleDateChange={handleDobChange}
+                  domRef={domRef}
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+              <div className={classes.imagePickerContainer}>
+                <AmplifyS3ImagePicker
+                  headerTitle="Add Photo"
+                  fileToKey={() => individualID}
+                  level="private"
+                />
+              </div>
+            </Grid>
+
+            <Grid item xs={12}>
+              <SaveButton />
+            </Grid>
+          </Grid>
+        </form>
       )}
     </div>
   );

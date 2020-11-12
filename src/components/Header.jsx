@@ -49,7 +49,10 @@ const Header = () => {
         <IconButton
           title="Add Individual"
           variant="contained"
-          onClick={() => history.push(URL.INDIVIDUALS + "/add")}
+          onClick={() => {
+            history.push(URL.INDIVIDUALS + "/add");
+            history.go(0);
+          }}
           color="inherit"
           className={classes.addIndividualButton}
         >

@@ -55,6 +55,9 @@ const App = () => {
           <Route path={`${URL.INDIVIDUALS}/add`}>
             <AddIndividual />
           </Route>
+          <Route path={`${URL.INDIVIDUALS}/edit/:individualID`}>
+            <AddIndividual />
+          </Route>
           <Route path={`${URL.INDIVIDUALS}/:individualID`}>
             <IndividualDetail />
           </Route>
