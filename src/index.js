@@ -9,9 +9,11 @@ import { ThemeProvider } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
-import Amplify from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
 import awsExports from "./aws-exports";
+
 Amplify.configure(awsExports);
+Auth.configure(awsExports);
 
 ReactDOM.render(
   <React.StrictMode>

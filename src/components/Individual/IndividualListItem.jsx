@@ -2,8 +2,10 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Card, CardContent, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import IndividualAvatar from "./IndividualAvatar";
 import { formatRelative } from "date-fns";
+
+import IndividualAvatar from "./IndividualAvatar";
+import { URL } from "../../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     height: theme.spacing(40),
   },
-  individualName:{
-    marginBottom:10,
+  individualName: {
+    marginBottom: 10,
   },
 }));
 
@@ -22,13 +24,31 @@ const IndividualListItem = ({ individual }) => {
   const history = useHistory();
   const classes = useStyles();
 
+  const getLatestHeartRate = () =>
+    individual.oximeter.items[0]
+      ? individual.oximeter.items[0].heartRate
+      : "Not Available";
+
+  const getLatestSpO2 = () =>
+    individual.oximeter.items[0]
+      ? individual.oximeter.items[0].spo2
+      : "Not Available";
+
+  const getLastUpdated = () =>
+    individual.oximeter.items[0]
+      ? formatRelative(
+          new Date(individual.oximeter.items[0].createdAt),
+          new Date()
+        )
+      : "Not Available";
+
   return (
     <div className={classes.root}>
       <Card
         elevation={2}
         className={classes.card}
         onClick={() => {
-          history.push("/individuals/" + individual.id);
+          history.push(URL.INDIVIDUALS + "/" + individual.id);
         }}
       >
         <CardContent>
@@ -55,30 +75,18 @@ const IndividualListItem = ({ individual }) => {
               </Grid>
               <Grid item>
                 <Typography>
-                  Latest SpO2:{" "}
-                  <b>
-                    {individual.oximeter.items[0]
-                      ? individual.oximeter.items[0].spo2
-                      : "Not Available"}
-                  </b>
+                  Latest SpO2: <b>{getLatestSpO2()}</b>
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography>
-                  Latest Heart Rate:{" "}
-                  <b>
-                    {individual.oximeter.items[0]
-                      ? individual.oximeter.items[0].heartRate
-                      : "Not Available"}
-                  </b>
+                  Latest Heart Rate: <b>{getLatestHeartRate()}</b>
                 </Typography>
               </Grid>
               <Grid>
                 <Typography color="textSecondary">
                   {"Last updated "}
-                  {individual.oximeter.items[0]
-                    ? formatRelative(new Date(individual.oximeter.items[0].createdAt), new Date())
-                    : "not available"}
+                  {getLastUpdated()}
                 </Typography>
               </Grid>
             </Grid>

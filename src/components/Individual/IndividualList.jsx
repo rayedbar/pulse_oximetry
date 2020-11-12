@@ -4,24 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import IndividualListItem from "./IndividualListItem";
-
-const listIndividualsQuery = `query listIndividualsQuery {
-  listIndividuals {
-    items {
-      id
-      firstName
-      lastName
-      oximeter(limit: 1, sortDirection: DESC) {
-        items {
-          id
-          createdAt
-          spo2
-          heartRate
-        }
-      }
-    }
-  }
-}`;
+import { listIndividualsQuery } from "../../graphql/custom-queries";
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +17,7 @@ const IndividualList = () => {
   const [individuals, setIndividuals] = useState([]);
 
   useEffect(() => {
-    async function fetchIndiviuals() {
+    const fetchIndiviuals = async () => {
       try {
         const individualData = await API.graphql(
           graphqlOperation(listIndividualsQuery)
@@ -43,7 +26,7 @@ const IndividualList = () => {
       } catch {
         console.log("Error Fetching Data!");
       }
-    }
+    };
     fetchIndiviuals();
   }, []);
 

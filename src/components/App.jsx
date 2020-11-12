@@ -5,10 +5,11 @@ import { onAuthUIStateChange, AuthState } from "@aws-amplify/ui-components";
 import { AmplifyAuthenticator, AmplifySignUp } from "@aws-amplify/ui-react";
 
 import Header from "./Header";
-import IndividualList from "./IndividualList";
-import IndividualDetail from "./IndividualDetail";
-import CreateIndividual from "./CreateIndividual";
-import AddOximeter from "./AddOximeter";
+import IndividualList from "./Individual/IndividualList";
+import IndividualDetail from "./Individual/IndividualDetail";
+import AddIndividual from "./Individual/AddIndividual";
+import AddOximeter from "./PulseOximetry/AddPulseOximetry";
+import { URL } from "../utils/constants";
 
 const useStyles = makeStyles({
   root: {
@@ -45,19 +46,19 @@ const App = () => {
       </Grid>
       <Grid item className={classes.body}>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={URL.HOME}>
             <IndividualList />
           </Route>
-          <Route exact path="/individuals">
+          <Route exact path={URL.INDIVIDUALS}>
             <IndividualList />
           </Route>
-          <Route path="/individuals/create">
-            <CreateIndividual />
+          <Route path={`${URL.INDIVIDUALS}/add`}>
+            <AddIndividual />
           </Route>
-          <Route path="/individuals/:individualID">
+          <Route path={`${URL.INDIVIDUALS}/:individualID`}>
             <IndividualDetail />
           </Route>
-          <Route exact path="/oximetry/:individualID">
+          <Route exact path={`${URL.PULSE_OXIMETRY}/:individualID`}>
             <AddOximeter />
           </Route>
         </Switch>

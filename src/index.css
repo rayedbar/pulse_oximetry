@@ -15,3 +15,8 @@ code {
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --amplify-primary-color: #f9dc4e;
+  --amplify-primary-contrast: #000;
+}
