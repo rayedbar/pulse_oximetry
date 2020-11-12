@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 30,
   },
   oximetryHeader: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.secondary.main,
     borderRadius: 5,
     padding: 20,
   },

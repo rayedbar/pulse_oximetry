@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: theme.spacing(14),
     height: theme.spacing(14),
-    color: theme.palette.getContrastText(theme.palette.primary.dark),
-    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.getContrastText(theme.palette.avatarBackground),
+    backgroundColor: theme.palette.avatarBackground,
   },
 }));
 

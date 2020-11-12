@@ -23,18 +23,21 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {pulseOximetryData.reverse().map((data) => (
-            <TableRow key={data.id}>
-              <TableCell align="center">
-                {new Date(data.createdAt).toLocaleDateString()}
-              </TableCell>
-              <TableCell align="center">
-                {new Date(data.createdAt).toLocaleTimeString()}
-              </TableCell>
-              <TableCell align="center">{data.spo2}</TableCell>
-              <TableCell align="center">{data.heartRate}</TableCell>
-            </TableRow>
-          ))}
+          {pulseOximetryData
+            .slice()
+            .reverse()
+            .map((data) => (
+              <TableRow key={data.id}>
+                <TableCell align="center">
+                  {new Date(data.createdAt).toLocaleDateString()}
+                </TableCell>
+                <TableCell align="center">
+                  {new Date(data.createdAt).toLocaleTimeString()}
+                </TableCell>
+                <TableCell align="center">{data.spo2}</TableCell>
+                <TableCell align="center">{data.heartRate}</TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

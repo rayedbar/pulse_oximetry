@@ -8,7 +8,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { URL } from "../utils/constants";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
@@ -19,9 +19,9 @@ const useStyles = makeStyles({
     fontSize: 30,
   },
   addIndividualButton: {
-    marginRight: 20,
+    marginRight: 10,
   },
-});
+}));
 
 const Header = () => {
   const classes = useStyles();
@@ -40,7 +40,7 @@ const Header = () => {
     <AppBar color="primary" position="static">
       <Toolbar>
         <img
-          src={process.env.PUBLIC_URL + "/navbar.png"}
+          src={process.env.PUBLIC_URL + "/logo.png"}
           className={classes.logo}
           onClick={() => history.push(URL.HOME)}
           alt="Therap Logo"

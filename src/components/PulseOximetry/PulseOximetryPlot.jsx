@@ -27,7 +27,11 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       type: "scatter",
       mode: "lines+markers",
       name: "SpO2",
-      marker: { color: "red" },
+      marker: {
+        color: "red",
+        symbol: pulseOximetryData.map((data) => (data.spo2 > 95 ? "." : "x")),
+        size: pulseOximetryData.map((data) => (data.spo2 > 95 ? 8 : 12)),
+      },
     },
     heartRate: {
       x: formattedDateTime,
@@ -35,7 +39,15 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       type: "scatter",
       mode: "lines+markers",
       name: "Heart Rate",
-      marker: { color: "blue" },
+      marker: {
+        color: "#0070cc",
+        symbol: pulseOximetryData.map((data) =>
+          data.heartRate <= 100 && data.heartRate >= 60 ? "." : "x"
+        ),
+        size: pulseOximetryData.map((data) =>
+          data.heartRate <= 100 && data.heartRate >= 60 ? 8 : 12
+        ),
+      },
     },
   };
 
