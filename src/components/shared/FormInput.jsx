@@ -23,7 +23,7 @@ const FormInput = ({
       inputRef={inputRef}
       error={errors ? true : false}
       helperText={errors && errorText}
-      variant="outlined"
+      fullWidth
     />
   );
 };
