@@ -55,15 +55,7 @@ const IndividualForm = ({ individualDetail, individualID, onSubmit }) => {
           <FormControl margin="normal" fullWidth>
             <Controller
               as={
-                <TextField
-                  select
-                  name="gender"
-                  label="Gender"
-                  defaultValue={
-                    individualDetail ? individualDetail.gender : "other"
-                  }
-                  inputRef={register({ required: true })}
-                >
+                <TextField select name="gender" label="Gender">
                   <MenuItem value="male">Male</MenuItem>
 
                   <MenuItem value="female">Female</MenuItem>
@@ -72,6 +64,8 @@ const IndividualForm = ({ individualDetail, individualID, onSubmit }) => {
                 </TextField>
               }
               name="gender"
+              defaultValue="other"
+              rules={{ required: true }}
               control={control}
             />
           </FormControl>
@@ -82,13 +76,16 @@ const IndividualForm = ({ individualDetail, individualID, onSubmit }) => {
                 <DatePicker
                   disableFuture
                   openTo="year"
-                  value={individualDetail ? individualDetail.dob : ""}
                   format="yyyy-MM-dd"
                   label="Date of birth"
                   views={["year", "month", "date"]}
                 />
               }
-              name="dob"
+              name={"dob"}
+              defaultValue={
+                individualDetail ? individualDetail.dob : new Date()
+              }
+              rules={{ required: true }}
               control={control}
             />
           </FormControl>
