@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FormControl,
   FormControlLabel,
@@ -8,29 +8,15 @@ import {
   RadioGroup,
   Typography,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import MuiDatePicker from "../shared/MuiDatePicker";
-import { AmplifyS3ImagePicker } from "@aws-amplify/ui-react";
 import { useForm, Controller } from "react-hook-form";
-import { Storage } from "aws-amplify";
 import TextInputField from "../shared/TextInputField";
 import SaveButton from "../shared/SaveButton";
+import ImagePicker from "../shared/ImagePicker";
 import { VALIDATION_REQUIRED } from "../../utils/constants";
 
-Storage.configure({ track: true, level: "private" });
-
-const useStyles = makeStyles(() => ({
-  imagePickerContainer: {
-    display: "flex",
-    margin: "auto",
-  },
-}));
-
 const IndividualForm = ({ individualID, dob, handleDobChange, onSubmit }) => {
-  const classes = useStyles();
-
   const { register, errors, control, handleSubmit } = useForm();
-
   const domRef = React.useRef();
 
   return (
@@ -90,13 +76,7 @@ const IndividualForm = ({ individualID, dob, handleDobChange, onSubmit }) => {
         <Grid item xs={false} sm={false} md={false} lg={2} xl={2}></Grid>
 
         <Grid item xs={6} sm={6} md={4} lg={5} xl={5}>
-          <div className={classes.imagePickerContainer}>
-            <AmplifyS3ImagePicker
-              headerTitle="Add Photo"
-              fileToKey={() => individualID}
-              level="private"
-            />
-          </div>
+          <ImagePicker individualID={individualID} />
         </Grid>
 
         <Grid item xs={12}>
