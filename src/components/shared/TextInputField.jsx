@@ -8,7 +8,8 @@ const TextInputField = ({
   inputRef,
   errors,
   errorText,
-  placeholder,
+  value,
+  onChange,
 }) => {
   return (
     <FormControl margin="normal" fullWidth>
@@ -17,7 +18,8 @@ const TextInputField = ({
         name={name}
         type="text"
         inputRef={inputRef}
-        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
       />
       {errors && <Typography color="error">{errorText}</Typography>}
     </FormControl>

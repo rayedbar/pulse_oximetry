@@ -1,6 +1,14 @@
 import React from "react";
-import { Card, CardContent, Typography, Grid } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  IconButton,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
 
 import IndividualAvatar from "./IndividualAvatar";
 
@@ -21,6 +29,11 @@ const IndividualDetailCard = ({
   latestPulseOximetry,
 }) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleEdit = () => {
+    history.push("/individuals/edit/" + individualID);
+  };
 
   return (
     <Card>
@@ -38,6 +51,16 @@ const IndividualDetailCard = ({
               individualID={individualID}
               individualName={firstName}
             />
+          </Grid>
+          <Grid item>
+            <IconButton
+              title="Edit Information"
+              variant="contained"
+              onClick={handleEdit}
+              color="inherit"
+            >
+              <EditTwoToneIcon className={classes.iconSize} />
+            </IconButton>
           </Grid>
           <Grid
             item
