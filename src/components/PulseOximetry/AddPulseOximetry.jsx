@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Grid, Typography } from "@material-ui/core";
+import { FormControl, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { createOximeter as createPulseOximetryMutation } from "../../graphql/mutations";
 import FormInput from "../shared/FormInput";
-import SaveButton from "../shared/SaveButton";
-import BackButton from "../shared/BackButton";
+import FormButton from "../shared/FormButton";
 import {
   SPO2_VALIDATION_ERROR,
   HEART_RATE_VALIDATION_ERROR,
@@ -20,6 +19,12 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
     margin: 20,
+  },
+  form: {
+    paddingTop: 20,
+  },
+  formInputField: {
+    paddingBottom: 10,
   },
 }));
 
@@ -61,39 +66,51 @@ const AddOximeter = () => {
 
   return (
     <div className={classes.root}>
-      <Grid container direction="column" alignItems="center">
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container direction="column" alignItems="center" spacing={2}>
+        <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
           <Typography variant="h4">Pulse Oximetry</Typography>
 
-          <FormInput
-            name="spo2"
-            label="SpO2"
-            inputRef={register({
-              min: 75,
-              max: 100,
-              required: true,
-            })}
-            errors={errors.spo2}
-            errorText={SPO2_VALIDATION_ERROR}
-            type="number"
-          />
+          <FormControl
+            margin="normal"
+            fullWidth
+            className={classes.formInputField}
+          >
+            <FormInput
+              name="spo2"
+              label="SpO2"
+              inputRef={register({
+                min: 75,
+                max: 100,
+                required: true,
+              })}
+              errors={errors.spo2}
+              errorText={SPO2_VALIDATION_ERROR}
+              type="number"
+            />
+          </FormControl>
 
-          <FormInput
-            name="heartRate"
-            label="Heart Rate"
-            inputRef={register({
-              min: 20,
-              max: 200,
-              required: true,
-            })}
-            errors={errors.heartRate}
-            errorText={HEART_RATE_VALIDATION_ERROR}
-            type="number"
-          />
+          <FormControl
+            margin="normal"
+            fullWidth
+            className={classes.formInputField}
+          >
+            <FormInput
+              name="heartRate"
+              label="Heart Rate"
+              inputRef={register({
+                min: 20,
+                max: 200,
+                required: true,
+              })}
+              errors={errors.heartRate}
+              errorText={HEART_RATE_VALIDATION_ERROR}
+              type="number"
+            />
+          </FormControl>
 
           <Grid container justify="space-between">
-            <BackButton onClick={() => history.goBack()} />
-            <SaveButton />
+            <FormButton label="Cancel" onClick={() => history.goBack()} />
+            <FormButton label="Save" type="submit" />
           </Grid>
         </form>
       </Grid>

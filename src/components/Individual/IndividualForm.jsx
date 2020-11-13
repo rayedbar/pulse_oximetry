@@ -13,8 +13,7 @@ import {
 import { DatePicker } from "@material-ui/pickers";
 import { useForm, Controller } from "react-hook-form";
 import FormInput from "../shared/FormInput";
-import SaveButton from "../shared/SaveButton";
-import BackButton from "../shared/BackButton";
+import FormButton from "../shared/FormButton";
 import ImagePicker from "../shared/ImagePicker";
 import { VALIDATION_REQUIRED } from "../../utils/constants";
 
@@ -103,8 +102,8 @@ const IndividualForm = ({ individualID, onSubmit }) => {
         </Grid>
 
         <Grid item container justify="space-between" xs={12} sm={12} md={5}>
-          <BackButton onClick={() => history.goBack()} />
-          <SaveButton />
+          <FormButton label="Cancel" onClick={() => history.goBack()} />
+          <FormButton label="Save" type="submit" />
         </Grid>
       </Grid>
     </form>
