@@ -2,12 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import {
   FormControl,
-  FormControlLabel,
-  FormLabel,
   Grid,
-  Radio,
-  RadioGroup,
-  Typography,
+  TextField,
+  MenuItem,
   makeStyles,
 } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
@@ -53,29 +50,26 @@ const IndividualForm = ({ individualID, onSubmit }) => {
             type="text"
           />
 
-          <FormControl component="fieldset" margin="normal" fullWidth>
-            <FormLabel component="legend">Gender</FormLabel>
+          <FormControl margin="normal" fullWidth>
             <Controller
-              as={RadioGroup}
-              aria-label="gender"
+              as={
+                <TextField
+                  select
+                  name="gender"
+                  label="Gender"
+                  defaultValue="other"
+                  inputRef={register({ required: true })}
+                >
+                  <MenuItem value="male">Male</MenuItem>
+
+                  <MenuItem value="female">Female</MenuItem>
+
+                  <MenuItem value="other">Other</MenuItem>
+                </TextField>
+              }
               name="gender"
-              defaultValue="other"
               control={control}
-              rules={{ required: true }}
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="Female"
-              />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="Other"
-              />
-            </Controller>
-            {errors.gender && <Typography color="error">Required</Typography>}
+            />
           </FormControl>
 
           <FormControl margin="normal" fullWidth>
