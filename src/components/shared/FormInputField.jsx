@@ -2,7 +2,7 @@ import React from "react";
 
 import { FormControl, InputLabel, Input, Typography } from "@material-ui/core";
 
-const TextInputField = ({
+const FormInputField = ({
   name,
   label,
   inputRef,
@@ -10,13 +10,14 @@ const TextInputField = ({
   errorText,
   value,
   onChange,
+  type,
 }) => {
   return (
     <FormControl margin="normal" fullWidth>
       <InputLabel htmlFor={name}>{label}</InputLabel>
       <Input
         name={name}
-        type="text"
+        type={type}
         inputRef={inputRef}
         value={value}
         onChange={onChange}
@@ -26,4 +27,4 @@ const TextInputField = ({
   );
 };
 
-export default TextInputField;
+export default FormInputField;

@@ -6,7 +6,7 @@ import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { createOximeter as createPulseOximetryMutation } from "../../graphql/mutations";
-import NumericInputField from "../shared/NumericInputField";
+import FormInputField from "../shared/FormInputField";
 import SaveButton from "../shared/SaveButton";
 import {
   SPO2_VALIDATION_ERROR,
@@ -64,7 +64,7 @@ const AddOximeter = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Typography variant="h4">Pulse Oximetry</Typography>
 
-          <NumericInputField
+          <FormInputField
             name="spo2"
             label="SpO2"
             inputRef={register({
@@ -74,9 +74,10 @@ const AddOximeter = () => {
             })}
             errors={errors.spo2}
             errorText={SPO2_VALIDATION_ERROR}
+            type="number"
           />
 
-          <NumericInputField
+          <FormInputField
             name="heartRate"
             label="Heart Rate"
             inputRef={register({
@@ -86,6 +87,7 @@ const AddOximeter = () => {
             })}
             errors={errors.heartRate}
             errorText={HEART_RATE_VALIDATION_ERROR}
+            type="number"
           />
 
           <SaveButton />
