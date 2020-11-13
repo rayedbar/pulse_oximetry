@@ -8,16 +8,15 @@ import {
   RadioGroup,
   Typography,
 } from "@material-ui/core";
-import MuiDatePicker from "../shared/MuiDatePicker";
+import { DatePicker } from "@material-ui/pickers";
 import { useForm, Controller } from "react-hook-form";
 import TextInputField from "../shared/TextInputField";
 import SaveButton from "../shared/SaveButton";
 import ImagePicker from "../shared/ImagePicker";
 import { VALIDATION_REQUIRED } from "../../utils/constants";
 
-const IndividualForm = ({ individualID, dob, handleDobChange, onSubmit }) => {
+const IndividualForm = ({ individualID, onSubmit }) => {
   const { register, errors, control, handleSubmit } = useForm();
-  const domRef = React.useRef();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -65,10 +64,18 @@ const IndividualForm = ({ individualID, dob, handleDobChange, onSubmit }) => {
           </FormControl>
 
           <FormControl margin="normal" fullWidth>
-            <MuiDatePicker
-              selectedDate={dob}
-              handleDateChange={handleDobChange}
-              domRef={domRef}
+            <Controller
+              as={
+                <DatePicker
+                  disableFuture
+                  openTo="year"
+                  format="yyyy-MM-dd"
+                  label="Date of birth"
+                  views={["year", "month", "date"]}
+                />
+              }
+              name="dob"
+              control={control}
             />
           </FormControl>
         </Grid>

@@ -25,14 +25,15 @@ const AddIndividual = () => {
   const [individualID, setIndividualID] = useState(uuidv4());
   const [dob, handleDobChange] = useState(new Date());
 
-  const onSubmit = (data) => {
+  const onSubmit = (individualFormData) => {
     setShowProgressBar(true);
+    const { dob, ...rest } = individualFormData;
     const addIndividual = async () => {
       try {
         await API.graphql(
           graphqlOperation(AddIndividualMutation, {
             input: {
-              ...data,
+              ...rest,
               dob: formatDate(dob, "yyyy-MM-dd"),
               id: individualID,
             },
