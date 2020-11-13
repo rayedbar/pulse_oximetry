@@ -4,9 +4,10 @@ import IndividualForm from "./IndividualForm";
 import { format as formatDate } from "date-fns";
 import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { API, graphqlOperation } from "aws-amplify";
+import { API, Cache, graphqlOperation } from "aws-amplify";
 import { updateIndividual as UpdateIndividualMutation } from "../../graphql/mutations";
 import { URL } from "../../utils/constants";
+import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -25,6 +26,8 @@ const EditIndividual = () => {
 
   const onSubmit = (formData) => {
     setShowProgressBar(true);
+
+    Cache.removeItem(location.state.id + INDIVIDUAL_PHOTO);
 
     const { dob, ...rest } = formData;
     const updateIndividual = async () => {
@@ -52,7 +55,11 @@ const EditIndividual = () => {
       {showProgressBar === true ? (
         <CircularProgress />
       ) : (
-        <IndividualForm individualDetail={location.state} onSubmit={onSubmit} />
+        <IndividualForm
+          individualDetail={location.state}
+          individualID={location.state.id}
+          onSubmit={onSubmit}
+        />
       )}
     </div>
   );

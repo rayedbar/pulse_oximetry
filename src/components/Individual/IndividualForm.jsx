@@ -60,7 +60,9 @@ const IndividualForm = ({ individualDetail, individualID, onSubmit }) => {
                 </TextField>
               }
               name="gender"
-              defaultValue="other"
+              defaultValue={
+                individualDetail ? individualDetail.gender : "other"
+              }
               rules={{ required: true }}
               control={control}
             />
@@ -78,7 +80,7 @@ const IndividualForm = ({ individualDetail, individualID, onSubmit }) => {
               }
               name={"dob"}
               defaultValue={
-                individualDetail ? individualDetail.dob : new Date()
+                individualDetail ? new Date(individualDetail.dob) : new Date()
               }
               rules={{ required: true }}
               control={control}
