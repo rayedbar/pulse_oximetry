@@ -10,6 +10,7 @@ const FormInput = ({
   errorText,
   value,
   type,
+  defaultValue,
 }) => {
   return (
     <TextField
@@ -17,6 +18,7 @@ const FormInput = ({
       name={name}
       label={label}
       value={value}
+      defaultValue={defaultValue}
       type={type}
       inputRef={inputRef}
       error={errors ? true : false}

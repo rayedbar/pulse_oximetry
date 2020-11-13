@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const IndividualForm = ({ individualID, onSubmit }) => {
+const IndividualForm = ({ individualDetail, individualID, onSubmit }) => {
   const history = useHistory();
   const classes = useStyles();
   const { register, errors, control, handleSubmit } = useForm();
@@ -35,6 +35,7 @@ const IndividualForm = ({ individualID, onSubmit }) => {
           <FormInput
             name="firstName"
             label="First Name"
+            defaultValue={individualDetail ? individualDetail.firstName : ""}
             inputRef={register({ required: true })}
             errors={errors.firstName}
             errorText={VALIDATION_REQUIRED}
@@ -44,6 +45,7 @@ const IndividualForm = ({ individualID, onSubmit }) => {
           <FormInput
             name="lastName"
             label="Last Name"
+            defaultValue={individualDetail ? individualDetail.lastName : ""}
             inputRef={register({ required: true })}
             errors={errors.lastName}
             errorText={VALIDATION_REQUIRED}
@@ -57,7 +59,9 @@ const IndividualForm = ({ individualID, onSubmit }) => {
                   select
                   name="gender"
                   label="Gender"
-                  defaultValue="other"
+                  defaultValue={
+                    individualDetail ? individualDetail.gender : "other"
+                  }
                   inputRef={register({ required: true })}
                 >
                   <MenuItem value="male">Male</MenuItem>
@@ -78,6 +82,7 @@ const IndividualForm = ({ individualID, onSubmit }) => {
                 <DatePicker
                   disableFuture
                   openTo="year"
+                  value={individualDetail ? individualDetail.dob : ""}
                   format="yyyy-MM-dd"
                   label="Date of birth"
                   views={["year", "month", "date"]}
