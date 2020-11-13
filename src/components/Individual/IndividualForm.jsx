@@ -8,6 +8,7 @@ import {
   Radio,
   RadioGroup,
   Typography,
+  makeStyles,
 } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { useForm, Controller } from "react-hook-form";
@@ -17,12 +18,22 @@ import BackButton from "../shared/BackButton";
 import ImagePicker from "../shared/ImagePicker";
 import { VALIDATION_REQUIRED } from "../../utils/constants";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: 200,
+    },
+  },
+}));
+
 const IndividualForm = ({ individualID, onSubmit }) => {
   const history = useHistory();
+  const classes = useStyles();
   const { register, errors, control, handleSubmit } = useForm();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2} alignItems="stretch">
         <Grid item xs={6} sm={6} md={4} lg={5} xl={5}>
           <FormInputField

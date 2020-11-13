@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FormControl, InputLabel, Input, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 
 const FormInputField = ({
   name,
@@ -9,21 +9,20 @@ const FormInputField = ({
   errors,
   errorText,
   value,
-  onChange,
   type,
 }) => {
   return (
-    <FormControl margin="normal" fullWidth>
-      <InputLabel htmlFor={name}>{label}</InputLabel>
-      <Input
-        name={name}
-        type={type}
-        inputRef={inputRef}
-        value={value}
-        onChange={onChange}
-      />
-      {errors && <Typography color="error">{errorText}</Typography>}
-    </FormControl>
+    <TextField
+      id={`${name}-outlined-required`}
+      name={name}
+      label={label}
+      value={value}
+      type={type}
+      inputRef={inputRef}
+      error={errors ? true : false}
+      helperText={errors && errorText}
+      variant="outlined"
+    />
   );
 };
 
