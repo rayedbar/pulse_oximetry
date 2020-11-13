@@ -2,7 +2,7 @@ import React from "react";
 
 import { TextField } from "@material-ui/core";
 
-const FormInputField = ({
+const FormInput = ({
   name,
   label,
   inputRef,
@@ -26,4 +26,4 @@ const FormInputField = ({
   );
 };
 
-export default FormInputField;
+export default FormInput;

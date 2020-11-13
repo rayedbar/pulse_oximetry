@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { useForm, Controller } from "react-hook-form";
-import FormInputField from "../shared/FormInput";
+import FormInput from "../shared/FormInput";
 import SaveButton from "../shared/SaveButton";
 import BackButton from "../shared/BackButton";
 import ImagePicker from "../shared/ImagePicker";
@@ -36,7 +36,7 @@ const IndividualForm = ({ individualID, onSubmit }) => {
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2} alignItems="stretch">
         <Grid item xs={6} sm={6} md={4} lg={5} xl={5}>
-          <FormInputField
+          <FormInput
             name="firstName"
             label="First Name"
             inputRef={register({ required: true })}
@@ -45,7 +45,7 @@ const IndividualForm = ({ individualID, onSubmit }) => {
             type="text"
           />
 
-          <FormInputField
+          <FormInput
             name="lastName"
             label="Last Name"
             inputRef={register({ required: true })}
