@@ -23,11 +23,11 @@ const AddIndividual = () => {
 
   const [showProgressBar, setShowProgressBar] = useState(false);
   const [individualID, setIndividualID] = useState(uuidv4());
-  const [dob, handleDobChange] = useState(new Date());
 
-  const onSubmit = (individualFormData) => {
+  const onSubmit = (formData) => {
     setShowProgressBar(true);
-    const { dob, ...rest } = individualFormData;
+
+    const { dob, ...rest } = formData;
     const addIndividual = async () => {
       try {
         await API.graphql(
@@ -44,6 +44,7 @@ const AddIndividual = () => {
         console.log("Error creating individual");
       }
     };
+
     addIndividual();
   };
 
@@ -52,12 +53,7 @@ const AddIndividual = () => {
       {showProgressBar === true ? (
         <CircularProgress />
       ) : (
-        <IndividualForm
-          individualID={individualID}
-          dob={dob}
-          handleDobChange={handleDobChange}
-          onSubmit={onSubmit}
-        />
+        <IndividualForm individualID={individualID} onSubmit={onSubmit} />
       )}
     </div>
   );
