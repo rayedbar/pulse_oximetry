@@ -51,7 +51,6 @@ const Header = () => {
           variant="contained"
           onClick={() => {
             history.push(URL.INDIVIDUALS + "/add");
-            history.go(0);
           }}
           color="inherit"
           className={classes.addIndividualButton}

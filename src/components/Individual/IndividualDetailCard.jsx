@@ -22,17 +22,14 @@ const useStyles = makeStyles({
   },
 });
 
-const IndividualDetailCard = ({
-  individualID,
-  firstName,
-  lastName,
-  latestPulseOximetry,
-}) => {
+const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
   const classes = useStyles();
   const history = useHistory();
 
+  const { id: individualID, firstName, lastName } = individualDetail;
+
   const handleEdit = () => {
-    history.push("/individuals/edit/" + individualID);
+    history.push("/individuals/edit/" + individualID, individualDetail);
   };
 
   return (
