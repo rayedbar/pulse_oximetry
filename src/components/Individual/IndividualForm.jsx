@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { useForm, Controller } from "react-hook-form";
-import FormInputField from "../shared/FormInputField";
+import FormInputField from "../shared/FormInput";
 import SaveButton from "../shared/SaveButton";
 import BackButton from "../shared/BackButton";
 import ImagePicker from "../shared/ImagePicker";

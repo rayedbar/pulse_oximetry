@@ -6,7 +6,7 @@ import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { createOximeter as createPulseOximetryMutation } from "../../graphql/mutations";
-import FormInputField from "../shared/FormInputField";
+import FormInputField from "../shared/FormInput";
 import SaveButton from "../shared/SaveButton";
 import BackButton from "../shared/BackButton";
 import {
