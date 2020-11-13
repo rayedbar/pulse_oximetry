@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import {
   FormControl,
   FormControlLabel,
@@ -12,10 +13,12 @@ import { DatePicker } from "@material-ui/pickers";
 import { useForm, Controller } from "react-hook-form";
 import FormInputField from "../shared/FormInputField";
 import SaveButton from "../shared/SaveButton";
+import BackButton from "../shared/BackButton";
 import ImagePicker from "../shared/ImagePicker";
 import { VALIDATION_REQUIRED } from "../../utils/constants";
 
 const IndividualForm = ({ individualID, onSubmit }) => {
+  const history = useHistory();
   const { register, errors, control, handleSubmit } = useForm();
 
   return (
@@ -88,7 +91,8 @@ const IndividualForm = ({ individualID, onSubmit }) => {
           <ImagePicker individualID={individualID} />
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item container justify="space-between" xs={12} sm={12} md={5}>
+          <BackButton onClick={() => history.goBack()} />
           <SaveButton />
         </Grid>
       </Grid>

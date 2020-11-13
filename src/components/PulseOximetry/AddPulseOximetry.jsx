@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { createOximeter as createPulseOximetryMutation } from "../../graphql/mutations";
 import FormInputField from "../shared/FormInputField";
 import SaveButton from "../shared/SaveButton";
+import BackButton from "../shared/BackButton";
 import {
   SPO2_VALIDATION_ERROR,
   HEART_RATE_VALIDATION_ERROR,
@@ -90,7 +91,10 @@ const AddOximeter = () => {
             type="number"
           />
 
-          <SaveButton />
+          <Grid container justify="space-between">
+            <BackButton onClick={() => history.goBack()} />
+            <SaveButton />
+          </Grid>
         </form>
       </Grid>
 
