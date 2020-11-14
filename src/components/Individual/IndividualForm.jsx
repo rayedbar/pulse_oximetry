@@ -1,6 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Grid, TextField, MenuItem, makeStyles } from "@material-ui/core";
+import {
+  Grid,
+  TextField,
+  MenuItem,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { useForm, Controller } from "react-hook-form";
 import FormInput from "../shared/FormInput";
@@ -14,9 +20,17 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
+  formHeader: {
+    padding: 9,
+  },
 }));
 
-const IndividualForm = ({ individualDetail, individualID, onSubmit }) => {
+const IndividualForm = ({
+  individualDetail,
+  individualID,
+  formHeader,
+  onSubmit,
+}) => {
   const history = useHistory();
   const classes = useStyles();
   const { register, errors, control, handleSubmit } = useForm();
@@ -26,7 +40,9 @@ const IndividualForm = ({ individualDetail, individualID, onSubmit }) => {
       <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
         <Grid container direction="column" spacing={2}>
           <Grid item>
-            <h1 style={{ paddingLeft: 8 }}>Add Individual</h1>
+            <Typography className={classes.formHeader} variant="h4">
+              {formHeader}
+            </Typography>
           </Grid>
           <Grid item>
             <FormInput

@@ -11,9 +11,7 @@ import { URL } from "../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: "flex",
-    justifyContent: "center",
-    margin: 20,
+    flex: 1,
   },
 }));
 
@@ -53,7 +51,11 @@ const AddIndividual = () => {
       {showProgressBar === true ? (
         <CircularProgress />
       ) : (
-        <IndividualForm individualID={individualID} onSubmit={onSubmit} />
+        <IndividualForm
+          individualID={individualID}
+          formHeader="Add Individual"
+          onSubmit={onSubmit}
+        />
       )}
     </div>
   );

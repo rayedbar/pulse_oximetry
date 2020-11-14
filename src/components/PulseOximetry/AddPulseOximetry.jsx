@@ -14,17 +14,17 @@ import {
 } from "../../utils/constants";
 import ConfirmationDialog from "../shared/ConfirmationDialog";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    justifyContent: "center",
-    margin: 20,
+    flex: 1,
   },
   form: {
-    paddingTop: 20,
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+    },
   },
-  formInputField: {
-    paddingBottom: 10,
+  formHeader: {
+    padding: 9,
   },
 }));
 
@@ -66,15 +66,14 @@ const AddOximeter = () => {
 
   return (
     <div className={classes.root}>
-      <Grid container direction="column" alignItems="center" spacing={2}>
-        <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-          <Typography variant="h4">Pulse Oximetry</Typography>
-
-          <FormControl
-            margin="normal"
-            fullWidth
-            className={classes.formInputField}
-          >
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <Grid container direction="column" spacing={2}>
+          <Grid item>
+            <Typography className={classes.formHeader} variant="h4">
+              Pulse Oximetry
+            </Typography>
+          </Grid>
+          <Grid item>
             <FormInput
               name="spo2"
               label="SpO2"
@@ -87,13 +86,8 @@ const AddOximeter = () => {
               errorText={SPO2_VALIDATION_ERROR}
               type="number"
             />
-          </FormControl>
-
-          <FormControl
-            margin="normal"
-            fullWidth
-            className={classes.formInputField}
-          >
+          </Grid>
+          <Grid item>
             <FormInput
               name="heartRate"
               label="Heart Rate"
@@ -106,21 +100,19 @@ const AddOximeter = () => {
               errorText={HEART_RATE_VALIDATION_ERROR}
               type="number"
             />
-          </FormControl>
-
-          <Grid container justify="space-between">
-            <FormButton label="Cancel" onClick={() => history.goBack()} />
+          </Grid>
+          <Grid item container justify="space-between">
+            <FormButton label="Back" onClick={() => history.goBack()} />
             <FormButton label="Save" type="submit" />
           </Grid>
-        </form>
-      </Grid>
-
+        </Grid>
+      </form>
       {pulseOximetryData ? (
         <ConfirmationDialog
           showDialog={showDialog}
           dialogTitle={`SpO2: ${pulseOximetryData.spo2}, Heart Rate: ${pulseOximetryData.heartRate}?`}
           dialogContent={
-            "Please make sure that you entered the data correctly. You cannot modify it later."
+            "Are you sure that the values are correct? You cannot modify it later."
           }
           handleCancel={() => setShowDialog(false)}
           handleConfirm={handleDialogConfirm}

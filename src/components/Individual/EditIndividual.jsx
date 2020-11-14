@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import IndividualForm from "./IndividualForm";
 import { format as formatDate } from "date-fns";
@@ -11,9 +11,7 @@ import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: "flex",
-    justifyContent: "center",
-    margin: 20,
+    flex: 1,
   },
 }));
 
@@ -24,30 +22,26 @@ const EditIndividual = () => {
 
   const [showProgressBar, setShowProgressBar] = useState(false);
 
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData) => {
     setShowProgressBar(true);
 
     Cache.removeItem(location.state.id + INDIVIDUAL_PHOTO);
-
     const { dob, ...rest } = formData;
-    const updateIndividual = async () => {
-      try {
-        await API.graphql(
-          graphqlOperation(UpdateIndividualMutation, {
-            input: {
-              ...rest,
-              dob: formatDate(dob, "yyyy-MM-dd"),
-              id: location.state.id,
-            },
-          })
-        );
-        history.push(URL.HOME);
-      } catch (error) {
-        console.log("Error updating individual ", error);
-      }
-    };
 
-    updateIndividual();
+    try {
+      await API.graphql(
+        graphqlOperation(UpdateIndividualMutation, {
+          input: {
+            ...rest,
+            dob: formatDate(dob, "yyyy-MM-dd"),
+            id: location.state.id,
+          },
+        })
+      );
+      history.push(URL.HOME);
+    } catch (error) {
+      console.log("Error updating individual ", error);
+    }
   };
 
   return (
@@ -58,6 +52,7 @@ const EditIndividual = () => {
         <IndividualForm
           individualDetail={location.state}
           individualID={location.state.id}
+          formHeader="Edit Individual"
           onSubmit={onSubmit}
         />
       )}
