@@ -12,12 +12,12 @@ const useStyles = makeStyles((theme) => ({
   iconSize: {
     fontSize: 30,
   },
-  oximetryHeader: {
+  pulseOximetryHeader: {
     backgroundColor: theme.palette.secondary.main,
     borderRadius: 5,
     padding: 20,
   },
-  oximetryTitle: {
+  pulseOximetryTitle: {
     marginLeft: 10,
   },
 }));
@@ -33,10 +33,10 @@ const PulseOximetryHistory = ({ individualID, pulseOximetryData }) => {
         item
         container
         justify="space-between"
-        className={classes.oximetryHeader}
+        className={classes.pulseOximetryHeader}
         alignItems="center"
       >
-        <Grid item className={classes.oximetryTitle}>
+        <Grid item className={classes.pulseOximetryTitle}>
           <Typography variant="h5">Pulse Oximetry</Typography>
         </Grid>
         <Grid item>

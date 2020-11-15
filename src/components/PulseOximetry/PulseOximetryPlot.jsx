@@ -8,7 +8,6 @@ const useStyles = makeStyles({
   plot: {
     height: "100%",
     width: "100%",
-    marginTop: 20,
   },
 });
 
@@ -68,6 +67,9 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
           rangeslider: {},
         },
         autosize: true,
+        margin: {
+          b: 20,
+        },
       }}
       config={plotlyConfig}
     />
