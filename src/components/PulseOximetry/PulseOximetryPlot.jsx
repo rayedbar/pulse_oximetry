@@ -31,6 +31,7 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
         symbol: pulseOximetryData.map((data) => (data.spo2 > 95 ? "." : "x")),
         size: pulseOximetryData.map((data) => (data.spo2 > 95 ? 8 : 12)),
       },
+      xaxis: "x",
     },
     heartRate: {
       x: formattedDateTime,
@@ -47,6 +48,8 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
           data.heartRate <= 100 && data.heartRate >= 60 ? 8 : 12
         ),
       },
+      xaxis: "x",
+      yaxis: "y2",
     },
   };
 
@@ -61,6 +64,7 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       useResizeHandler={true}
       data={[plotData.spo2, plotData.heartRate]}
       layout={{
+        grid: { rows: 2, columns: 1 },
         title: "SpO2 and Heart Rate Plot",
         xaxis: {
           autorange: true,
