@@ -12,19 +12,13 @@ const useStyles = makeStyles((theme) => ({
   iconSize: {
     fontSize: 30,
   },
-  oximetryHeader: {
+  pulseOximetryHeader: {
     backgroundColor: theme.palette.secondary.main,
     borderRadius: 5,
     padding: 20,
   },
-  oximetryTitle: {
+  pulseOximetryTitle: {
     marginLeft: 10,
-  },
-  oximetryPlot: {
-    marginBottom: -35,
-  },
-  oximetryTable: {
-    marginTop: -3,
   },
 }));
 
@@ -39,10 +33,10 @@ const PulseOximetryHistory = ({ individualID, pulseOximetryData }) => {
         item
         container
         justify="space-between"
-        className={classes.oximetryHeader}
+        className={classes.pulseOximetryHeader}
         alignItems="center"
       >
-        <Grid item className={classes.oximetryTitle}>
+        <Grid item className={classes.pulseOximetryTitle}>
           <Typography variant="h5">Pulse Oximetry</Typography>
         </Grid>
         <Grid item>
@@ -60,11 +54,11 @@ const PulseOximetryHistory = ({ individualID, pulseOximetryData }) => {
         </Grid>
       </Grid>
       {hasPulseOximetryData() ? (
-        <Grid item className={classes.oximetryPlot} xs={11}>
+        <Grid item xs={11}>
           <PulseOximetryPlot pulseOximetryData={pulseOximetryData} />
         </Grid>
       ) : null}
-      <Grid item className={classes.oximetryTable} xs={12}>
+      <Grid item xs={12}>
         {hasPulseOximetryData() ? (
           <PulseOximetryTable pulseOximetryData={pulseOximetryData} />
         ) : (
