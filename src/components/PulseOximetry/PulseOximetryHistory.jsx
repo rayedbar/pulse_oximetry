@@ -20,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
   oximetryTitle: {
     marginLeft: 10,
   },
+  oximetryPlot: {
+    marginBottom: -35,
+  },
+  oximetryTable: {
+    marginTop: -3,
+  },
 }));
 
 const PulseOximetryHistory = ({ individualID, pulseOximetryData }) => {
@@ -54,11 +60,11 @@ const PulseOximetryHistory = ({ individualID, pulseOximetryData }) => {
         </Grid>
       </Grid>
       {hasPulseOximetryData() ? (
-        <Grid item xs={11}>
+        <Grid item className={classes.oximetryPlot} xs={11}>
           <PulseOximetryPlot pulseOximetryData={pulseOximetryData} />
         </Grid>
       ) : null}
-      <Grid item xs={12}>
+      <Grid item className={classes.oximetryTable} xs={12}>
         {hasPulseOximetryData() ? (
           <PulseOximetryTable pulseOximetryData={pulseOximetryData} />
         ) : (
