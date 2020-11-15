@@ -8,9 +8,22 @@ import {
   TableRow,
   TableBody,
   TableCell,
+  TablePagination,
 } from "@material-ui/core";
 
 const PulseOximetryTable = ({ pulseOximetryData }) => {
+  const [currentPage, setCurrentPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table style={{ width: "100%" }} aria-label="SpO2 table">
@@ -24,8 +37,11 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
         </TableHead>
         <TableBody>
           {pulseOximetryData
-            .slice()
             .reverse()
+            .slice(
+              currentPage * rowsPerPage,
+              currentPage * rowsPerPage + rowsPerPage
+            )
             .map((data) => (
               <TableRow key={data.id}>
                 <TableCell align="center">
@@ -40,6 +56,15 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
             ))}
         </TableBody>
       </Table>
+      <TablePagination
+        component="div"
+        rowsPerPageOptions={[5, 10, 25]}
+        count={pulseOximetryData.length}
+        page={currentPage}
+        onChangePage={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
     </TableContainer>
   );
 };
