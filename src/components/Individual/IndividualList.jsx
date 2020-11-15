@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import IndividualListItem from "./IndividualListItem";
-import { listIndividualsQuery } from "../../graphql/custom-queries";
+import { listIndividualsWithLatestPulseOximetry } from "../../graphql/custom-queries";
 
 const useStyles = makeStyles({
   root: {
@@ -20,7 +20,7 @@ const IndividualList = () => {
     const fetchIndiviuals = async () => {
       try {
         const individualData = await API.graphql(
-          graphqlOperation(listIndividualsQuery)
+          graphqlOperation(listIndividualsWithLatestPulseOximetry)
         );
         setIndividuals(individualData.data.listIndividuals.items);
       } catch {

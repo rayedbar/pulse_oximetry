@@ -37,7 +37,6 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
         </TableHead>
         <TableBody>
           {pulseOximetryData
-            .reverse()
             .slice(
               currentPage * rowsPerPage,
               currentPage * rowsPerPage + rowsPerPage
