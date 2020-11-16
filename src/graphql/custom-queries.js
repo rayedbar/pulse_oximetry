@@ -1,4 +1,5 @@
-export const listIndividualsQuery = `query listIndividualsQuery {
+export const listIndividualsWithLatestPulseOximetry = /* GraphQL */ `
+  query ListIndividuals {
     listIndividuals {
       items {
         id
@@ -14,4 +15,24 @@ export const listIndividualsQuery = `query listIndividualsQuery {
         }
       }
     }
-  }`;
+  }
+`;
+export const getIndividualWithPulseOximetryCreatedAtDESC = /* GraphQL */ `
+  query GetIndividual($id: ID!) {
+    getIndividual(id: $id) {
+      id
+      firstName
+      lastName
+      gender
+      dob
+      oximeter(sortDirection: DESC) {
+        items {
+          id
+          spo2
+          heartRate
+          createdAt
+        }
+      }
+    }
+  }
+`;

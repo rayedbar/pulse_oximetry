@@ -4,12 +4,12 @@ import { API, graphqlOperation } from "aws-amplify";
 import { Grid, LinearProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { getIndividual } from "../../graphql/queries";
 import PulseOximetryWarning from "../PulseOximetry/PulseOximetryWarning";
 import IndividualDetailCard from "./IndividualDetailCard";
 import PulseOximetryHistory from "../PulseOximetry/PulseOximetryHistory";
+import { getIndividualWithPulseOximetryCreatedAtDESC } from "../../graphql/custom-queries";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flex: 1,
   },
@@ -24,13 +24,13 @@ const useIndividualDetail = () => {
     const fetchIndividualDetail = async () => {
       try {
         const individualData = await API.graphql(
-          graphqlOperation(getIndividual, { id: individualID })
+          graphqlOperation(getIndividualWithPulseOximetryCreatedAtDESC, {
+            id: individualID,
+          })
         );
         setIndividualDetail(individualData.data.getIndividual);
         setLatestPulseOximetry(
-          individualData.data.getIndividual.oximeter.items[
-            individualData.data.getIndividual.oximeter.items.length - 1
-          ]
+          individualData.data.getIndividual.oximeter.items[0]
         );
       } catch {
         console.log("Error Fetching Individual details");

@@ -27,6 +27,11 @@ const IndividualAvatar = ({ individualID, individualName }) => {
         if (!imageUrl) {
           // set expires to match cache config defaultTTL
           imageUrl = await Storage.get(individualID, { expires: 60 * 60 * 72 });
+
+          let imageUrlResponse = await fetch(new Request(imageUrl));
+          if (imageUrlResponse.status !== 200) {
+            imageUrl = "Unavailable";
+          }
           Cache.setItem(individualID + INDIVIDUAL_PHOTO, imageUrl);
         }
         setImageUrl(imageUrl);
