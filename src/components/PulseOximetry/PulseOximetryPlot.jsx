@@ -32,6 +32,7 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
         size: pulseOximetryData.map((data) => (data.spo2 > 95 ? 8 : 12)),
       },
       xaxis: "x",
+      line: { shape: "spline" },
     },
     heartRate: {
       x: formattedDateTime,
@@ -50,6 +51,7 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       },
       xaxis: "x",
       yaxis: "y2",
+      line: { shape: "spline" },
     },
   };
 

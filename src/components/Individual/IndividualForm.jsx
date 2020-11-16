@@ -15,7 +15,7 @@ import ImagePicker from "../shared/ImagePicker";
 import { VALIDATION_REQUIRED } from "../../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  formInput: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
     },
@@ -37,8 +37,13 @@ const IndividualForm = ({
 
   return (
     <div>
-      <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
-        <Grid container direction="column" spacing={2}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid
+          className={classes.formInput}
+          container
+          direction="column"
+          spacing={2}
+        >
           <Grid item>
             <Typography className={classes.formHeader} variant="h4">
               {formHeader}
@@ -92,6 +97,7 @@ const IndividualForm = ({
                   format="yyyy-MM-dd"
                   label="Date of birth"
                   views={["year", "month", "date"]}
+                  fullWidth
                 />
               }
               name={"dob"}
