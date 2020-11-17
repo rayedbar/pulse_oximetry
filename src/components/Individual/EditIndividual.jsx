@@ -8,6 +8,7 @@ import { API, Cache, graphqlOperation } from "aws-amplify";
 import { updateIndividual as UpdateIndividualMutation } from "../../graphql/mutations";
 import { URL } from "../../utils/constants";
 import { INDIVIDUAL_PHOTO } from "../../utils/constants";
+import FormTemplate from "../shared/FormTemplate";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -49,12 +50,14 @@ const EditIndividual = () => {
       {showProgressBar === true ? (
         <CircularProgress />
       ) : (
-        <IndividualForm
-          individualDetail={location.state}
-          individualID={location.state.id}
-          formHeader="Edit Individual"
-          onSubmit={onSubmit}
-        />
+        <FormTemplate>
+          <IndividualForm
+            individualDetail={location.state}
+            individualID={location.state.id}
+            formHeader="Edit Individual"
+            onSubmit={onSubmit}
+          />
+        </FormTemplate>
       )}
     </div>
   );

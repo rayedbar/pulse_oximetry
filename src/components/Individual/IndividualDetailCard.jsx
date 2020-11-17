@@ -8,11 +8,11 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
+import EditIcon from "@material-ui/icons/Edit";
 
 import IndividualAvatar from "./IndividualAvatar";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   individualInfo: {
     display: "flex",
     flexDirection: "column",
@@ -20,7 +20,13 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
   },
-});
+  editButton: {
+    float: "right",
+  },
+  editIconSize: {
+    fontSize: 30,
+  },
+}));
 
 const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
   const classes = useStyles();
@@ -35,6 +41,15 @@ const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
   return (
     <Card>
       <CardContent>
+        <IconButton
+          title="Edit Information"
+          aria-label="Edit Information"
+          onClick={handleEdit}
+          className={classes.editButton}
+          color="inherit"
+        >
+          <EditIcon className={classes.editIconSize} />
+        </IconButton>
         <Grid
           container
           spacing={2}
@@ -48,16 +63,6 @@ const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
               individualID={individualID}
               individualName={firstName}
             />
-          </Grid>
-          <Grid item>
-            <IconButton
-              title="Edit Information"
-              variant="contained"
-              onClick={handleEdit}
-              color="inherit"
-            >
-              <EditTwoToneIcon className={classes.iconSize} />
-            </IconButton>
           </Grid>
           <Grid
             item
