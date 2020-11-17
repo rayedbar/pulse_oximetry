@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { API, graphqlOperation } from "aws-amplify";
 import { createIndividual as AddIndividualMutation } from "../../graphql/mutations";
 import { URL } from "../../utils/constants";
+import FormTemplate from "../shared/FormTemplate";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -20,7 +21,7 @@ const AddIndividual = () => {
   const history = useHistory();
 
   const [showProgressBar, setShowProgressBar] = useState(false);
-  const [individualID, setIndividualID] = useState(uuidv4());
+  const [individualID] = useState(uuidv4());
 
   const onSubmit = (formData) => {
     setShowProgressBar(true);
@@ -51,11 +52,13 @@ const AddIndividual = () => {
       {showProgressBar === true ? (
         <CircularProgress />
       ) : (
-        <IndividualForm
-          individualID={individualID}
-          formHeader="Add Individual"
-          onSubmit={onSubmit}
-        />
+        <FormTemplate>
+          <IndividualForm
+            individualID={individualID}
+            formHeader="Add Individual"
+            onSubmit={onSubmit}
+          />
+        </FormTemplate>
       )}
     </div>
   );
