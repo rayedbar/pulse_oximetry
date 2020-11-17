@@ -83,7 +83,7 @@ const PulseOximetryForm = () => {
           />
         </Grid>
         <Grid item container justify="space-between">
-          <FormButton label="Back" onClick={() => history.goBack()} />
+          <FormButton label="Cancel" onClick={() => history.goBack()} />
           <FormButton label="Save" type="submit" />
         </Grid>
       </form>

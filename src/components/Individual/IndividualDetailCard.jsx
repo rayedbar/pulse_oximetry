@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     float: "right",
   },
   editIconSize: {
-    fontSize: 30,
+    fontSize: 25,
   },
 }));
 
@@ -47,6 +47,7 @@ const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
           onClick={handleEdit}
           className={classes.editButton}
           color="inherit"
+          size="small"
         >
           <EditIcon className={classes.editIconSize} />
         </IconButton>
