@@ -79,6 +79,8 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
           xanchor: "right",
           y: 1.2,
         },
+        yaxis: { domain: [0.6, 1] },
+        yaxis2: { domain: [0, 0.45] },
       }}
       config={plotlyConfig}
     />
