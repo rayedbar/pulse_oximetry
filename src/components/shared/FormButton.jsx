@@ -4,7 +4,7 @@ import { FormControl, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  saveButton: {
+  formButton: {
     backgroundColor: theme.palette.button.main,
     "&:hover": {
       backgroundColor: theme.palette.button.hover,
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SaveButton = () => {
+const FormButton = ({ label, type, onClick }) => {
   const classes = useStyles();
 
   return (
@@ -20,13 +20,14 @@ const SaveButton = () => {
       <Button
         variant="contained"
         size="medium"
-        type="submit"
-        className={classes.saveButton}
+        type={type}
+        onClick={onClick}
+        className={classes.formButton}
       >
-        Save
+        {label}
       </Button>
     </FormControl>
   );
 };
 
-export default SaveButton;
+export default FormButton;

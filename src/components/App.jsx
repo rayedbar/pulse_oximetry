@@ -8,6 +8,7 @@ import Header from "./Header";
 import IndividualList from "./Individual/IndividualList";
 import IndividualDetail from "./Individual/IndividualDetail";
 import AddIndividual from "./Individual/AddIndividual";
+import EditIndividual from "./Individual/EditIndividual";
 import AddOximeter from "./PulseOximetry/AddPulseOximetry";
 import { URL } from "../utils/constants";
 
@@ -54,6 +55,9 @@ const App = () => {
           </Route>
           <Route path={`${URL.INDIVIDUALS}/add`}>
             <AddIndividual />
+          </Route>
+          <Route path={`${URL.INDIVIDUALS}/edit/:individualID`}>
+            <EditIndividual />
           </Route>
           <Route path={`${URL.INDIVIDUALS}/:individualID`}>
             <IndividualDetail />

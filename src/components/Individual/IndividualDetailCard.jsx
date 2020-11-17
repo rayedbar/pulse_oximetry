@@ -1,10 +1,18 @@
 import React from "react";
-import { Card, CardContent, Typography, Grid } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  IconButton,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import EditIcon from "@material-ui/icons/Edit";
 
 import IndividualAvatar from "./IndividualAvatar";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   individualInfo: {
     display: "flex",
     flexDirection: "column",
@@ -12,19 +20,36 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
   },
-});
+  editButton: {
+    float: "right",
+  },
+  editIconSize: {
+    fontSize: 30,
+  },
+}));
 
-const IndividualDetailCard = ({
-  individualID,
-  firstName,
-  lastName,
-  latestPulseOximetry,
-}) => {
+const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const { id: individualID, firstName, lastName } = individualDetail;
+
+  const handleEdit = () => {
+    history.push("/individuals/edit/" + individualID, individualDetail);
+  };
 
   return (
     <Card>
       <CardContent>
+        <IconButton
+          title="Edit Information"
+          aria-label="Edit Information"
+          onClick={handleEdit}
+          className={classes.editButton}
+          color="inherit"
+        >
+          <EditIcon className={classes.editIconSize} />
+        </IconButton>
         <Grid
           container
           spacing={2}
