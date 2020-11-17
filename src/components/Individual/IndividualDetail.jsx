@@ -52,9 +52,7 @@ const IndividualDetail = () => {
       <PulseOximetryWarning latestPulseOximetry={latestPulseOximetry} />
       <Grid item>
         <IndividualDetailCard
-          individualID={individualDetail.id}
-          firstName={individualDetail.firstName}
-          lastName={individualDetail.lastName}
+          individualDetail={individualDetail}
           latestPulseOximetry={latestPulseOximetry}
         />
       </Grid>

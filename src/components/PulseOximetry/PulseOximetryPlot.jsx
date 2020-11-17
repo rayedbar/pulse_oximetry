@@ -28,9 +28,10 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       name: "SpO2",
       marker: {
         color: "red",
-        symbol: pulseOximetryData.map((data) => (data.spo2 > 95 ? "." : "x")),
-        size: pulseOximetryData.map((data) => (data.spo2 > 95 ? 8 : 12)),
+        symbol: pulseOximetryData.map((data) => (data.spo2 > 94 ? "o" : "x")),
+        size: pulseOximetryData.map((data) => (data.spo2 > 94 ? 8 : 12)),
       },
+      xaxis: "x",
     },
     heartRate: {
       x: formattedDateTime,
@@ -41,12 +42,14 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       marker: {
         color: "#0070cc",
         symbol: pulseOximetryData.map((data) =>
-          data.heartRate <= 100 && data.heartRate >= 60 ? "." : "x"
+          data.heartRate <= 100 && data.heartRate >= 60 ? "o" : "x"
         ),
         size: pulseOximetryData.map((data) =>
           data.heartRate <= 100 && data.heartRate >= 60 ? 8 : 12
         ),
       },
+      xaxis: "x",
+      yaxis: "y2",
     },
   };
 
@@ -61,6 +64,7 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       useResizeHandler={true}
       data={[plotData.spo2, plotData.heartRate]}
       layout={{
+        grid: { rows: 2, columns: 1 },
         title: "SpO2 and Heart Rate Plot",
         xaxis: {
           autorange: true,
@@ -68,7 +72,12 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
         },
         autosize: true,
         margin: {
-          b: 20,
+          b: 30,
+        },
+        legend: {
+          x: 1,
+          xanchor: "right",
+          y: 1.2,
         },
       }}
       config={plotlyConfig}

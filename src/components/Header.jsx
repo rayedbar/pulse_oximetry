@@ -43,13 +43,15 @@ const Header = () => {
           src={process.env.PUBLIC_URL + "/logo.png"}
           className={classes.logo}
           onClick={() => history.push(URL.HOME)}
-          alt="Therap Logo"
+          alt="HSBT Logo"
         />
         <div className={classes.grow} />
         <IconButton
           title="Add Individual"
           variant="contained"
-          onClick={() => history.push(URL.INDIVIDUALS + "/add")}
+          onClick={() => {
+            history.push(URL.INDIVIDUALS + "/add");
+          }}
           color="inherit"
           className={classes.addIndividualButton}
         >
