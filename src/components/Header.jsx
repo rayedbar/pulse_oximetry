@@ -1,12 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Auth } from "aws-amplify";
-import { AppBar, Toolbar, IconButton } from "@material-ui/core";
+import { AppBar, Toolbar, IconButton, Drawer } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import MenuIcon from "@material-ui/icons/Menu";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { URL } from "../utils/constants";
+import SideBarItems from "./shared/SideBarItems";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -20,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
   addIndividualButton: {
     marginRight: 10,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
   },
 }));
 
@@ -36,9 +41,33 @@ const Header = () => {
     }
   };
 
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setDrawerOpen(open);
+  };
+
   return (
     <AppBar color="primary" position="static">
       <Toolbar>
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="menu"
+          onClick={toggleDrawer(true)}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Drawer anchor={"left"} open={drawerOpen} onClose={toggleDrawer(false)}>
+          <SideBarItems toggleDrawer={toggleDrawer} />
+        </Drawer>
         <img
           src={process.env.PUBLIC_URL + "/logo.png"}
           className={classes.logo}
@@ -46,7 +75,7 @@ const Header = () => {
           alt="HSBT Logo"
         />
         <div className={classes.grow} />
-        <IconButton
+        {/* <IconButton
           title="Add Individual"
           variant="contained"
           onClick={() => {
@@ -56,7 +85,7 @@ const Header = () => {
           className={classes.addIndividualButton}
         >
           <AddCircleOutlineIcon className={classes.iconSize} />
-        </IconButton>
+        </IconButton> */}
         <IconButton
           title="Sign Out"
           variant="contained"

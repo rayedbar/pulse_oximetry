@@ -5,6 +5,8 @@ type Individual @model @auth(rules: [{ allow: owner }]) {
   gender: String!
   dob: AWSDate!
   oximeter: [Oximeter] @connection(keyName: "byIndividual", fields: ["id"])
+  pulseOximetryRange: [PulseOximetryRange]
+    @connection(keyName: "byIndividual", fields: ["id"])
 }
 
 type Oximeter
@@ -14,6 +16,18 @@ type Oximeter
   id: ID!
   individualID: ID!
   spo2: Int!
-  heartRate: Int! 
+  heartRate: Int!
+  createdAt: AWSDateTime
+}
+
+type PulseOximetryRange
+  @model
+  @auth(rules: [{ allow: owner }])
+  @key(name: "byIndividual", fields: ["individualID", "createdAt"]) {
+  id: ID!
+  individualID: ID!
+  minSpo2: Int
+  minHeartRate: Int
+  maxHeartRate: Int
   createdAt: AWSDateTime
 }

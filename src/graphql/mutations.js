@@ -24,6 +24,19 @@ export const createIndividual = /* GraphQL */ `
         }
         nextToken
       }
+      pulseOximetryRange {
+        items {
+          id
+          individualID
+          minSpo2
+          minHeartRate
+          maxHeartRate
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -53,6 +66,19 @@ export const updateIndividual = /* GraphQL */ `
         }
         nextToken
       }
+      pulseOximetryRange {
+        items {
+          id
+          individualID
+          minSpo2
+          minHeartRate
+          maxHeartRate
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -76,6 +102,19 @@ export const deleteIndividual = /* GraphQL */ `
           individualID
           spo2
           heartRate
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      pulseOximetryRange {
+        items {
+          id
+          individualID
+          minSpo2
+          minHeartRate
+          maxHeartRate
           createdAt
           updatedAt
           owner
@@ -130,6 +169,57 @@ export const deleteOximeter = /* GraphQL */ `
       individualID
       spo2
       heartRate
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createPulseOximetryRange = /* GraphQL */ `
+  mutation CreatePulseOximetryRange(
+    $input: CreatePulseOximetryRangeInput!
+    $condition: ModelPulseOximetryRangeConditionInput
+  ) {
+    createPulseOximetryRange(input: $input, condition: $condition) {
+      id
+      individualID
+      minSpo2
+      minHeartRate
+      maxHeartRate
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updatePulseOximetryRange = /* GraphQL */ `
+  mutation UpdatePulseOximetryRange(
+    $input: UpdatePulseOximetryRangeInput!
+    $condition: ModelPulseOximetryRangeConditionInput
+  ) {
+    updatePulseOximetryRange(input: $input, condition: $condition) {
+      id
+      individualID
+      minSpo2
+      minHeartRate
+      maxHeartRate
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deletePulseOximetryRange = /* GraphQL */ `
+  mutation DeletePulseOximetryRange(
+    $input: DeletePulseOximetryRangeInput!
+    $condition: ModelPulseOximetryRangeConditionInput
+  ) {
+    deletePulseOximetryRange(input: $input, condition: $condition) {
+      id
+      individualID
+      minSpo2
+      minHeartRate
+      maxHeartRate
       createdAt
       updatedAt
       owner

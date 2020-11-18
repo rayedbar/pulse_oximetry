@@ -5,8 +5,10 @@ import { format as formatDate } from "date-fns";
 import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { API, Cache, graphqlOperation } from "aws-amplify";
-import { updateIndividual as UpdateIndividualMutation } from "../../graphql/mutations";
-import { URL } from "../../utils/constants";
+import {
+  updateIndividual as UpdateIndividualMutation,
+  createPulseOximetryRange,
+} from "../../graphql/mutations";
 import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 import FormTemplate from "../shared/FormTemplate";
 
@@ -27,6 +29,7 @@ const EditIndividual = () => {
     setShowProgressBar(true);
 
     Cache.removeItem(location.state.id + INDIVIDUAL_PHOTO);
+    // const { dob, minSpo2, minHeartRate, maxHeartRate, ...rest } = formData;
     const { dob, ...rest } = formData;
 
     try {
@@ -39,9 +42,21 @@ const EditIndividual = () => {
           },
         })
       );
-      history.push(URL.HOME);
+      // await API.graphql(
+      //   graphqlOperation(createPulseOximetryRange, {
+      //     input: {
+      //       individualID: location.state.id,
+      //       minSpo2: parseInt(minSpo2, 10),
+      //       minHeartRate: parseInt(minHeartRate, 10),
+      //       maxHeartRate: parseInt(maxHeartRate, 10),
+      //     },
+      //   })
+      // );
+
+      history.goBack();
     } catch (error) {
       console.log("Error updating individual ", error);
+      setShowProgressBar(false);
     }
   };
 

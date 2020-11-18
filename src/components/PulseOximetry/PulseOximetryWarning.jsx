@@ -1,11 +1,22 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
+import { PULSE_OXIMETRY_DEFAULT_WARNING_THRESHOLD as defaultWarningThreshold } from "../../utils/constants";
 
-const PulseOximetryWarning = ({ latestPulseOximetry }) => {
+const PulseOximetryWarning = ({ latestPulseOximetry, pulseOximetryRange }) => {
+  const minSpo2Threshold = pulseOximetryRange
+    ? pulseOximetryRange.minSpo2
+    : defaultWarningThreshold.MIN_SPO2;
+  const minHeartRateThreshold = pulseOximetryRange
+    ? pulseOximetryRange.minHeartRate
+    : defaultWarningThreshold.MIN_HEART_RATE;
+  const maxHeartRateThreshold = pulseOximetryRange
+    ? pulseOximetryRange.maxHeartRate
+    : defaultWarningThreshold.MAX_HEART_RATE;
+
   return latestPulseOximetry ? (
     <Grid item container direction="column" spacing={2}>
-      {latestPulseOximetry.spo2 < 96 ? (
+      {latestPulseOximetry.spo2 < minSpo2Threshold ? (
         <Grid item>
           <Alert severity="error">
             <AlertTitle>SpO2 Warning</AlertTitle>
@@ -15,8 +26,8 @@ const PulseOximetryWarning = ({ latestPulseOximetry }) => {
         </Grid>
       ) : null}
 
-      {latestPulseOximetry.heartRate < 60 ||
-      latestPulseOximetry.heartRate > 100 ? (
+      {latestPulseOximetry.heartRate < minHeartRateThreshold ||
+      latestPulseOximetry.heartRate > maxHeartRateThreshold ? (
         <Grid item>
           <Alert severity="error">
             <AlertTitle>Heart Rate Warning</AlertTitle>

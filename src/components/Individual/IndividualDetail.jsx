@@ -49,7 +49,10 @@ const IndividualDetail = () => {
 
   return individualDetail ? (
     <Grid container direction="column" spacing={3} className={classes.root}>
-      <PulseOximetryWarning latestPulseOximetry={latestPulseOximetry} />
+      <PulseOximetryWarning
+        latestPulseOximetry={latestPulseOximetry}
+        pulseOximetryRange={individualDetail.pulseOximetryRange.items[0]}
+      />
       <Grid item>
         <IndividualDetailCard
           individualDetail={individualDetail}

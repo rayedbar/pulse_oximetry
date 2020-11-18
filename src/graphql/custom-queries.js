@@ -33,6 +33,14 @@ export const getIndividualWithPulseOximetryCreatedAtDESC = /* GraphQL */ `
           createdAt
         }
       }
+      pulseOximetryRange(limit: 1, sortDirection: DESC) {
+        items {
+          id
+          minSpo2
+          minHeartRate
+          maxHeartRate
+        }
+      }
     }
   }
 `;
