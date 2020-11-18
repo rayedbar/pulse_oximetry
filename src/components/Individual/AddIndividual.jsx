@@ -23,28 +23,25 @@ const AddIndividual = () => {
   const [showProgressBar, setShowProgressBar] = useState(false);
   const [individualID] = useState(uuidv4());
 
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData) => {
     setShowProgressBar(true);
 
     const { dob, ...rest } = formData;
-    const addIndividual = async () => {
-      try {
-        await API.graphql(
-          graphqlOperation(AddIndividualMutation, {
-            input: {
-              ...rest,
-              dob: formatDate(dob, "yyyy-MM-dd"),
-              id: individualID,
-            },
-          })
-        );
-        history.push(URL.HOME);
-      } catch {
-        console.log("Error creating individual");
-      }
-    };
 
-    addIndividual();
+    try {
+      await API.graphql(
+        graphqlOperation(AddIndividualMutation, {
+          input: {
+            ...rest,
+            dob: formatDate(dob, "yyyy-MM-dd"),
+            id: individualID,
+          },
+        })
+      );
+      history.push(URL.HOME);
+    } catch {
+      console.log("Error creating individual");
+    }
   };
 
   return (
