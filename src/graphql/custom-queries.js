@@ -36,7 +36,7 @@ export const getIndividualWithPulseOximetryCreatedAtDESC = /* GraphQL */ `
       pulseOximetryRange(limit: 1, sortDirection: DESC) {
         items {
           id
-          minSpo2
+          minSpO2
           minHeartRate
           maxHeartRate
         }

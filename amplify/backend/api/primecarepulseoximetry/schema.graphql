@@ -18,6 +18,7 @@ type Oximeter
   spo2: Int!
   heartRate: Int!
   createdAt: AWSDateTime
+  pulseOximetryRange: PulseOximetryRange
 }
 
 type PulseOximetryRange
@@ -26,8 +27,15 @@ type PulseOximetryRange
   @key(name: "byIndividual", fields: ["individualID", "createdAt"]) {
   id: ID!
   individualID: ID!
-  minSpo2: Int
+  minSpO2: Int
   minHeartRate: Int
   maxHeartRate: Int
   createdAt: AWSDateTime
+}
+
+type notify @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: AWSEmail!
 }

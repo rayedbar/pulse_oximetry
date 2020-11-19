@@ -4,7 +4,6 @@ import { Auth } from "aws-amplify";
 import { AppBar, Toolbar, IconButton, Drawer } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { URL } from "../utils/constants";
@@ -75,17 +74,6 @@ const Header = () => {
           alt="HSBT Logo"
         />
         <div className={classes.grow} />
-        {/* <IconButton
-          title="Add Individual"
-          variant="contained"
-          onClick={() => {
-            history.push(URL.INDIVIDUALS + "/add");
-          }}
-          color="inherit"
-          className={classes.addIndividualButton}
-        >
-          <AddCircleOutlineIcon className={classes.iconSize} />
-        </IconButton> */}
         <IconButton
           title="Sign Out"
           variant="contained"

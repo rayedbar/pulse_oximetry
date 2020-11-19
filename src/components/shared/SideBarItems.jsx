@@ -10,6 +10,7 @@ import {
 import HomeIcon from "@material-ui/icons/Home";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import TuneIcon from "@material-ui/icons/Tune";
 import { URL } from "../../utils/constants";
 
 const SideBarItems = ({ toggleDrawer }) => {
@@ -45,16 +46,29 @@ const SideBarItems = ({ toggleDrawer }) => {
           </ListItemIcon>
           <ListItemText primary="Add Individual" />
         </ListItem>
+
         <ListItem
           button
           onClick={() => {
-            history.push(URL.NOTIFICATION_SETTINGS);
+            history.push(URL.ALERT_RECIPIENT_SETTINGS);
           }}
         >
           <ListItemIcon>
             <NotificationsIcon />
           </ListItemIcon>
-          <ListItemText primary="Set Notifications" />
+          <ListItemText primary="Configure Alert Recipients" />
+        </ListItem>
+
+        <ListItem
+          button
+          onClick={() => {
+            history.push(URL.PULSE_OXIMETRY_RANGE_SETTINGS);
+          }}
+        >
+          <ListItemIcon>
+            <TuneIcon />
+          </ListItemIcon>
+          <ListItemText primary="Set Pulse Oximetry Range" />
         </ListItem>
       </List>
     </div>

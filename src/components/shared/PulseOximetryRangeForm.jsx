@@ -2,11 +2,11 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Grid, TextField, MenuItem, Typography } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
-import FormInput from "../shared/FormInput";
-import FormButton from "../shared/FormButton";
-import { VALIDATION_REQUIRED } from "../../utils/constants";
+import FormInput from "./FormInput";
+import FormButton from "./FormButton";
+import IndividualAvatar from "../Individual/IndividualAvatar";
 
-const NotificationForm = ({ formHeader, onSubmit }) => {
+const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
   const history = useHistory();
   const { register, errors, control, handleSubmit } = useForm();
 
@@ -26,16 +26,23 @@ const NotificationForm = ({ formHeader, onSubmit }) => {
                 label="Select Individual"
                 fullWidth
               >
-                <MenuItem value="1">1</MenuItem>
-                <MenuItem value="2">2</MenuItem>
-                <MenuItem value="3">3</MenuItem>
-                <MenuItem value="4">1</MenuItem>
-                <MenuItem value="5">2</MenuItem>
-                <MenuItem value="6">3</MenuItem>
+                {individuals.map((individual) => (
+                  <MenuItem value={individual.id}>
+                    <Grid container justify="space-evenly" alignItems="center">
+                      <IndividualAvatar
+                        individualID={individual.id}
+                        individualName={individual.firstName}
+                      />
+                      <Typography>
+                        {individual.firstName + " " + individual.lastName}
+                      </Typography>
+                    </Grid>
+                  </MenuItem>
+                ))}
               </TextField>
             }
-            name="gender"
-            defaultValue={1}
+            name="individualID"
+            // defaultValue={1}
             rules={{ required: true }}
             control={control}
           />
@@ -43,7 +50,7 @@ const NotificationForm = ({ formHeader, onSubmit }) => {
 
         <Grid item>
           <FormInput
-            name="minSpo2"
+            name="minSpO2"
             label="Minimum SpO2"
             inputRef={register({
               min: 75,
@@ -94,4 +101,4 @@ const NotificationForm = ({ formHeader, onSubmit }) => {
   );
 };
 
-export default NotificationForm;
+export default PulseOximetryRangeForm;

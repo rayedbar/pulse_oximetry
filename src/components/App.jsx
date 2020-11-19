@@ -11,7 +11,8 @@ import AddIndividual from "./Individual/AddIndividual";
 import EditIndividual from "./Individual/EditIndividual";
 import AddOximeter from "./PulseOximetry/AddPulseOximetry";
 import { URL } from "../utils/constants";
-import NotificationSettings from "./shared/NotificationSettings";
+import AlertRecipient from "./shared/AlertRecipient";
+import SetPulseOximetryRange from "./shared/SetPulseOximetryRange";
 
 const useStyles = makeStyles({
   root: {
@@ -66,8 +67,11 @@ const App = () => {
           <Route exact path={`${URL.PULSE_OXIMETRY}/:individualID`}>
             <AddOximeter />
           </Route>
-          <Route exact path={URL.NOTIFICATION_SETTINGS}>
-            <NotificationSettings />
+          <Route exact path={URL.ALERT_RECIPIENT_SETTINGS}>
+            <AlertRecipient />
+          </Route>
+          <Route exact path={URL.PULSE_OXIMETRY_RANGE_SETTINGS}>
+            <SetPulseOximetryRange />
           </Route>
         </Switch>
       </Grid>
