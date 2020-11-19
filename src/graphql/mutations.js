@@ -28,7 +28,7 @@ export const createIndividual = /* GraphQL */ `
         items {
           id
           individualID
-          minSpo2
+          minSpO2
           minHeartRate
           maxHeartRate
           createdAt
@@ -70,7 +70,7 @@ export const updateIndividual = /* GraphQL */ `
         items {
           id
           individualID
-          minSpo2
+          minSpO2
           minHeartRate
           maxHeartRate
           createdAt
@@ -112,7 +112,7 @@ export const deleteIndividual = /* GraphQL */ `
         items {
           id
           individualID
-          minSpo2
+          minSpO2
           minHeartRate
           maxHeartRate
           createdAt
@@ -138,6 +138,16 @@ export const createOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
+      pulseOximetryRange {
+        id
+        individualID
+        minSpO2
+        minHeartRate
+        maxHeartRate
+        createdAt
+        updatedAt
+        owner
+      }
       updatedAt
       owner
     }
@@ -154,6 +164,16 @@ export const updateOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
+      pulseOximetryRange {
+        id
+        individualID
+        minSpO2
+        minHeartRate
+        maxHeartRate
+        createdAt
+        updatedAt
+        owner
+      }
       updatedAt
       owner
     }
@@ -170,6 +190,16 @@ export const deleteOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
+      pulseOximetryRange {
+        id
+        individualID
+        minSpO2
+        minHeartRate
+        maxHeartRate
+        createdAt
+        updatedAt
+        owner
+      }
       updatedAt
       owner
     }
@@ -183,7 +213,7 @@ export const createPulseOximetryRange = /* GraphQL */ `
     createPulseOximetryRange(input: $input, condition: $condition) {
       id
       individualID
-      minSpo2
+      minSpO2
       minHeartRate
       maxHeartRate
       createdAt
@@ -200,7 +230,7 @@ export const updatePulseOximetryRange = /* GraphQL */ `
     updatePulseOximetryRange(input: $input, condition: $condition) {
       id
       individualID
-      minSpo2
+      minSpO2
       minHeartRate
       maxHeartRate
       createdAt
@@ -217,9 +247,57 @@ export const deletePulseOximetryRange = /* GraphQL */ `
     deletePulseOximetryRange(input: $input, condition: $condition) {
       id
       individualID
-      minSpo2
+      minSpO2
       minHeartRate
       maxHeartRate
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createNotify = /* GraphQL */ `
+  mutation CreateNotify(
+    $input: CreateNotifyInput!
+    $condition: ModelnotifyConditionInput
+  ) {
+    createNotify(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateNotify = /* GraphQL */ `
+  mutation UpdateNotify(
+    $input: UpdateNotifyInput!
+    $condition: ModelnotifyConditionInput
+  ) {
+    updateNotify(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteNotify = /* GraphQL */ `
+  mutation DeleteNotify(
+    $input: DeleteNotifyInput!
+    $condition: ModelnotifyConditionInput
+  ) {
+    deleteNotify(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      email
       createdAt
       updatedAt
       owner

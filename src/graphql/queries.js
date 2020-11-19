@@ -21,6 +21,19 @@ export const getIndividual = /* GraphQL */ `
         }
         nextToken
       }
+      pulseOximetryRange {
+        items {
+          id
+          individualID
+          minSpO2
+          minHeartRate
+          maxHeartRate
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -43,6 +56,9 @@ export const listIndividuals = /* GraphQL */ `
         oximeter {
           nextToken
         }
+        pulseOximetryRange {
+          nextToken
+        }
         createdAt
         updatedAt
         owner
@@ -59,6 +75,16 @@ export const getOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
+      pulseOximetryRange {
+        id
+        individualID
+        minSpO2
+        minHeartRate
+        maxHeartRate
+        createdAt
+        updatedAt
+        owner
+      }
       updatedAt
       owner
     }
@@ -76,6 +102,88 @@ export const listOximeters = /* GraphQL */ `
         individualID
         spo2
         heartRate
+        createdAt
+        pulseOximetryRange {
+          id
+          individualID
+          minSpO2
+          minHeartRate
+          maxHeartRate
+          createdAt
+          updatedAt
+          owner
+        }
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getPulseOximetryRange = /* GraphQL */ `
+  query GetPulseOximetryRange($id: ID!) {
+    getPulseOximetryRange(id: $id) {
+      id
+      individualID
+      minSpO2
+      minHeartRate
+      maxHeartRate
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listPulseOximetryRanges = /* GraphQL */ `
+  query ListPulseOximetryRanges(
+    $filter: ModelPulseOximetryRangeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPulseOximetryRanges(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        individualID
+        minSpO2
+        minHeartRate
+        maxHeartRate
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getNotify = /* GraphQL */ `
+  query GetNotify($id: ID!) {
+    getNotify(id: $id) {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listNotifys = /* GraphQL */ `
+  query ListNotifys(
+    $filter: ModelnotifyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listNotifys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        firstName
+        lastName
+        email
         createdAt
         updatedAt
         owner
