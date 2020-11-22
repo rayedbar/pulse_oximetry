@@ -10,7 +10,7 @@ export const URL = {
   ALERT_RECIPIENT_SETTINGS: "/alerts/recipients",
   PULSE_OXIMETRY_RANGE_SETTINGS: "/alerts/pulseOximetryRange",
 };
-export const PULSE_OXIMETRY_DEFAULT_WARNING_THRESHOLD = {
+export const PULSE_OXIMETRY_ALERT_DEFAULT_RANGE = {
   MIN_SPO2: 95,
   MIN_HEART_RATE: 60,
   MAX_HEART_RATE: 100,

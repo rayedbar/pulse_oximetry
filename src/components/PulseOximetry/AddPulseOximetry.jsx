@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 
 import { API, graphqlOperation } from "aws-amplify";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import FormTemplate from "../shared/FormTemplate";
 import PulseOximetryForm from "./PulseOximetryForm";
 import { createOximeter as createPulseOximetryMutation } from "../../graphql/mutations";
 
 const AddPulseOximetry = () => {
   const history = useHistory();
+  const location = useLocation();
   const { individualID } = useParams();
   const [pulseOximetry, setPulseOximetry] = useState(null);
 
@@ -19,12 +20,15 @@ const AddPulseOximetry = () => {
             individualID: individualID,
             heartRate: parseInt(pulseOximetry.heartRate, 10),
             spo2: parseInt(pulseOximetry.spo2, 10),
+            minSpO2: location.state.minSpO2,
+            minHeartRate: location.state.minHeartRate,
+            maxHeartRate: location.state.maxHeartRate,
           },
         })
       );
       history.goBack();
-    } catch {
-      console.log("Error adding oximeter reading");
+    } catch (error) {
+      console.log("Error adding oximeter reading", error);
     }
   };
 

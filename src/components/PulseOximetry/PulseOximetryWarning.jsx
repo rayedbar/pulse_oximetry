@@ -1,18 +1,18 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { PULSE_OXIMETRY_DEFAULT_WARNING_THRESHOLD as defaultWarningThreshold } from "../../utils/constants";
+import { PULSE_OXIMETRY_ALERT_DEFAULT_RANGE as defaultAlertRange } from "../../utils/constants";
 
 const PulseOximetryWarning = ({ latestPulseOximetry, pulseOximetryRange }) => {
   const minSpo2Threshold = pulseOximetryRange
-    ? pulseOximetryRange.minSpo2
-    : defaultWarningThreshold.MIN_SPO2;
+    ? pulseOximetryRange.minSpO2
+    : defaultAlertRange.MIN_SPO2;
   const minHeartRateThreshold = pulseOximetryRange
     ? pulseOximetryRange.minHeartRate
-    : defaultWarningThreshold.MIN_HEART_RATE;
+    : defaultAlertRange.MIN_HEART_RATE;
   const maxHeartRateThreshold = pulseOximetryRange
     ? pulseOximetryRange.maxHeartRate
-    : defaultWarningThreshold.MAX_HEART_RATE;
+    : defaultAlertRange.MAX_HEART_RATE;
 
   return latestPulseOximetry ? (
     <Grid item container direction="column" spacing={2}>

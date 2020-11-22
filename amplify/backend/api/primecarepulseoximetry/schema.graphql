@@ -18,7 +18,9 @@ type Oximeter
   spo2: Int!
   heartRate: Int!
   createdAt: AWSDateTime
-  pulseOximetryRange: PulseOximetryRange
+  minSpO2: Int
+  minHeartRate: Int
+  maxHeartRate: Int
 }
 
 type PulseOximetryRange
@@ -33,9 +35,9 @@ type PulseOximetryRange
   createdAt: AWSDateTime
 }
 
-type notify @model @auth(rules: [{ allow: owner }]) {
+type Notify @model @auth(rules: [{ allow: owner }]) {
   id: ID!
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
   email: AWSEmail!
 }

@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Plotly from "plotly.js-basic-dist";
 import createPlotlyComponent from "react-plotly.js/factory";
 import { format } from "date-fns";
+import { PULSE_OXIMETRY_ALERT_DEFAULT_RANGE as defaultAlertRange } from "../../utils/constants";
 
 const useStyles = makeStyles({
   plot: {
@@ -11,9 +12,19 @@ const useStyles = makeStyles({
   },
 });
 
-const PulseOximetryPlot = ({ pulseOximetryData }) => {
+const PulseOximetryPlot = ({ pulseOximetryData, pulseOximetryRange }) => {
   const classes = useStyles();
   const Plot = createPlotlyComponent(Plotly);
+
+  const minSpo2Threshold = pulseOximetryRange
+    ? pulseOximetryRange.minSpO2
+    : defaultAlertRange.MIN_SPO2;
+  const minHeartRateThreshold = pulseOximetryRange
+    ? pulseOximetryRange.minHeartRate
+    : defaultAlertRange.MIN_HEART_RATE;
+  const maxHeartRateThreshold = pulseOximetryRange
+    ? pulseOximetryRange.maxHeartRate
+    : defaultAlertRange.MAX_HEART_RATE;
 
   const formattedDateTime = pulseOximetryData.map((data) =>
     format(new Date(data.createdAt), "yyyy-MM-dd HH:mm:ss")
@@ -28,8 +39,12 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       name: "SpO2",
       marker: {
         color: "red",
-        symbol: pulseOximetryData.map((data) => (data.spo2 > 94 ? "o" : "x")),
-        size: pulseOximetryData.map((data) => (data.spo2 > 94 ? 8 : 12)),
+        symbol: pulseOximetryData.map((data) =>
+          data.spo2 >= minSpo2Threshold ? "o" : "x"
+        ),
+        size: pulseOximetryData.map((data) =>
+          data.spo2 >= minSpo2Threshold ? 8 : 12
+        ),
       },
       xaxis: "x",
     },
@@ -42,10 +57,16 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       marker: {
         color: "#0070cc",
         symbol: pulseOximetryData.map((data) =>
-          data.heartRate <= 100 && data.heartRate >= 60 ? "o" : "x"
+          data.heartRate <= maxHeartRateThreshold &&
+          data.heartRate >= minHeartRateThreshold
+            ? "o"
+            : "x"
         ),
         size: pulseOximetryData.map((data) =>
-          data.heartRate <= 100 && data.heartRate >= 60 ? 8 : 12
+          data.heartRate <= maxHeartRateThreshold &&
+          data.heartRate >= minHeartRateThreshold
+            ? 8
+            : 12
         ),
       },
       xaxis: "x",

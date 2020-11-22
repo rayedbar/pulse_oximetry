@@ -32,8 +32,8 @@ const useIndividualDetail = () => {
         setLatestPulseOximetry(
           individualData.data.getIndividual.oximeter.items[0]
         );
-      } catch {
-        console.log("Error Fetching Individual details");
+      } catch (error) {
+        console.log("Error Fetching Individual details", error);
       }
     };
     fetchIndividualDetail();
@@ -63,6 +63,7 @@ const IndividualDetail = () => {
         <PulseOximetryHistory
           individualID={individualDetail.id}
           pulseOximetryData={individualDetail.oximeter.items}
+          pulseOximetryRange={individualDetail.pulseOximetryRange.items[0]}
         />
       </Grid>
     </Grid>

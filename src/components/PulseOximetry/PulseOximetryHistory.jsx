@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PulseOximetryHistory = ({ individualID, pulseOximetryData }) => {
+const PulseOximetryHistory = ({
+  individualID,
+  pulseOximetryData,
+  pulseOximetryRange,
+}) => {
   const classes = useStyles();
   const history = useHistory();
   const hasPulseOximetryData = () => pulseOximetryData.length > 0;
@@ -45,7 +49,10 @@ const PulseOximetryHistory = ({ individualID, pulseOximetryData }) => {
           Pulse Oximetry"
             variant="contained"
             onClick={() =>
-              history.push(URL.PULSE_OXIMETRY + "/" + individualID)
+              history.push(
+                URL.PULSE_OXIMETRY + "/" + individualID,
+                pulseOximetryRange
+              )
             }
             color="inherit"
           >
@@ -55,7 +62,10 @@ const PulseOximetryHistory = ({ individualID, pulseOximetryData }) => {
       </Grid>
       {hasPulseOximetryData() ? (
         <Grid item xs={11}>
-          <PulseOximetryPlot pulseOximetryData={pulseOximetryData} />
+          <PulseOximetryPlot
+            pulseOximetryData={pulseOximetryData}
+            pulseOximetryRange={pulseOximetryRange}
+          />
         </Grid>
       ) : null}
       <Grid item xs={12}>

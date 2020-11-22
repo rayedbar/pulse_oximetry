@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 
 import { listNotifys } from "../../graphql/queries";
-// import FormTemplate from "./FormTemplate";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import {
   Card,
@@ -12,6 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import AlertRecipientForm from "./AlertRecipientForm";
+import { createNotify } from "../../graphql/mutations";
 
 const AlertRecipient = () => {
   const [recipients, setRecipients] = useState([]);
@@ -28,6 +28,22 @@ const AlertRecipient = () => {
     };
     fetchNotifys();
   }, []);
+
+  const onSubmit = async (formData) => {
+    try {
+      const recepientData = await API.graphql(
+        graphqlOperation(createNotify, {
+          input: {
+            ...formData,
+          },
+        })
+      );
+      setShowFormDialog(false);
+      setRecipients(recipients.slice().concat(recepientData.data.createNotify));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const RecipientCard = (recipient) => (
     <Card>
@@ -59,13 +75,14 @@ const AlertRecipient = () => {
       </Grid>
       <Grid item container spacing={2}>
         {recipients.map((data) => (
-          <Grid item id={data.id} xs={12}>
+          <Grid item key={data.id} xs={12}>
             {RecipientCard(data)}
           </Grid>
         ))}
       </Grid>
       <AlertRecipientForm
         formDialogState={[showFormDialog, setShowFormDialog]}
+        onSubmit={onSubmit}
       />
     </Grid>
   );

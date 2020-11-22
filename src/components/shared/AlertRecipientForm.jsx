@@ -1,7 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { API, graphqlOperation } from "aws-amplify";
 import {
   Button,
   Dialog,
@@ -11,29 +9,12 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 import FormInput from "./FormInput";
-import { createNotify } from "../../graphql/mutations";
 
 const AlertRecipientForm = ({
   formDialogState: [showFormDialog, setShowFormDialog],
+  onSubmit,
 }) => {
-  const history = useHistory();
   const { register, errors, handleSubmit } = useForm();
-
-  const onSubmit = async (formData) => {
-    try {
-      await API.graphql(
-        graphqlOperation(createNotify, {
-          input: {
-            ...formData,
-          },
-        })
-      );
-      setShowFormDialog(false);
-      history.pushState(URL.ALERT_RECIPIENT_SETTINGS);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div>

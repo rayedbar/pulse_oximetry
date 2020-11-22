@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { API, graphqlOperation } from "aws-amplify";
 
-import { listIndividualsWithLatestPulseOximetry } from "../../graphql/custom-queries";
+import { listIndividualsWithPulseOximetryRange } from "../../graphql/custom-queries";
 import { createPulseOximetryRange } from "../../graphql/mutations";
 import FormTemplate from "./FormTemplate";
 import PulseOximetryRangeForm from "./PulseOximetryRangeForm";
@@ -16,7 +16,7 @@ const SetPulseOximetryRange = () => {
     const fetchIndiviuals = async () => {
       try {
         const individualData = await API.graphql(
-          graphqlOperation(listIndividualsWithLatestPulseOximetry)
+          graphqlOperation(listIndividualsWithPulseOximetryRange)
         );
         setIndividuals(individualData.data.listIndividuals.items);
       } catch (error) {
