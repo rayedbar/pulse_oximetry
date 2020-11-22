@@ -16,6 +16,9 @@ export const getIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
+          minSpO2
+          minHeartRate
+          maxHeartRate
           updatedAt
           owner
         }
@@ -75,16 +78,9 @@ export const getOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      pulseOximetryRange {
-        id
-        individualID
-        minSpO2
-        minHeartRate
-        maxHeartRate
-        createdAt
-        updatedAt
-        owner
-      }
+      minSpO2
+      minHeartRate
+      maxHeartRate
       updatedAt
       owner
     }
@@ -103,16 +99,9 @@ export const listOximeters = /* GraphQL */ `
         spo2
         heartRate
         createdAt
-        pulseOximetryRange {
-          id
-          individualID
-          minSpO2
-          minHeartRate
-          maxHeartRate
-          createdAt
-          updatedAt
-          owner
-        }
+        minSpO2
+        minHeartRate
+        maxHeartRate
         updatedAt
         owner
       }
@@ -174,7 +163,7 @@ export const getNotify = /* GraphQL */ `
 `;
 export const listNotifys = /* GraphQL */ `
   query ListNotifys(
-    $filter: ModelnotifyFilterInput
+    $filter: ModelNotifyFilterInput
     $limit: Int
     $nextToken: String
   ) {

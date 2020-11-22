@@ -16,6 +16,9 @@ export const onCreateIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
+          minSpO2
+          minHeartRate
+          maxHeartRate
           updatedAt
           owner
         }
@@ -55,6 +58,9 @@ export const onUpdateIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
+          minSpO2
+          minHeartRate
+          maxHeartRate
           updatedAt
           owner
         }
@@ -94,6 +100,9 @@ export const onDeleteIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
+          minSpO2
+          minHeartRate
+          maxHeartRate
           updatedAt
           owner
         }
@@ -126,16 +135,9 @@ export const onCreateOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      pulseOximetryRange {
-        id
-        individualID
-        minSpO2
-        minHeartRate
-        maxHeartRate
-        createdAt
-        updatedAt
-        owner
-      }
+      minSpO2
+      minHeartRate
+      maxHeartRate
       updatedAt
       owner
     }
@@ -149,16 +151,9 @@ export const onUpdateOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      pulseOximetryRange {
-        id
-        individualID
-        minSpO2
-        minHeartRate
-        maxHeartRate
-        createdAt
-        updatedAt
-        owner
-      }
+      minSpO2
+      minHeartRate
+      maxHeartRate
       updatedAt
       owner
     }
@@ -172,16 +167,9 @@ export const onDeleteOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      pulseOximetryRange {
-        id
-        individualID
-        minSpO2
-        minHeartRate
-        maxHeartRate
-        createdAt
-        updatedAt
-        owner
-      }
+      minSpO2
+      minHeartRate
+      maxHeartRate
       updatedAt
       owner
     }

@@ -19,6 +19,9 @@ export const createIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
+          minSpO2
+          minHeartRate
+          maxHeartRate
           updatedAt
           owner
         }
@@ -61,6 +64,9 @@ export const updateIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
+          minSpO2
+          minHeartRate
+          maxHeartRate
           updatedAt
           owner
         }
@@ -103,6 +109,9 @@ export const deleteIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
+          minSpO2
+          minHeartRate
+          maxHeartRate
           updatedAt
           owner
         }
@@ -138,16 +147,9 @@ export const createOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      pulseOximetryRange {
-        id
-        individualID
-        minSpO2
-        minHeartRate
-        maxHeartRate
-        createdAt
-        updatedAt
-        owner
-      }
+      minSpO2
+      minHeartRate
+      maxHeartRate
       updatedAt
       owner
     }
@@ -164,16 +166,9 @@ export const updateOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      pulseOximetryRange {
-        id
-        individualID
-        minSpO2
-        minHeartRate
-        maxHeartRate
-        createdAt
-        updatedAt
-        owner
-      }
+      minSpO2
+      minHeartRate
+      maxHeartRate
       updatedAt
       owner
     }
@@ -190,16 +185,9 @@ export const deleteOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      pulseOximetryRange {
-        id
-        individualID
-        minSpO2
-        minHeartRate
-        maxHeartRate
-        createdAt
-        updatedAt
-        owner
-      }
+      minSpO2
+      minHeartRate
+      maxHeartRate
       updatedAt
       owner
     }
@@ -259,7 +247,7 @@ export const deletePulseOximetryRange = /* GraphQL */ `
 export const createNotify = /* GraphQL */ `
   mutation CreateNotify(
     $input: CreateNotifyInput!
-    $condition: ModelnotifyConditionInput
+    $condition: ModelNotifyConditionInput
   ) {
     createNotify(input: $input, condition: $condition) {
       id
@@ -275,7 +263,7 @@ export const createNotify = /* GraphQL */ `
 export const updateNotify = /* GraphQL */ `
   mutation UpdateNotify(
     $input: UpdateNotifyInput!
-    $condition: ModelnotifyConditionInput
+    $condition: ModelNotifyConditionInput
   ) {
     updateNotify(input: $input, condition: $condition) {
       id
@@ -291,7 +279,7 @@ export const updateNotify = /* GraphQL */ `
 export const deleteNotify = /* GraphQL */ `
   mutation DeleteNotify(
     $input: DeleteNotifyInput!
-    $condition: ModelnotifyConditionInput
+    $condition: ModelNotifyConditionInput
   ) {
     deleteNotify(input: $input, condition: $condition) {
       id
