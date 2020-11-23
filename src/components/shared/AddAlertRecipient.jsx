@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-
-import { listNotifys } from "../../graphql/queries";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import {
   Card,
@@ -10,10 +8,12 @@ import {
   IconButton,
   Typography,
 } from "@material-ui/core";
+
 import AlertRecipientForm from "./AlertRecipientForm";
 import { createNotify } from "../../graphql/mutations";
+import { listNotifys } from "../../graphql/queries";
 
-const AlertRecipient = () => {
+const AddAlertRecipient = () => {
   const [recipients, setRecipients] = useState([]);
   const [showFormDialog, setShowFormDialog] = useState(false);
 
@@ -88,4 +88,4 @@ const AlertRecipient = () => {
   );
 };
 
-export default AlertRecipient;
+export default AddAlertRecipient;

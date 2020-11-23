@@ -6,8 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
-import { URL } from "../utils/constants";
-import SideBarItems from "./shared/SideBarItems";
+import { URL } from "../../utils/constants";
+import SideBarItems from "./SideBarItems";
 
 const useStyles = makeStyles((theme) => ({
   grow: {

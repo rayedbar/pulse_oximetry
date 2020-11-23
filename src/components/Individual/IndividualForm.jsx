@@ -80,62 +80,6 @@ const IndividualForm = ({
             control={control}
           />
         </Grid>
-        {/* <Grid item>
-          <FormInput
-            name="minSpo2"
-            label="Minimum SpO2"
-            inputRef={register({
-              min: 75,
-              max: 96,
-            })}
-            defaultValue={
-              individualDetail.pulseOximetryRange.items[0]
-                ? individualDetail.pulseOximetryRange.items[0].minSpo2
-                : 95
-            }
-            errors={errors.minSpo2}
-            errorText="Should be between 75 and 96"
-            type="number"
-          />
-        </Grid>
-        <Grid item>
-          <FormInput
-            name="minHeartRate"
-            label="Minimum Heart Rate"
-            inputRef={register({
-              min: 20,
-              max: 60,
-              required: true,
-            })}
-            defaultValue={
-              individualDetail.pulseOximetryRange.items[0]
-                ? individualDetail.pulseOximetryRange.items[0].minHeartRate
-                : 60
-            }
-            errors={errors.minHeartRate}
-            errorText={"Should be between 20 and 60"}
-            type="number"
-          />
-        </Grid>
-        <Grid item>
-          <FormInput
-            name="maxHeartRate"
-            label="Maximum Heart Rate"
-            inputRef={register({
-              min: 100,
-              max: 200,
-              required: true,
-            })}
-            defaultValue={
-              individualDetail.pulseOximetryRange.items[0]
-                ? individualDetail.pulseOximetryRange.items[0].maxHeartRate
-                : 100
-            }
-            errors={errors.maxHeartRate}
-            errorText={"Should be between 100 and 200"}
-            type="number"
-          />
-        </Grid> */}
         <Grid item>
           <ImagePicker individualID={individualID} />
         </Grid>

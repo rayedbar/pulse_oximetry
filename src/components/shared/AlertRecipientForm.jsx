@@ -47,7 +47,7 @@ const AlertRecipientForm = ({
               inputRef={register({
                 required: true,
               })}
-              errors={errors.firstName}
+              errors={errors.lastName}
               errorText={"Required"}
             />
             <FormInput
@@ -55,9 +55,9 @@ const AlertRecipientForm = ({
               label="Email"
               type="email"
               inputRef={register({
-                required: true,
+                required: "Required",
               })}
-              errors={errors.firstName}
+              errors={errors.email}
               errorText={"Required"}
             />
           </DialogContent>

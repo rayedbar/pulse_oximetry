@@ -8,7 +8,7 @@ import FormTemplate from "./FormTemplate";
 import PulseOximetryRangeForm from "./PulseOximetryRangeForm";
 import { URL } from "../../utils/constants";
 
-const SetPulseOximetryRange = () => {
+const AddPulseOximetryRange = () => {
   const history = useHistory();
   const [individuals, setIndividuals] = useState([]);
 
@@ -57,4 +57,4 @@ const SetPulseOximetryRange = () => {
   );
 };
 
-export default SetPulseOximetryRange;
+export default AddPulseOximetryRange;
