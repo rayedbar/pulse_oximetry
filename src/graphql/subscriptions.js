@@ -16,9 +16,7 @@ export const onCreateIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
-          minSpO2
-          minHeartRate
-          maxHeartRate
+          pulseOximetryRange
           updatedAt
           owner
         }
@@ -58,9 +56,7 @@ export const onUpdateIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
-          minSpO2
-          minHeartRate
-          maxHeartRate
+          pulseOximetryRange
           updatedAt
           owner
         }
@@ -100,9 +96,7 @@ export const onDeleteIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
-          minSpO2
-          minHeartRate
-          maxHeartRate
+          pulseOximetryRange
           updatedAt
           owner
         }
@@ -135,9 +129,7 @@ export const onCreateOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      minSpO2
-      minHeartRate
-      maxHeartRate
+      pulseOximetryRange
       updatedAt
       owner
     }
@@ -151,9 +143,7 @@ export const onUpdateOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      minSpO2
-      minHeartRate
-      maxHeartRate
+      pulseOximetryRange
       updatedAt
       owner
     }
@@ -167,9 +157,7 @@ export const onDeleteOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      minSpO2
-      minHeartRate
-      maxHeartRate
+      pulseOximetryRange
       updatedAt
       owner
     }
@@ -224,9 +212,9 @@ export const onCreateNotify = /* GraphQL */ `
       firstName
       lastName
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -237,9 +225,9 @@ export const onUpdateNotify = /* GraphQL */ `
       firstName
       lastName
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -250,9 +238,9 @@ export const onDeleteNotify = /* GraphQL */ `
       firstName
       lastName
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;

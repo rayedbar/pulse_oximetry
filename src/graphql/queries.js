@@ -16,9 +16,7 @@ export const getIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
-          minSpO2
-          minHeartRate
-          maxHeartRate
+          pulseOximetryRange
           updatedAt
           owner
         }
@@ -78,9 +76,7 @@ export const getOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      minSpO2
-      minHeartRate
-      maxHeartRate
+      pulseOximetryRange
       updatedAt
       owner
     }
@@ -99,9 +95,7 @@ export const listOximeters = /* GraphQL */ `
         spo2
         heartRate
         createdAt
-        minSpO2
-        minHeartRate
-        maxHeartRate
+        pulseOximetryRange
         updatedAt
         owner
       }
@@ -155,9 +149,9 @@ export const getNotify = /* GraphQL */ `
       firstName
       lastName
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -173,9 +167,9 @@ export const listNotifys = /* GraphQL */ `
         firstName
         lastName
         email
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }

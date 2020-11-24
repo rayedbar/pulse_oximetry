@@ -19,9 +19,7 @@ export const createIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
-          minSpO2
-          minHeartRate
-          maxHeartRate
+          pulseOximetryRange
           updatedAt
           owner
         }
@@ -64,9 +62,7 @@ export const updateIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
-          minSpO2
-          minHeartRate
-          maxHeartRate
+          pulseOximetryRange
           updatedAt
           owner
         }
@@ -109,9 +105,7 @@ export const deleteIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
-          minSpO2
-          minHeartRate
-          maxHeartRate
+          pulseOximetryRange
           updatedAt
           owner
         }
@@ -147,9 +141,7 @@ export const createOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      minSpO2
-      minHeartRate
-      maxHeartRate
+      pulseOximetryRange
       updatedAt
       owner
     }
@@ -166,9 +158,7 @@ export const updateOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      minSpO2
-      minHeartRate
-      maxHeartRate
+      pulseOximetryRange
       updatedAt
       owner
     }
@@ -185,9 +175,7 @@ export const deleteOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
-      minSpO2
-      minHeartRate
-      maxHeartRate
+      pulseOximetryRange
       updatedAt
       owner
     }
@@ -254,9 +242,9 @@ export const createNotify = /* GraphQL */ `
       firstName
       lastName
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -270,9 +258,9 @@ export const updateNotify = /* GraphQL */ `
       firstName
       lastName
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -286,9 +274,9 @@ export const deleteNotify = /* GraphQL */ `
       firstName
       lastName
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
