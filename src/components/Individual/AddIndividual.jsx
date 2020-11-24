@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { API, graphqlOperation } from "aws-amplify";
 import { createIndividual as AddIndividualMutation } from "../../graphql/mutations";
 import { URL } from "../../utils/constants";
-import FormTemplate from "../shared/FormTemplate";
+import FormTemplate from "../Shared/FormTemplate";
 
 const useStyles = makeStyles(() => ({
   root: {

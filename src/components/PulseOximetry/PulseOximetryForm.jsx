@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Grid, Typography } from "@material-ui/core";
 
-import FormInput from "../shared/FormInput";
-import FormButton from "../shared/FormButton";
-import ConfirmationDialog from "../shared/ConfirmationDialog";
+import FormInput from "../Shared/FormInput";
+import FormButton from "../Shared/FormButton";
+import ConfirmationDialog from "../Shared/ConfirmationDialog";
 import {
   SPO2_VALIDATION_ERROR,
   HEART_RATE_VALIDATION_ERROR,

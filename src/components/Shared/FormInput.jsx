@@ -10,6 +10,7 @@ const FormInput = ({
   value,
   type,
   defaultValue,
+  disabled,
 }) => {
   return (
     <TextField
@@ -22,6 +23,7 @@ const FormInput = ({
       inputRef={inputRef}
       error={errors ? true : false}
       helperText={errors && errorText}
+      disabled={disabled}
       fullWidth
     />
   );

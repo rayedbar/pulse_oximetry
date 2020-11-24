@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PulseOximetryPlot = ({ pulseOximetryData }) => {
+const PulseOximetryPlot = ({ pulseOximetryData, pulseOximetryRange }) => {
   const classes = useStyles();
   const Plot = createPlotlyComponent(Plotly);
 
@@ -28,8 +28,12 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       name: "SpO2",
       marker: {
         color: "red",
-        symbol: pulseOximetryData.map((data) => (data.spo2 > 94 ? "o" : "x")),
-        size: pulseOximetryData.map((data) => (data.spo2 > 94 ? 8 : 12)),
+        symbol: pulseOximetryData.map((data) =>
+          data.spo2 >= pulseOximetryRange.minSpO2 ? "o" : "x"
+        ),
+        size: pulseOximetryData.map((data) =>
+          data.spo2 >= pulseOximetryRange.minSpO2 ? 8 : 12
+        ),
       },
       xaxis: "x",
     },
@@ -42,10 +46,16 @@ const PulseOximetryPlot = ({ pulseOximetryData }) => {
       marker: {
         color: "#0070cc",
         symbol: pulseOximetryData.map((data) =>
-          data.heartRate <= 100 && data.heartRate >= 60 ? "o" : "x"
+          data.heartRate <= pulseOximetryRange.maxHeartRate &&
+          data.heartRate >= pulseOximetryRange.minHeartRate
+            ? "o"
+            : "x"
         ),
         size: pulseOximetryData.map((data) =>
-          data.heartRate <= 100 && data.heartRate >= 60 ? 8 : 12
+          data.heartRate <= pulseOximetryRange.maxHeartRate &&
+          data.heartRate >= pulseOximetryRange.minHeartRate
+            ? 8
+            : 12
         ),
       },
       xaxis: "x",

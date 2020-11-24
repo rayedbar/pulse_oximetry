@@ -19,6 +19,20 @@ export const createIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
+          pulseOximetryRange
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      pulseOximetryRange {
+        items {
+          id
+          individualID
+          minSpO2
+          minHeartRate
+          maxHeartRate
+          createdAt
           updatedAt
           owner
         }
@@ -47,6 +61,20 @@ export const updateIndividual = /* GraphQL */ `
           individualID
           spo2
           heartRate
+          createdAt
+          pulseOximetryRange
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      pulseOximetryRange {
+        items {
+          id
+          individualID
+          minSpO2
+          minHeartRate
+          maxHeartRate
           createdAt
           updatedAt
           owner
@@ -77,6 +105,20 @@ export const deleteIndividual = /* GraphQL */ `
           spo2
           heartRate
           createdAt
+          pulseOximetryRange
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      pulseOximetryRange {
+        items {
+          id
+          individualID
+          minSpO2
+          minHeartRate
+          maxHeartRate
+          createdAt
           updatedAt
           owner
         }
@@ -99,6 +141,7 @@ export const createOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
+      pulseOximetryRange
       updatedAt
       owner
     }
@@ -115,6 +158,7 @@ export const updateOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
+      pulseOximetryRange
       updatedAt
       owner
     }
@@ -131,8 +175,108 @@ export const deleteOximeter = /* GraphQL */ `
       spo2
       heartRate
       createdAt
+      pulseOximetryRange
       updatedAt
       owner
+    }
+  }
+`;
+export const createPulseOximetryRange = /* GraphQL */ `
+  mutation CreatePulseOximetryRange(
+    $input: CreatePulseOximetryRangeInput!
+    $condition: ModelPulseOximetryRangeConditionInput
+  ) {
+    createPulseOximetryRange(input: $input, condition: $condition) {
+      id
+      individualID
+      minSpO2
+      minHeartRate
+      maxHeartRate
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updatePulseOximetryRange = /* GraphQL */ `
+  mutation UpdatePulseOximetryRange(
+    $input: UpdatePulseOximetryRangeInput!
+    $condition: ModelPulseOximetryRangeConditionInput
+  ) {
+    updatePulseOximetryRange(input: $input, condition: $condition) {
+      id
+      individualID
+      minSpO2
+      minHeartRate
+      maxHeartRate
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deletePulseOximetryRange = /* GraphQL */ `
+  mutation DeletePulseOximetryRange(
+    $input: DeletePulseOximetryRangeInput!
+    $condition: ModelPulseOximetryRangeConditionInput
+  ) {
+    deletePulseOximetryRange(input: $input, condition: $condition) {
+      id
+      individualID
+      minSpO2
+      minHeartRate
+      maxHeartRate
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createNotify = /* GraphQL */ `
+  mutation CreateNotify(
+    $input: CreateNotifyInput!
+    $condition: ModelNotifyConditionInput
+  ) {
+    createNotify(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      email
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateNotify = /* GraphQL */ `
+  mutation UpdateNotify(
+    $input: UpdateNotifyInput!
+    $condition: ModelNotifyConditionInput
+  ) {
+    updateNotify(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      email
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteNotify = /* GraphQL */ `
+  mutation DeleteNotify(
+    $input: DeleteNotifyInput!
+    $condition: ModelNotifyConditionInput
+  ) {
+    deleteNotify(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      email
+      owner
+      createdAt
+      updatedAt
     }
   }
 `;
