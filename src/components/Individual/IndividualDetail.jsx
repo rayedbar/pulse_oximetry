@@ -19,7 +19,6 @@ const useStyles = makeStyles(() => ({
 const useIndividualDetail = () => {
   const { individualID } = useParams();
   const [individualDetail, setIndividualDetail] = useState(null);
-  const [latestPulseOximetry, setLatestPulseOximetry] = useState(null);
 
   useEffect(() => {
     const fetchIndividualDetail = async () => {
@@ -30,9 +29,6 @@ const useIndividualDetail = () => {
           })
         );
         setIndividualDetail(individualData.data.getIndividual);
-        setLatestPulseOximetry(
-          individualData.data.getIndividual.oximeter.items[0]
-        );
       } catch (error) {
         console.log("Error Fetching Individual details", error);
       }
@@ -40,52 +36,51 @@ const useIndividualDetail = () => {
     fetchIndividualDetail();
   }, [individualID]);
 
-  return { individualDetail, latestPulseOximetry };
+  return individualDetail;
 };
 
 const IndividualDetail = () => {
   const classes = useStyles();
-
-  const { individualDetail, latestPulseOximetry } = useIndividualDetail();
-
-  const getPulseOximetryRange = () => {
-    if (individualDetail) {
-      if (individualDetail.pulseOximetryRange.items[0]) {
-        return individualDetail.pulseOximetryRange.items[0];
-      } else {
-        return {
-          id: "default",
-          minSpO2: PULSE_OXIMETRY_DEFAULT_RANGE.MIN_SPO2,
-          minHeartRate: PULSE_OXIMETRY_DEFAULT_RANGE.MIN_HEART_RATE,
-          maxHeartRate: PULSE_OXIMETRY_DEFAULT_RANGE.MAX_HEART_RATE,
-        };
-      }
-    }
-  };
+  const individualDetail = useIndividualDetail();
 
   return individualDetail ? (
     <Grid container direction="column" spacing={3} className={classes.root}>
       <PulseOximetryWarning
-        latestPulseOximetry={latestPulseOximetry}
-        pulseOximetryRange={getPulseOximetryRange()}
+        latestPulseOximetry={individualDetail.oximeter.items[0]}
+        pulseOximetryRange={getPulseOximetryRange(individualDetail)}
       />
       <Grid item>
         <IndividualDetailCard
           individualDetail={individualDetail}
-          latestPulseOximetry={latestPulseOximetry}
+          latestPulseOximetry={individualDetail.oximeter.items[0]}
         />
       </Grid>
       <Grid item>
         <PulseOximetryHistory
           individualID={individualDetail.id}
           pulseOximetryData={individualDetail.oximeter.items}
-          pulseOximetryRange={getPulseOximetryRange()}
+          pulseOximetryRange={getPulseOximetryRange(individualDetail)}
         />
       </Grid>
     </Grid>
   ) : (
     <LinearProgress />
   );
+};
+
+const getPulseOximetryRange = (individualDetail) => {
+  if (individualDetail) {
+    if (individualDetail.pulseOximetryRange.items[0]) {
+      return individualDetail.pulseOximetryRange.items[0];
+    } else {
+      return {
+        id: "default",
+        minSpO2: PULSE_OXIMETRY_DEFAULT_RANGE.MIN_SPO2,
+        minHeartRate: PULSE_OXIMETRY_DEFAULT_RANGE.MIN_HEART_RATE,
+        maxHeartRate: PULSE_OXIMETRY_DEFAULT_RANGE.MAX_HEART_RATE,
+      };
+    }
+  }
 };
 
 export default IndividualDetail;
