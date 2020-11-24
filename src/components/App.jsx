@@ -12,7 +12,7 @@ import EditIndividual from "./Individual/EditIndividual";
 import AddOximeter from "./PulseOximetry/AddPulseOximetry";
 import { URL } from "../utils/constants";
 import AddAlertRecipient from "./shared/AddAlertRecipient";
-import AddPulseOximetryRange from "./shared/AddPulseOximetryRange";
+import PulseOximetryRange from "./PulseOximetry/PulseOximetryRange";
 
 const useStyles = makeStyles({
   root: {
@@ -65,7 +65,7 @@ const App = () => {
             <IndividualDetail />
           </Route>
           <Route exact path={URL.PULSE_OXIMETRY_RANGE}>
-            <AddPulseOximetryRange />
+            <PulseOximetryRange />
           </Route>
           <Route exact path={`${URL.PULSE_OXIMETRY}/:individualID`}>
             <AddOximeter />

@@ -3,10 +3,10 @@ import { useHistory } from "react-router-dom";
 import { Grid, TextField, MenuItem, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 
-import FormInput from "./FormInput";
-import FormButton from "./FormButton";
+import FormInput from "../shared/FormInput";
+import FormButton from "../shared/FormButton";
 import IndividualAvatar from "../Individual/IndividualAvatar";
-import { PULSE_OXIMETRY_DEFAULT_RANGE } from "../../utils/constants";
+import { PULSE_OXIMETRY_DEFAULT_RANGE, URL } from "../../utils/constants";
 
 const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
   const history = useHistory();
@@ -128,7 +128,7 @@ const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
         </Grid>
 
         <Grid item container justify="space-between">
-          <FormButton label="Cancel" onClick={() => history.goBack()} />
+          <FormButton label="Cancel" onClick={() => history.push(URL.HOME)} />
           <FormButton label="Save" type="submit" />
         </Grid>
       </form>

@@ -4,11 +4,11 @@ import { API, graphqlOperation } from "aws-amplify";
 
 import { listIndividualsWithPulseOximetryRange } from "../../graphql/custom-queries";
 import { createPulseOximetryRange } from "../../graphql/mutations";
-import FormTemplate from "./FormTemplate";
+import FormTemplate from "../shared/FormTemplate";
 import PulseOximetryRangeForm from "./PulseOximetryRangeForm";
 import { URL } from "../../utils/constants";
 
-const AddPulseOximetryRange = () => {
+const PulseOximetryRange = () => {
   const history = useHistory();
   const [individuals, setIndividuals] = useState([]);
 
@@ -57,4 +57,4 @@ const AddPulseOximetryRange = () => {
   );
 };
 
-export default AddPulseOximetryRange;
+export default PulseOximetryRange;
