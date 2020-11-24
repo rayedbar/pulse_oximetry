@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { API, graphqlOperation } from "aws-amplify";
 import { createIndividual as AddIndividualMutation } from "../../graphql/mutations";
 import { URL } from "../../utils/constants";
-import FormTemplate from "../shared/FormTemplate";
+import FormTemplate from "../Shared/FormTemplate";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,28 +23,25 @@ const AddIndividual = () => {
   const [showProgressBar, setShowProgressBar] = useState(false);
   const [individualID] = useState(uuidv4());
 
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData) => {
     setShowProgressBar(true);
 
     const { dob, ...rest } = formData;
-    const addIndividual = async () => {
-      try {
-        await API.graphql(
-          graphqlOperation(AddIndividualMutation, {
-            input: {
-              ...rest,
-              dob: formatDate(dob, "yyyy-MM-dd"),
-              id: individualID,
-            },
-          })
-        );
-        history.push(URL.HOME);
-      } catch {
-        console.log("Error creating individual");
-      }
-    };
 
-    addIndividual();
+    try {
+      await API.graphql(
+        graphqlOperation(AddIndividualMutation, {
+          input: {
+            ...rest,
+            dob: formatDate(dob, "yyyy-MM-dd"),
+            id: individualID,
+          },
+        })
+      );
+      history.push(URL.HOME);
+    } catch {
+      console.log("Error creating individual");
+    }
   };
 
   return (

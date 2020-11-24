@@ -1,56 +1,32 @@
 import React, { useState } from "react";
-import { API, graphqlOperation } from "aws-amplify";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Grid, Typography } from "@material-ui/core";
 
-import { createOximeter as createPulseOximetryMutation } from "../../graphql/mutations";
-import FormInput from "../shared/FormInput";
-import FormButton from "../shared/FormButton";
+import FormInput from "../Shared/FormInput";
+import FormButton from "../Shared/FormButton";
+import ConfirmationDialog from "../Shared/ConfirmationDialog";
 import {
   SPO2_VALIDATION_ERROR,
   HEART_RATE_VALIDATION_ERROR,
 } from "../../utils/constants";
-import ConfirmationDialog from "../shared/ConfirmationDialog";
 
-const PulseOximetryForm = () => {
+const PulseOximetryForm = ({
+  pulseOximetryState: [pulseOximetry, setPulseOximetry],
+  savePulseOximetry,
+}) => {
   const history = useHistory();
-  const { individualID } = useParams();
   const { register, errors, handleSubmit } = useForm();
-
-  const [pulseOximetryData, setPulseOximetryData] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
-
-  const onSubmit = (data) => {
-    setPulseOximetryData(data);
-    setShowDialog(true);
-  };
-
-  const handleDialogConfirm = () => {
-    setShowDialog(false);
-    savePulseOximetry();
-  };
-
-  const savePulseOximetry = async () => {
-    try {
-      await API.graphql(
-        graphqlOperation(createPulseOximetryMutation, {
-          input: {
-            individualID: individualID,
-            heartRate: parseInt(pulseOximetryData.heartRate, 10),
-            spo2: parseInt(pulseOximetryData.spo2, 10),
-          },
-        })
-      );
-      history.goBack();
-    } catch {
-      console.log("Error adding oximeter reading");
-    }
-  };
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          setPulseOximetry(data);
+          setShowDialog(true);
+        })}
+      >
         <Grid item>
           <Typography variant="h4">Pulse Oximetry</Typography>
         </Grid>
@@ -83,21 +59,22 @@ const PulseOximetryForm = () => {
           />
         </Grid>
         <Grid item container justify="space-between">
-          <FormButton label="Back" onClick={() => history.goBack()} />
+          <FormButton label="Cancel" onClick={() => history.goBack()} />
           <FormButton label="Save" type="submit" />
         </Grid>
       </form>
-      {pulseOximetryData ? (
-        <ConfirmationDialog
-          showDialog={showDialog}
-          dialogTitle={`SpO2: ${pulseOximetryData.spo2}, Heart Rate: ${pulseOximetryData.heartRate}?`}
-          dialogContent={
-            "Are you sure that the values are correct? You cannot modify it later."
-          }
-          handleCancel={() => setShowDialog(false)}
-          handleConfirm={handleDialogConfirm}
-        />
-      ) : null}
+      <ConfirmationDialog
+        showDialog={showDialog}
+        dialogTitle={`SpO2: ${pulseOximetry?.spo2}, Heart Rate: ${pulseOximetry?.heartRate}?`}
+        dialogContent={
+          "Are you sure that the values are correct? You cannot modify it later."
+        }
+        handleCancel={() => setShowDialog(false)}
+        handleConfirm={() => {
+          setShowDialog(false);
+          savePulseOximetry();
+        }}
+      />
     </div>
   );
 };

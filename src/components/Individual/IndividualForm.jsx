@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom";
 import { Grid, TextField, MenuItem, Typography } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { useForm, Controller } from "react-hook-form";
-import FormInput from "../shared/FormInput";
-import FormButton from "../shared/FormButton";
-import ImagePicker from "../shared/ImagePicker";
+import FormInput from "../Shared/FormInput";
+import FormButton from "../Shared/FormButton";
+import ImagePicker from "../Shared/ImagePicker";
 import { VALIDATION_REQUIRED } from "../../utils/constants";
 
 const IndividualForm = ({

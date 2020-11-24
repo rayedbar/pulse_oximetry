@@ -23,8 +23,8 @@ const IndividualList = () => {
           graphqlOperation(listIndividualsWithLatestPulseOximetry)
         );
         setIndividuals(individualData.data.listIndividuals.items);
-      } catch {
-        console.log("Error Fetching Data!");
+      } catch (error) {
+        console.log("Error Fetching Data!", error);
       }
     };
     fetchIndiviuals();

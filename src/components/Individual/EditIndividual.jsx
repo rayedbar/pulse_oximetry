@@ -6,9 +6,8 @@ import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { API, Cache, graphqlOperation } from "aws-amplify";
 import { updateIndividual as UpdateIndividualMutation } from "../../graphql/mutations";
-import { URL } from "../../utils/constants";
 import { INDIVIDUAL_PHOTO } from "../../utils/constants";
-import FormTemplate from "../shared/FormTemplate";
+import FormTemplate from "../Shared/FormTemplate";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -39,9 +38,11 @@ const EditIndividual = () => {
           },
         })
       );
-      history.push(URL.HOME);
+
+      history.goBack();
     } catch (error) {
       console.log("Error updating individual ", error);
+      setShowProgressBar(false);
     }
   };
 
