@@ -7,10 +7,10 @@ export const URL = {
   HOME: "/",
   INDIVIDUALS: "/individuals",
   PULSE_OXIMETRY: "/pulseOximetry",
-  ALERT_RECIPIENT_SETTINGS: "/alerts/recipients",
-  PULSE_OXIMETRY_RANGE_SETTINGS: "/alerts/pulseOximetryRange",
+  PULSE_OXIMETRY_RANGE: "/pulseOximetry/range",
+  NOTIFY_RECIPIENTS: "/notify/recipients",
 };
-export const PULSE_OXIMETRY_ALERT_DEFAULT_RANGE = {
+export const PULSE_OXIMETRY_DEFAULT_RANGE = {
   MIN_SPO2: 95,
   MIN_HEART_RATE: 60,
   MAX_HEART_RATE: 100,

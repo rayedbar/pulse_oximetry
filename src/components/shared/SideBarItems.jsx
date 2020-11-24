@@ -50,19 +50,19 @@ const SideBarItems = ({ toggleDrawer }) => {
         <ListItem
           button
           onClick={() => {
-            history.push(URL.ALERT_RECIPIENT_SETTINGS);
+            history.push(URL.NOTIFY_RECIPIENTS);
           }}
         >
           <ListItemIcon>
             <NotificationsIcon />
           </ListItemIcon>
-          <ListItemText primary="Configure Alert Recipients" />
+          <ListItemText primary="Configure Notifications" />
         </ListItem>
 
         <ListItem
           button
           onClick={() => {
-            history.push(URL.PULSE_OXIMETRY_RANGE_SETTINGS);
+            history.push(URL.PULSE_OXIMETRY_RANGE);
           }}
         >
           <ListItemIcon>

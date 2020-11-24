@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import FormInput from "./FormInput";
 import FormButton from "./FormButton";
 import IndividualAvatar from "../Individual/IndividualAvatar";
-import { PULSE_OXIMETRY_ALERT_DEFAULT_RANGE as defaultAlertRange } from "../../utils/constants";
+import { PULSE_OXIMETRY_DEFAULT_RANGE } from "../../utils/constants";
 
 const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
   const history = useHistory();
@@ -19,12 +19,20 @@ const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
   }, [register]);
 
   useEffect(() => {
-    if (selectedIndividual && selectedIndividual.pulseOximetryRange.items[0]) {
-      const formFields = ["minSpO2", "minHeartRate", "maxHeartRate"];
-      for (let field of formFields) {
-        setValue(field, selectedIndividual.pulseOximetryRange.items[0][field]);
+    if (selectedIndividual)
+      if (selectedIndividual.pulseOximetryRange.items[0]) {
+        const formFields = ["minSpO2", "minHeartRate", "maxHeartRate"];
+        for (let field of formFields) {
+          setValue(
+            field,
+            selectedIndividual.pulseOximetryRange.items[0][field]
+          );
+        }
+      } else {
+        setValue("minSpO2", PULSE_OXIMETRY_DEFAULT_RANGE.MIN_SPO2);
+        setValue("minHeartRate", PULSE_OXIMETRY_DEFAULT_RANGE.MIN_HEART_RATE);
+        setValue("maxHeartRate", PULSE_OXIMETRY_DEFAULT_RANGE.MAX_HEART_RATE);
       }
-    }
   }, [selectedIndividual, setValue]);
 
   const handleSelectedIndividualChange = (event) => {
@@ -77,7 +85,7 @@ const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
               max: 96,
               required: true,
             })}
-            defaultValue={defaultAlertRange.MIN_SPO2}
+            defaultValue={PULSE_OXIMETRY_DEFAULT_RANGE.MIN_SPO2}
             errors={errors.minSpO2}
             errorText="Should be between 75 and 96"
             type="number"
@@ -94,7 +102,7 @@ const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
               max: 60,
               required: true,
             })}
-            defaultValue={defaultAlertRange.MIN_HEART_RATE}
+            defaultValue={PULSE_OXIMETRY_DEFAULT_RANGE.MIN_HEART_RATE}
             errors={errors.minHeartRate}
             errorText={"Should be between 20 and 60"}
             type="number"
@@ -111,7 +119,7 @@ const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
               max: 200,
               required: true,
             })}
-            defaultValue={defaultAlertRange.MAX_HEART_RATE}
+            defaultValue={PULSE_OXIMETRY_DEFAULT_RANGE.MAX_HEART_RATE}
             errors={errors.maxHeartRate}
             errorText={"Should be between 90 and 200"}
             type="number"

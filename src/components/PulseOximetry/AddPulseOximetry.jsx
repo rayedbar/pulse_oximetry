@@ -20,9 +20,7 @@ const AddPulseOximetry = () => {
             individualID: individualID,
             heartRate: parseInt(pulseOximetry.heartRate, 10),
             spo2: parseInt(pulseOximetry.spo2, 10),
-            minSpO2: location.state.minSpO2,
-            minHeartRate: location.state.minHeartRate,
-            maxHeartRate: location.state.maxHeartRate,
+            pulseOximetryRange: JSON.stringify(location.state),
           },
         })
       );

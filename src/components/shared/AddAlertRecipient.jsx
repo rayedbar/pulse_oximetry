@@ -8,12 +8,28 @@ import {
   IconButton,
   Typography,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 import AlertRecipientForm from "./AlertRecipientForm";
 import { createNotify } from "../../graphql/mutations";
 import { listNotifys } from "../../graphql/queries";
 
+const useStyles = makeStyles((theme) => ({
+  iconSize: {
+    fontSize: 30,
+  },
+  addRecipientHeader: {
+    backgroundColor: theme.palette.secondary.main,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  addRecipientTitle: {
+    marginLeft: 10,
+  },
+}));
+
 const AddAlertRecipient = () => {
+  const classes = useStyles();
   const [recipients, setRecipients] = useState([]);
   const [showFormDialog, setShowFormDialog] = useState(false);
 
@@ -58,9 +74,15 @@ const AddAlertRecipient = () => {
 
   return (
     <Grid container>
-      <Grid item container justify="space-between" alignItems="center">
-        <Grid item>
-          <Typography variant="h5">Current Recipients</Typography>
+      <Grid
+        item
+        container
+        justify="space-between"
+        alignItems="center"
+        className={classes.addRecipientHeader}
+      >
+        <Grid item className={classes.addRecipientTitle}>
+          <Typography variant="h5">Notification Recipients</Typography>
         </Grid>
         <Grid item>
           <IconButton
@@ -69,7 +91,7 @@ const AddAlertRecipient = () => {
             onClick={() => setShowFormDialog(true)}
             color="inherit"
           >
-            <AddCircleOutlineIcon />
+            <AddCircleOutlineIcon className={classes.iconSize} />
           </IconButton>
         </Grid>
       </Grid>

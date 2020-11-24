@@ -64,14 +64,14 @@ const App = () => {
           <Route path={`${URL.INDIVIDUALS}/:individualID`}>
             <IndividualDetail />
           </Route>
+          <Route exact path={URL.PULSE_OXIMETRY_RANGE}>
+            <AddPulseOximetryRange />
+          </Route>
           <Route exact path={`${URL.PULSE_OXIMETRY}/:individualID`}>
             <AddOximeter />
           </Route>
-          <Route exact path={URL.ALERT_RECIPIENT_SETTINGS}>
+          <Route exact path={URL.NOTIFY_RECIPIENTS}>
             <AddAlertRecipient />
-          </Route>
-          <Route exact path={URL.PULSE_OXIMETRY_RANGE_SETTINGS}>
-            <AddPulseOximetryRange />
           </Route>
         </Switch>
       </Grid>
