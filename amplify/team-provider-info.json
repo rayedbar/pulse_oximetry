@@ -47,23 +47,5 @@
       "StackId": "arn:aws:cloudformation:us-east-1:277057902465:stack/amplify-prime-care-pulse-oximetry-prod-152303/06137f20-1ced-11eb-88aa-0efa5da0ad91",
       "AmplifyAppId": "d1ppi0x538uzmb"
     }
-  },
-  "tanjid": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-prime-care-pulse-oximetry-tanjid-121249-authRole",
-      "UnauthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-tanjid-121249-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::277057902465:role/amplify-prime-care-pulse-oximetry-tanjid-121249-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-prime-care-pulse-oximetry-tanjid-121249-deployment",
-      "UnauthRoleName": "amplify-prime-care-pulse-oximetry-tanjid-121249-unauthRole",
-      "StackName": "amplify-prime-care-pulse-oximetry-tanjid-121249",
-      "StackId": "arn:aws:cloudformation:us-east-1:277057902465:stack/amplify-prime-care-pulse-oximetry-tanjid-121249/ed342d80-2d52-11eb-9e07-125caf34a739",
-      "AmplifyAppId": "d1ppi0x538uzmb"
-    },
-    "categories": {
-      "auth": {
-        "primecarepulseoximetry28e75f4b": {}
-      }
-    }
   }
 }
