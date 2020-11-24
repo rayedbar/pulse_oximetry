@@ -7,7 +7,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { URL } from "../../utils/constants";
-import SideBarItems from "./SideBarItems";
+import DrawerItems from "./DrawerItems";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -65,7 +65,7 @@ const Header = () => {
           <MenuIcon />
         </IconButton>
         <Drawer anchor={"left"} open={drawerOpen} onClose={toggleDrawer(false)}>
-          <SideBarItems toggleDrawer={toggleDrawer} />
+          <DrawerItems toggleDrawer={toggleDrawer} />
         </Drawer>
         <img
           src={process.env.PUBLIC_URL + "/logo.png"}

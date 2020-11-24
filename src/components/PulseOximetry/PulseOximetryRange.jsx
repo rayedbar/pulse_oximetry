@@ -4,7 +4,7 @@ import { API, graphqlOperation } from "aws-amplify";
 
 import { listIndividualsWithPulseOximetryRange } from "../../graphql/custom-queries";
 import { createPulseOximetryRange } from "../../graphql/mutations";
-import FormTemplate from "../shared/FormTemplate";
+import FormTemplate from "../Shared/FormTemplate";
 import PulseOximetryRangeForm from "./PulseOximetryRangeForm";
 import { URL } from "../../utils/constants";
 

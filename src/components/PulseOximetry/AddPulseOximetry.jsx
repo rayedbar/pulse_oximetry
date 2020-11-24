@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import FormTemplate from "../shared/FormTemplate";
+import FormTemplate from "../Shared/FormTemplate";
 import PulseOximetryForm from "./PulseOximetryForm";
 import { createOximeter as createPulseOximetryMutation } from "../../graphql/mutations";
 

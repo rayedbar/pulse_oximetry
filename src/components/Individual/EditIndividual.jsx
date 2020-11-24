@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { API, Cache, graphqlOperation } from "aws-amplify";
 import { updateIndividual as UpdateIndividualMutation } from "../../graphql/mutations";
 import { INDIVIDUAL_PHOTO } from "../../utils/constants";
-import FormTemplate from "../shared/FormTemplate";
+import FormTemplate from "../Shared/FormTemplate";
 
 const useStyles = makeStyles(() => ({
   root: {

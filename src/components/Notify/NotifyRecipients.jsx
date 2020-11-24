@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import AlertRecipientForm from "./AlertRecipientForm";
+import NotifyRecipientsForm from "./NotifyRecipientsForm";
 import { createNotify } from "../../graphql/mutations";
 import { listNotifys } from "../../graphql/queries";
 
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddAlertRecipient = () => {
+const NotifyRecipients = () => {
   const classes = useStyles();
   const [recipients, setRecipients] = useState([]);
   const [showFormDialog, setShowFormDialog] = useState(false);
@@ -102,7 +102,7 @@ const AddAlertRecipient = () => {
           </Grid>
         ))}
       </Grid>
-      <AlertRecipientForm
+      <NotifyRecipientsForm
         formDialogState={[showFormDialog, setShowFormDialog]}
         onSubmit={onSubmit}
       />
@@ -110,4 +110,4 @@ const AddAlertRecipient = () => {
   );
 };
 
-export default AddAlertRecipient;
+export default NotifyRecipients;

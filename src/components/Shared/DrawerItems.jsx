@@ -13,7 +13,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import TuneIcon from "@material-ui/icons/Tune";
 import { URL } from "../../utils/constants";
 
-const SideBarItems = ({ toggleDrawer }) => {
+const DrawerItems = ({ toggleDrawer }) => {
   const history = useHistory();
 
   return (
@@ -75,4 +75,4 @@ const SideBarItems = ({ toggleDrawer }) => {
   );
 };
 
-export default SideBarItems;
+export default DrawerItems;

@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import { Grid, TextField, MenuItem, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 
-import FormInput from "../shared/FormInput";
-import FormButton from "../shared/FormButton";
+import FormInput from "../Shared/FormInput";
+import FormButton from "../Shared/FormButton";
 import IndividualAvatar from "../Individual/IndividualAvatar";
 import { PULSE_OXIMETRY_DEFAULT_RANGE, URL } from "../../utils/constants";
 

@@ -4,14 +4,14 @@ import { makeStyles, Grid } from "@material-ui/core";
 import { onAuthUIStateChange, AuthState } from "@aws-amplify/ui-components";
 import { AmplifyAuthenticator, AmplifySignUp } from "@aws-amplify/ui-react";
 
-import Header from "./shared/Header";
+import Header from "./Shared/Header";
 import IndividualList from "./Individual/IndividualList";
 import IndividualDetail from "./Individual/IndividualDetail";
 import AddIndividual from "./Individual/AddIndividual";
 import EditIndividual from "./Individual/EditIndividual";
 import AddOximeter from "./PulseOximetry/AddPulseOximetry";
 import { URL } from "../utils/constants";
-import AddAlertRecipient from "./shared/AddAlertRecipient";
+import NotifyRecipients from "./Notify/NotifyRecipients";
 import PulseOximetryRange from "./PulseOximetry/PulseOximetryRange";
 
 const useStyles = makeStyles({
@@ -71,7 +71,7 @@ const App = () => {
             <AddOximeter />
           </Route>
           <Route exact path={URL.NOTIFY_RECIPIENTS}>
-            <AddAlertRecipient />
+            <NotifyRecipients />
           </Route>
         </Switch>
       </Grid>
