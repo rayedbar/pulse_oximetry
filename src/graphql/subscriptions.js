@@ -9,14 +9,14 @@ export const onCreateIndividual = /* GraphQL */ `
       lastName
       gender
       dob
-      oximeter {
+      pulseOximetry {
         items {
           id
           individualID
-          spo2
+          spO2
           heartRate
           createdAt
-          pulseOximetryRange
+          range
           updatedAt
           owner
         }
@@ -49,14 +49,14 @@ export const onUpdateIndividual = /* GraphQL */ `
       lastName
       gender
       dob
-      oximeter {
+      pulseOximetry {
         items {
           id
           individualID
-          spo2
+          spO2
           heartRate
           createdAt
-          pulseOximetryRange
+          range
           updatedAt
           owner
         }
@@ -89,14 +89,14 @@ export const onDeleteIndividual = /* GraphQL */ `
       lastName
       gender
       dob
-      oximeter {
+      pulseOximetry {
         items {
           id
           individualID
-          spo2
+          spO2
           heartRate
           createdAt
-          pulseOximetryRange
+          range
           updatedAt
           owner
         }
@@ -121,43 +121,43 @@ export const onDeleteIndividual = /* GraphQL */ `
     }
   }
 `;
-export const onCreateOximeter = /* GraphQL */ `
-  subscription OnCreateOximeter($owner: String!) {
-    onCreateOximeter(owner: $owner) {
+export const onCreatePulseOximetry = /* GraphQL */ `
+  subscription OnCreatePulseOximetry($owner: String!) {
+    onCreatePulseOximetry(owner: $owner) {
       id
       individualID
-      spo2
+      spO2
       heartRate
       createdAt
-      pulseOximetryRange
+      range
       updatedAt
       owner
     }
   }
 `;
-export const onUpdateOximeter = /* GraphQL */ `
-  subscription OnUpdateOximeter($owner: String!) {
-    onUpdateOximeter(owner: $owner) {
+export const onUpdatePulseOximetry = /* GraphQL */ `
+  subscription OnUpdatePulseOximetry($owner: String!) {
+    onUpdatePulseOximetry(owner: $owner) {
       id
       individualID
-      spo2
+      spO2
       heartRate
       createdAt
-      pulseOximetryRange
+      range
       updatedAt
       owner
     }
   }
 `;
-export const onDeleteOximeter = /* GraphQL */ `
-  subscription OnDeleteOximeter($owner: String!) {
-    onDeleteOximeter(owner: $owner) {
+export const onDeletePulseOximetry = /* GraphQL */ `
+  subscription OnDeletePulseOximetry($owner: String!) {
+    onDeletePulseOximetry(owner: $owner) {
       id
       individualID
-      spo2
+      spO2
       heartRate
       createdAt
-      pulseOximetryRange
+      range
       updatedAt
       owner
     }
@@ -205,40 +205,40 @@ export const onDeletePulseOximetryRange = /* GraphQL */ `
     }
   }
 `;
-export const onCreateNotify = /* GraphQL */ `
-  subscription OnCreateNotify($owner: String!) {
-    onCreateNotify(owner: $owner) {
+export const onCreateAlertRecipient = /* GraphQL */ `
+  subscription OnCreateAlertRecipient($owner: String!) {
+    onCreateAlertRecipient(owner: $owner) {
       id
+      owner
       firstName
       lastName
       email
-      owner
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateNotify = /* GraphQL */ `
-  subscription OnUpdateNotify($owner: String!) {
-    onUpdateNotify(owner: $owner) {
+export const onUpdateAlertRecipient = /* GraphQL */ `
+  subscription OnUpdateAlertRecipient($owner: String!) {
+    onUpdateAlertRecipient(owner: $owner) {
       id
+      owner
       firstName
       lastName
       email
-      owner
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteNotify = /* GraphQL */ `
-  subscription OnDeleteNotify($owner: String!) {
-    onDeleteNotify(owner: $owner) {
+export const onDeleteAlertRecipient = /* GraphQL */ `
+  subscription OnDeleteAlertRecipient($owner: String!) {
+    onDeleteAlertRecipient(owner: $owner) {
       id
+      owner
       firstName
       lastName
       email
-      owner
       createdAt
       updatedAt
     }

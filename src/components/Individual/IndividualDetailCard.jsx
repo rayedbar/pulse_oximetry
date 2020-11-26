@@ -90,7 +90,7 @@ const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
                 <Typography color="textSecondary">Latest SpO2</Typography>
                 <Typography variant="h6">
                   {latestPulseOximetry
-                    ? latestPulseOximetry.spo2
+                    ? latestPulseOximetry.spO2
                     : "Not Available"}
                 </Typography>
               </div>

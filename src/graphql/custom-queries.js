@@ -5,11 +5,11 @@ export const listIndividualsWithLatestPulseOximetry = /* GraphQL */ `
         id
         firstName
         lastName
-        oximeter(limit: 1, sortDirection: DESC) {
+        pulseOximetry(limit: 1, sortDirection: DESC) {
           items {
             id
             createdAt
-            spo2
+            spO2
             heartRate
           }
         }
@@ -25,13 +25,13 @@ export const getIndividualWithPulseOximetryCreatedAtDESC = /* GraphQL */ `
       lastName
       gender
       dob
-      oximeter(sortDirection: DESC) {
+      pulseOximetry(sortDirection: DESC) {
         items {
           id
-          spo2
+          spO2
           heartRate
           createdAt
-          pulseOximetryRange
+          range
         }
       }
       pulseOximetryRange(limit: 1, sortDirection: DESC) {

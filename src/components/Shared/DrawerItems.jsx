@@ -50,13 +50,13 @@ const DrawerItems = ({ toggleDrawer }) => {
         <ListItem
           button
           onClick={() => {
-            history.push(URL.NOTIFY_RECIPIENTS);
+            history.push(URL.ALERT_RECIPIENTS);
           }}
         >
           <ListItemIcon>
             <NotificationsIcon />
           </ListItemIcon>
-          <ListItemText primary="Configure Notifications" />
+          <ListItemText primary="Alert Recipients" />
         </ListItem>
 
         <ListItem
@@ -68,7 +68,7 @@ const DrawerItems = ({ toggleDrawer }) => {
           <ListItemIcon>
             <TuneIcon />
           </ListItemIcon>
-          <ListItemText primary="Set Pulse Oximetry Range" />
+          <ListItemText primary="Pulse Oximetry Range" />
         </ListItem>
       </List>
     </div>

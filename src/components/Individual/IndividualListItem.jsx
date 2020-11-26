@@ -25,19 +25,19 @@ const IndividualListItem = ({ individual }) => {
   const classes = useStyles();
 
   const getLatestHeartRate = () =>
-    individual.oximeter.items[0]
-      ? individual.oximeter.items[0].heartRate
+    individual.pulseOximetry.items[0]
+      ? individual.pulseOximetry.items[0].heartRate
       : "Not Available";
 
   const getLatestSpO2 = () =>
-    individual.oximeter.items[0]
-      ? individual.oximeter.items[0].spo2
+    individual.pulseOximetry.items[0]
+      ? individual.pulseOximetry.items[0].spO2
       : "Not Available";
 
   const getLastUpdated = () =>
-    individual.oximeter.items[0]
+    individual.pulseOximetry.items[0]
       ? formatRelative(
-          new Date(individual.oximeter.items[0].createdAt),
+          new Date(individual.pulseOximetry.items[0].createdAt),
           new Date()
         )
       : "Not Available";

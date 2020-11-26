@@ -46,19 +46,19 @@ const IndividualDetail = () => {
   return individualDetail ? (
     <Grid container direction="column" spacing={3} className={classes.root}>
       <PulseOximetryWarning
-        latestPulseOximetry={individualDetail.oximeter.items[0]}
+        latestPulseOximetry={individualDetail.pulseOximetry.items[0]}
         pulseOximetryRange={getPulseOximetryRange(individualDetail)}
       />
       <Grid item>
         <IndividualDetailCard
           individualDetail={individualDetail}
-          latestPulseOximetry={individualDetail.oximeter.items[0]}
+          latestPulseOximetry={individualDetail.pulseOximetry.items[0]}
         />
       </Grid>
       <Grid item>
         <PulseOximetryHistory
           individualID={individualDetail.id}
-          pulseOximetryData={individualDetail.oximeter.items}
+          pulseOximetryData={individualDetail.pulseOximetry.items}
           pulseOximetryRange={getPulseOximetryRange(individualDetail)}
         />
       </Grid>

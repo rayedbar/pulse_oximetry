@@ -4,7 +4,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import FormTemplate from "../Shared/FormTemplate";
 import PulseOximetryForm from "./PulseOximetryForm";
-import { createOximeter as createPulseOximetryMutation } from "../../graphql/mutations";
+import { createPulseOximetry } from "../../graphql/mutations";
 
 const AddPulseOximetry = () => {
   const history = useHistory();
@@ -15,12 +15,12 @@ const AddPulseOximetry = () => {
   const savePulseOximetry = async () => {
     try {
       await API.graphql(
-        graphqlOperation(createPulseOximetryMutation, {
+        graphqlOperation(createPulseOximetry, {
           input: {
             individualID: individualID,
             heartRate: parseInt(pulseOximetry.heartRate, 10),
-            spo2: parseInt(pulseOximetry.spo2, 10),
-            pulseOximetryRange: JSON.stringify(location.state),
+            spO2: parseInt(pulseOximetry.spo2, 10),
+            range: JSON.stringify(location.state),
           },
         })
       );
