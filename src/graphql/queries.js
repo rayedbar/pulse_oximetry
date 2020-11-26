@@ -142,9 +142,9 @@ export const listPulseOximetryRanges = /* GraphQL */ `
     }
   }
 `;
-export const getNotify = /* GraphQL */ `
-  query GetNotify($id: ID!) {
-    getNotify(id: $id) {
+export const getAlertRecipient = /* GraphQL */ `
+  query GetAlertRecipient($id: ID!) {
+    getAlertRecipient(id: $id) {
       id
       owner
       firstName
@@ -155,13 +155,13 @@ export const getNotify = /* GraphQL */ `
     }
   }
 `;
-export const listNotifys = /* GraphQL */ `
-  query ListNotifys(
-    $filter: ModelNotifyFilterInput
+export const listAlertRecipients = /* GraphQL */ `
+  query ListAlertRecipients(
+    $filter: ModelAlertRecipientFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listNotifys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listAlertRecipients(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         owner

@@ -205,9 +205,9 @@ export const onDeletePulseOximetryRange = /* GraphQL */ `
     }
   }
 `;
-export const onCreateNotify = /* GraphQL */ `
-  subscription OnCreateNotify($owner: String!) {
-    onCreateNotify(owner: $owner) {
+export const onCreateAlertRecipient = /* GraphQL */ `
+  subscription OnCreateAlertRecipient($owner: String!) {
+    onCreateAlertRecipient(owner: $owner) {
       id
       owner
       firstName
@@ -218,9 +218,9 @@ export const onCreateNotify = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateNotify = /* GraphQL */ `
-  subscription OnUpdateNotify($owner: String!) {
-    onUpdateNotify(owner: $owner) {
+export const onUpdateAlertRecipient = /* GraphQL */ `
+  subscription OnUpdateAlertRecipient($owner: String!) {
+    onUpdateAlertRecipient(owner: $owner) {
       id
       owner
       firstName
@@ -231,9 +231,9 @@ export const onUpdateNotify = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteNotify = /* GraphQL */ `
-  subscription OnDeleteNotify($owner: String!) {
-    onDeleteNotify(owner: $owner) {
+export const onDeleteAlertRecipient = /* GraphQL */ `
+  subscription OnDeleteAlertRecipient($owner: String!) {
+    onDeleteAlertRecipient(owner: $owner) {
       id
       owner
       firstName

@@ -232,12 +232,12 @@ export const deletePulseOximetryRange = /* GraphQL */ `
     }
   }
 `;
-export const createNotify = /* GraphQL */ `
-  mutation CreateNotify(
-    $input: CreateNotifyInput!
-    $condition: ModelNotifyConditionInput
+export const createAlertRecipient = /* GraphQL */ `
+  mutation CreateAlertRecipient(
+    $input: CreateAlertRecipientInput!
+    $condition: ModelAlertRecipientConditionInput
   ) {
-    createNotify(input: $input, condition: $condition) {
+    createAlertRecipient(input: $input, condition: $condition) {
       id
       owner
       firstName
@@ -248,12 +248,12 @@ export const createNotify = /* GraphQL */ `
     }
   }
 `;
-export const updateNotify = /* GraphQL */ `
-  mutation UpdateNotify(
-    $input: UpdateNotifyInput!
-    $condition: ModelNotifyConditionInput
+export const updateAlertRecipient = /* GraphQL */ `
+  mutation UpdateAlertRecipient(
+    $input: UpdateAlertRecipientInput!
+    $condition: ModelAlertRecipientConditionInput
   ) {
-    updateNotify(input: $input, condition: $condition) {
+    updateAlertRecipient(input: $input, condition: $condition) {
       id
       owner
       firstName
@@ -264,12 +264,12 @@ export const updateNotify = /* GraphQL */ `
     }
   }
 `;
-export const deleteNotify = /* GraphQL */ `
-  mutation DeleteNotify(
-    $input: DeleteNotifyInput!
-    $condition: ModelNotifyConditionInput
+export const deleteAlertRecipient = /* GraphQL */ `
+  mutation DeleteAlertRecipient(
+    $input: DeleteAlertRecipientInput!
+    $condition: ModelAlertRecipientConditionInput
   ) {
-    deleteNotify(input: $input, condition: $condition) {
+    deleteAlertRecipient(input: $input, condition: $condition) {
       id
       owner
       firstName

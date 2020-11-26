@@ -34,7 +34,7 @@ type PulseOximetryRange
   createdAt: AWSDateTime
 }
 
-type Notify
+type AlertRecipient
   @model
   @auth(rules: [{ allow: owner }])
   @key(name: "ownerIndex", fields: ["owner"]) {

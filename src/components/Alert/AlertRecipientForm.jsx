@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import FormInput from "../Shared/FormInput";
 
-const NotifyRecipientsForm = ({
+const AlertRecipientForm = ({
   formDialogState: [showFormDialog, setShowFormDialog],
   onSubmit,
 }) => {
@@ -75,4 +75,4 @@ const NotifyRecipientsForm = ({
   );
 };
 
-export default NotifyRecipientsForm;
+export default AlertRecipientForm;

@@ -8,7 +8,7 @@ export const URL = {
   INDIVIDUALS: "/individuals",
   PULSE_OXIMETRY: "/pulseOximetry",
   PULSE_OXIMETRY_RANGE: "/pulseOximetry/range",
-  NOTIFY_RECIPIENTS: "/notify/recipients",
+  ALERT_RECIPIENTS: "/alertRecipients",
 };
 export const PULSE_OXIMETRY_DEFAULT_RANGE = {
   MIN_SPO2: 95,
