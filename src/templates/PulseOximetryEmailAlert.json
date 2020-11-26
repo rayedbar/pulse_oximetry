@@ -1,0 +1,8 @@
+{
+  "Template": {
+    "TemplateName": "PulseOximetryEmailAlert",
+    "SubjectPart": "SpO2/Heart Rate Alert",
+    "HtmlPart": "Individual Name: {{individualName}}<br>SpO2: {{spO2}}<br>Heart Rate: {{heartRate}}",
+    "TextPart": "Individual Name: {{individualName}}\r\nSpO2: {{spO2}}\r\nHeart Rate: {{heartRate}}"
+  }
+}
