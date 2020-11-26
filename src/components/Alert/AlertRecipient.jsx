@@ -86,7 +86,7 @@ const AlertRecipient = () => {
         className={classes.addRecipientHeader}
       >
         <Grid item className={classes.addRecipientTitle}>
-          <Typography variant="h5">Notification Recipients</Typography>
+          <Typography variant="h5">Alert Recipients</Typography>
         </Grid>
         <Grid item>
           <IconButton
