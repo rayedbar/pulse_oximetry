@@ -37,7 +37,7 @@ type PulseOximetryRange
 type AlertRecipient
   @model
   @auth(rules: [{ allow: owner }])
-  @key(name: "ownerIndex", fields: ["owner"]) {
+  @key(name: "byOwner", fields: ["owner"]) {
   id: ID!
   owner: String
   firstName: String!
