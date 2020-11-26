@@ -10,9 +10,9 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import NotifyRecipientsForm from "./NotifyRecipientsForm";
-import { createNotify } from "../../graphql/mutations";
-import { listNotifys } from "../../graphql/queries";
+import AlertRecipientForm from "./AlertRecipientForm";
+import { createAlertRecipient } from "../../graphql/mutations";
+import { listAlertRecipients } from "../../graphql/queries";
 
 const useStyles = makeStyles((theme) => ({
   iconSize: {
@@ -28,34 +28,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NotifyRecipients = () => {
+const AlertRecipient = () => {
   const classes = useStyles();
   const [recipients, setRecipients] = useState([]);
   const [showFormDialog, setShowFormDialog] = useState(false);
 
   useEffect(() => {
-    const fetchNotifys = async () => {
+    const fetchAlertRecipients = async () => {
       try {
-        const recipientData = await API.graphql(graphqlOperation(listNotifys));
-        setRecipients(recipientData.data.listNotifys.items);
+        const recipientData = await API.graphql(
+          graphqlOperation(listAlertRecipients)
+        );
+        setRecipients(recipientData.data.listAlertRecipients.items);
       } catch (error) {
-        console.log("Error Fetching Notify Data!", error);
+        console.log("Error Fetching AlertRecipient Data!", error);
       }
     };
-    fetchNotifys();
+    fetchAlertRecipients();
   }, []);
 
   const onSubmit = async (formData) => {
     try {
       const recepientData = await API.graphql(
-        graphqlOperation(createNotify, {
+        graphqlOperation(createAlertRecipient, {
           input: {
             ...formData,
           },
         })
       );
       setShowFormDialog(false);
-      setRecipients(recipients.slice().concat(recepientData.data.createNotify));
+      setRecipients(
+        recipients.slice().concat(recepientData.data.createAlertRecipient)
+      );
     } catch (error) {
       console.log(error);
     }
@@ -102,7 +106,7 @@ const NotifyRecipients = () => {
           </Grid>
         ))}
       </Grid>
-      <NotifyRecipientsForm
+      <AlertRecipientForm
         formDialogState={[showFormDialog, setShowFormDialog]}
         onSubmit={onSubmit}
       />
@@ -110,4 +114,4 @@ const NotifyRecipients = () => {
   );
 };
 
-export default NotifyRecipients;
+export default AlertRecipient;

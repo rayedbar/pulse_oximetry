@@ -49,7 +49,7 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
                 <TableCell align="center">
                   {new Date(data.createdAt).toLocaleTimeString()}
                 </TableCell>
-                <TableCell align="center">{data.spo2}</TableCell>
+                <TableCell align="center">{data.spO2}</TableCell>
                 <TableCell align="center">{data.heartRate}</TableCell>
               </TableRow>
             ))}

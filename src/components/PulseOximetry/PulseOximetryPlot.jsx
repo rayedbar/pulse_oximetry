@@ -20,19 +20,19 @@ const PulseOximetryPlot = ({ pulseOximetryData, pulseOximetryRange }) => {
   );
 
   const plotData = {
-    spo2: {
+    spO2: {
       x: formattedDateTime,
-      y: pulseOximetryData.map((data) => data.spo2),
+      y: pulseOximetryData.map((data) => data.spO2),
       type: "scatter",
       mode: "lines+markers",
       name: "SpO2",
       marker: {
         color: "red",
         symbol: pulseOximetryData.map((data) =>
-          data.spo2 >= pulseOximetryRange.minSpO2 ? "o" : "x"
+          data.spO2 >= pulseOximetryRange.minSpO2 ? "o" : "x"
         ),
         size: pulseOximetryData.map((data) =>
-          data.spo2 >= pulseOximetryRange.minSpO2 ? 8 : 12
+          data.spO2 >= pulseOximetryRange.minSpO2 ? 8 : 12
         ),
       },
       xaxis: "x",
@@ -72,7 +72,7 @@ const PulseOximetryPlot = ({ pulseOximetryData, pulseOximetryRange }) => {
     <Plot
       className={classes.plot}
       useResizeHandler={true}
-      data={[plotData.spo2, plotData.heartRate]}
+      data={[plotData.spO2, plotData.heartRate]}
       layout={{
         grid: { rows: 2, columns: 1 },
         title: "SpO2 and Heart Rate Plot",
