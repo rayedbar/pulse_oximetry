@@ -9,14 +9,14 @@ export const getIndividual = /* GraphQL */ `
       lastName
       gender
       dob
-      oximeter {
+      pulseOximetry {
         items {
           id
           individualID
-          spo2
+          spO2
           heartRate
           createdAt
-          pulseOximetryRange
+          range
           updatedAt
           owner
         }
@@ -54,7 +54,7 @@ export const listIndividuals = /* GraphQL */ `
         lastName
         gender
         dob
-        oximeter {
+        pulseOximetry {
           nextToken
         }
         pulseOximetryRange {
@@ -68,34 +68,34 @@ export const listIndividuals = /* GraphQL */ `
     }
   }
 `;
-export const getOximeter = /* GraphQL */ `
-  query GetOximeter($id: ID!) {
-    getOximeter(id: $id) {
+export const getPulseOximetry = /* GraphQL */ `
+  query GetPulseOximetry($id: ID!) {
+    getPulseOximetry(id: $id) {
       id
       individualID
-      spo2
+      spO2
       heartRate
       createdAt
-      pulseOximetryRange
+      range
       updatedAt
       owner
     }
   }
 `;
-export const listOximeters = /* GraphQL */ `
-  query ListOximeters(
-    $filter: ModelOximeterFilterInput
+export const listPulseOximetrys = /* GraphQL */ `
+  query ListPulseOximetrys(
+    $filter: ModelPulseOximetryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listOximeters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listPulseOximetrys(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         individualID
-        spo2
+        spO2
         heartRate
         createdAt
-        pulseOximetryRange
+        range
         updatedAt
         owner
       }
@@ -146,10 +146,10 @@ export const getNotify = /* GraphQL */ `
   query GetNotify($id: ID!) {
     getNotify(id: $id) {
       id
+      owner
       firstName
       lastName
       email
-      owner
       createdAt
       updatedAt
     }
@@ -164,10 +164,10 @@ export const listNotifys = /* GraphQL */ `
     listNotifys(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        owner
         firstName
         lastName
         email
-        owner
         createdAt
         updatedAt
       }

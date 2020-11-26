@@ -12,14 +12,14 @@ export const createIndividual = /* GraphQL */ `
       lastName
       gender
       dob
-      oximeter {
+      pulseOximetry {
         items {
           id
           individualID
-          spo2
+          spO2
           heartRate
           createdAt
-          pulseOximetryRange
+          range
           updatedAt
           owner
         }
@@ -55,14 +55,14 @@ export const updateIndividual = /* GraphQL */ `
       lastName
       gender
       dob
-      oximeter {
+      pulseOximetry {
         items {
           id
           individualID
-          spo2
+          spO2
           heartRate
           createdAt
-          pulseOximetryRange
+          range
           updatedAt
           owner
         }
@@ -98,14 +98,14 @@ export const deleteIndividual = /* GraphQL */ `
       lastName
       gender
       dob
-      oximeter {
+      pulseOximetry {
         items {
           id
           individualID
-          spo2
+          spO2
           heartRate
           createdAt
-          pulseOximetryRange
+          range
           updatedAt
           owner
         }
@@ -130,52 +130,52 @@ export const deleteIndividual = /* GraphQL */ `
     }
   }
 `;
-export const createOximeter = /* GraphQL */ `
-  mutation CreateOximeter(
-    $input: CreateOximeterInput!
-    $condition: ModelOximeterConditionInput
+export const createPulseOximetry = /* GraphQL */ `
+  mutation CreatePulseOximetry(
+    $input: CreatePulseOximetryInput!
+    $condition: ModelPulseOximetryConditionInput
   ) {
-    createOximeter(input: $input, condition: $condition) {
+    createPulseOximetry(input: $input, condition: $condition) {
       id
       individualID
-      spo2
+      spO2
       heartRate
       createdAt
-      pulseOximetryRange
+      range
       updatedAt
       owner
     }
   }
 `;
-export const updateOximeter = /* GraphQL */ `
-  mutation UpdateOximeter(
-    $input: UpdateOximeterInput!
-    $condition: ModelOximeterConditionInput
+export const updatePulseOximetry = /* GraphQL */ `
+  mutation UpdatePulseOximetry(
+    $input: UpdatePulseOximetryInput!
+    $condition: ModelPulseOximetryConditionInput
   ) {
-    updateOximeter(input: $input, condition: $condition) {
+    updatePulseOximetry(input: $input, condition: $condition) {
       id
       individualID
-      spo2
+      spO2
       heartRate
       createdAt
-      pulseOximetryRange
+      range
       updatedAt
       owner
     }
   }
 `;
-export const deleteOximeter = /* GraphQL */ `
-  mutation DeleteOximeter(
-    $input: DeleteOximeterInput!
-    $condition: ModelOximeterConditionInput
+export const deletePulseOximetry = /* GraphQL */ `
+  mutation DeletePulseOximetry(
+    $input: DeletePulseOximetryInput!
+    $condition: ModelPulseOximetryConditionInput
   ) {
-    deleteOximeter(input: $input, condition: $condition) {
+    deletePulseOximetry(input: $input, condition: $condition) {
       id
       individualID
-      spo2
+      spO2
       heartRate
       createdAt
-      pulseOximetryRange
+      range
       updatedAt
       owner
     }
@@ -239,10 +239,10 @@ export const createNotify = /* GraphQL */ `
   ) {
     createNotify(input: $input, condition: $condition) {
       id
+      owner
       firstName
       lastName
       email
-      owner
       createdAt
       updatedAt
     }
@@ -255,10 +255,10 @@ export const updateNotify = /* GraphQL */ `
   ) {
     updateNotify(input: $input, condition: $condition) {
       id
+      owner
       firstName
       lastName
       email
-      owner
       createdAt
       updatedAt
     }
@@ -271,10 +271,10 @@ export const deleteNotify = /* GraphQL */ `
   ) {
     deleteNotify(input: $input, condition: $condition) {
       id
+      owner
       firstName
       lastName
       email
-      owner
       createdAt
       updatedAt
     }

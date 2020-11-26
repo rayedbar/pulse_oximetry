@@ -4,21 +4,22 @@ type Individual @model @auth(rules: [{ allow: owner }]) {
   lastName: String!
   gender: String!
   dob: AWSDate!
-  oximeter: [Oximeter] @connection(keyName: "byIndividual", fields: ["id"])
+  pulseOximetry: [PulseOximetry]
+    @connection(keyName: "byIndividual", fields: ["id"])
   pulseOximetryRange: [PulseOximetryRange]
     @connection(keyName: "byIndividual", fields: ["id"])
 }
 
-type Oximeter
+type PulseOximetry
   @model
   @auth(rules: [{ allow: owner }])
   @key(name: "byIndividual", fields: ["individualID", "createdAt"]) {
   id: ID!
   individualID: ID!
-  spo2: Int!
+  spO2: Int!
   heartRate: Int!
   createdAt: AWSDateTime
-  pulseOximetryRange: AWSJSON
+  range: AWSJSON
 }
 
 type PulseOximetryRange
@@ -38,8 +39,8 @@ type Notify
   @auth(rules: [{ allow: owner }])
   @key(name: "ownerIndex", fields: ["owner"]) {
   id: ID!
+  owner: String
   firstName: String!
   lastName: String!
   email: AWSEmail!
-  owner: String
 }

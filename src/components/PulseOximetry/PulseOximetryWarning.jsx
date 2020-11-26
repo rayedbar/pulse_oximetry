@@ -5,7 +5,7 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 const PulseOximetryWarning = ({ latestPulseOximetry, pulseOximetryRange }) => {
   return latestPulseOximetry ? (
     <Grid item container direction="column" spacing={2}>
-      {latestPulseOximetry.spo2 < pulseOximetryRange.minSpO2 ? (
+      {latestPulseOximetry.spO2 < pulseOximetryRange.minSpO2 ? (
         <Grid item>
           <Alert severity="error">
             <AlertTitle>SpO2 Warning</AlertTitle>
