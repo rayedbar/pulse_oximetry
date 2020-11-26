@@ -25,7 +25,6 @@ const AddIndividual = () => {
 
   const onSubmit = async (formData) => {
     setShowProgressBar(true);
-
     const { dob, ...rest } = formData;
 
     try {
@@ -38,10 +37,12 @@ const AddIndividual = () => {
           },
         })
       );
-      history.push(URL.HOME);
     } catch {
       console.log("Error creating individual");
     }
+
+    setShowProgressBar(false);
+    history.push(URL.HOME);
   };
 
   return (

@@ -34,7 +34,7 @@ const useIndividualDetail = () => {
       }
     };
     fetchIndividualDetail();
-  }, [individualID]);
+  }, []);
 
   return individualDetail;
 };
