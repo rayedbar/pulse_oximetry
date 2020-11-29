@@ -1,4 +1,6 @@
-export const listIndividualsWithLatestPulseOximetry = /* GraphQL */ `
+import { gql } from "@apollo/client";
+
+export const listIndividualsWithLatestPulseOximetry = gql`
   query ListIndividuals {
     listIndividuals {
       items {
@@ -17,7 +19,8 @@ export const listIndividualsWithLatestPulseOximetry = /* GraphQL */ `
     }
   }
 `;
-export const getIndividualWithPulseOximetryCreatedAtDESC = /* GraphQL */ `
+
+export const getIndividualWithPulseOximetryCreatedAtDESC = gql`
   query GetIndividual($id: ID!) {
     getIndividual(id: $id) {
       id
@@ -46,7 +49,7 @@ export const getIndividualWithPulseOximetryCreatedAtDESC = /* GraphQL */ `
   }
 `;
 
-export const listIndividualsWithPulseOximetryRange = /* GraphQL */ `
+export const listIndividualsWithPulseOximetryRange = gql`
   query ListIndividuals {
     listIndividuals {
       items {

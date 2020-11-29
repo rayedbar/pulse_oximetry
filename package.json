@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.2.9",
     "@aws-amplify/cache": "^3.1.35",
     "@aws-amplify/ui-react": "^0.2.27",
     "@date-io/date-fns": "1.x",
@@ -15,7 +16,10 @@
     "@testing-library/user-event": "^7.1.2",
     "@types/react-router-dom": "^5.1.6",
     "aws-amplify": "^3.3.7",
+    "aws-appsync-auth-link": "^3.0.2",
+    "aws-appsync-subscription-link": "^3.0.3",
     "date-fns": "^2.16.1",
+    "graphql": "^15.4.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
     "plotly.js-basic-dist": "^1.57.1",
