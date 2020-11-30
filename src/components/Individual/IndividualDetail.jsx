@@ -1,13 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Grid, LinearProgress } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import PulseOximetryWarning from "../PulseOximetry/PulseOximetryWarning";
 import IndividualDetailCard from "./IndividualDetailCard";
 import PulseOximetryHistory from "../PulseOximetry/PulseOximetryHistory";
 import { getIndividualWithPulseOximetryCreatedAtDESC } from "../../graphql/custom-queries";
+import ProgressBar from "../Shared/ProgressBar";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -25,7 +26,7 @@ const IndividualDetail = () => {
     }
   );
 
-  if (loading) return <LinearProgress />;
+  if (loading) return <ProgressBar />;
   if (error) return `Error! ${error.message}`;
 
   return (

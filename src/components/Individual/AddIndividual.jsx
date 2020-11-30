@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import IndividualForm from "./IndividualForm";
 import { format as formatDate } from "date-fns";
-import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { v4 as uuidv4 } from "uuid";
 import { API, graphqlOperation } from "aws-amplify";
 import { createIndividual as AddIndividualMutation } from "../../graphql/mutations";
 import { URL } from "../../utils/constants";
 import FormTemplate from "../Shared/FormTemplate";
+import ProgressBar from "../Shared/ProgressBar";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -48,7 +48,7 @@ const AddIndividual = () => {
   return (
     <div className={classes.root}>
       {showProgressBar === true ? (
-        <CircularProgress />
+        <ProgressBar />
       ) : (
         <FormTemplate>
           <IndividualForm
