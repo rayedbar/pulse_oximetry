@@ -28,11 +28,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
+const IndividualDetailCard = ({ individualDetail }) => {
   const classes = useStyles();
   const history = useHistory();
 
   const { id: individualID, firstName, lastName } = individualDetail;
+  const latestPulseOximetry = individualDetail.pulseOximetry.items[0];
 
   const handleEdit = () => {
     history.push("/individuals/edit/" + individualID, individualDetail);

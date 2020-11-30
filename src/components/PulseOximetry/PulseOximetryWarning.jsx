@@ -1,8 +1,12 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
+import { getPulseOximetryRange } from "../../utils/functions";
 
-const PulseOximetryWarning = ({ latestPulseOximetry, pulseOximetryRange }) => {
+const PulseOximetryWarning = ({ individualDetail }) => {
+  const latestPulseOximetry = individualDetail?.pulseOximetry.items[0];
+  const pulseOximetryRange = getPulseOximetryRange(individualDetail);
+
   return latestPulseOximetry ? (
     <Grid item container direction="column" spacing={2}>
       {latestPulseOximetry.spO2 < pulseOximetryRange.minSpO2 ? (

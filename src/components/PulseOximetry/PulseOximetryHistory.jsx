@@ -7,6 +7,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import PulseOximetryTable from "../PulseOximetry/PulseOximetryTable";
 import PulseOximetryPlot from "./PulseOximetryPlot";
 import { URL } from "../../utils/constants";
+import { getPulseOximetryRange } from "../../utils/functions";
 
 const useStyles = makeStyles((theme) => ({
   iconSize: {
@@ -22,14 +23,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PulseOximetryHistory = ({
-  individualID,
-  pulseOximetryData,
-  pulseOximetryRange,
-}) => {
+const PulseOximetryHistory = ({ individualDetail }) => {
   const classes = useStyles();
   const history = useHistory();
-  const hasPulseOximetryData = () => pulseOximetryData.length > 0;
+  const hasPulseOximetryData = () =>
+    individualDetail?.pulseOximetry.items.length > 0;
+  const pulseOximetryRange = getPulseOximetryRange(individualDetail);
 
   return (
     <Grid container direction="column" spacing={1}>
@@ -50,7 +49,7 @@ const PulseOximetryHistory = ({
             variant="contained"
             onClick={() =>
               history.push(
-                URL.PULSE_OXIMETRY + "/" + individualID,
+                URL.PULSE_OXIMETRY + "/" + individualDetail.id,
                 pulseOximetryRange
               )
             }
@@ -62,15 +61,14 @@ const PulseOximetryHistory = ({
       </Grid>
       {hasPulseOximetryData() ? (
         <Grid item xs={11}>
-          <PulseOximetryPlot
-            pulseOximetryData={pulseOximetryData}
-            pulseOximetryRange={pulseOximetryRange}
-          />
+          <PulseOximetryPlot individualDetail={individualDetail} />
         </Grid>
       ) : null}
       <Grid item xs={12}>
         {hasPulseOximetryData() ? (
-          <PulseOximetryTable pulseOximetryData={pulseOximetryData} />
+          <PulseOximetryTable
+            pulseOximetryData={individualDetail.pulseOximetry.items}
+          />
         ) : (
           <Typography variant="subtitle2">No Data</Typography>
         )}

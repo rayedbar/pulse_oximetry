@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import { Grid, LinearProgress } from "@material-ui/core";
 
 import IndividualListItem from "./IndividualListItem";
 import { listIndividualsWithLatestPulseOximetry } from "../../graphql/custom-queries";
@@ -18,7 +18,7 @@ const IndividualList = () => {
     listIndividualsWithLatestPulseOximetry
   );
 
-  if (loading) return "Loading...";
+  if (loading) return <LinearProgress />;
   if (error) return `Error! ${error.message}`;
 
   return (

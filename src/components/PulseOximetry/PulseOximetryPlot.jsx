@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Plotly from "plotly.js-basic-dist";
 import createPlotlyComponent from "react-plotly.js/factory";
 import { format } from "date-fns";
+import { getPulseOximetryRange } from "../../utils/functions";
 
 const useStyles = makeStyles({
   plot: {
@@ -11,9 +12,11 @@ const useStyles = makeStyles({
   },
 });
 
-const PulseOximetryPlot = ({ pulseOximetryData, pulseOximetryRange }) => {
+const PulseOximetryPlot = ({ individualDetail }) => {
   const classes = useStyles();
   const Plot = createPlotlyComponent(Plotly);
+  const pulseOximetryRange = getPulseOximetryRange(individualDetail);
+  const pulseOximetryData = individualDetail.pulseOximetry.items;
 
   const formattedDateTime = pulseOximetryData.map((data) =>
     format(new Date(data.createdAt), "yyyy-MM-dd HH:mm:ss")
