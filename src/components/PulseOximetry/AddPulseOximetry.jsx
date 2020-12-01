@@ -14,12 +14,29 @@ const AddPulseOximetry = () => {
   const { individualID } = useParams();
   const [pulseOximetry, setPulseOximetry] = useState(null);
   const [addPulseOximetry] = useMutation(gql(createPulseOximetry), {
-    refetchQueries: [
-      {
-        query: getIndividualWithPulseOximetryCreatedAtDESC,
-        variables: { id: individualID },
-      },
-    ],
+    update(cache, { data: { createPulseOximetry } }) {
+      console.log(
+        cache.modify({
+          id: cache.identify({ id: individualID, __typename: "Individual" }),
+          fields: {
+            pulseOximetry(existingPulseOximetry) {
+              const newPulseOximetryRef = cache.writeFragment({
+                data: createPulseOximetry,
+                fragment: gql`
+                  fragment NewPulseOximetry on PulseOximetry {
+                    id
+                    type
+                  }
+                `,
+              });
+              return {
+                items: [newPulseOximetryRef, ...existingPulseOximetry.items],
+              };
+            },
+          },
+        })
+      );
+    },
     onCompleted: () => history.goBack(),
   });
 
