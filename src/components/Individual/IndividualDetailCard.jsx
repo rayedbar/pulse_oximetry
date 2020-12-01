@@ -33,7 +33,7 @@ const IndividualDetailCard = ({ individualDetail }) => {
   const history = useHistory();
 
   const { id: individualID, firstName, lastName } = individualDetail;
-  const latestPulseOximetry = individualDetail.pulseOximetry.items[0];
+  const latestPulseOximetry = individualDetail.pulseOximetry?.items[0];
 
   const handleEdit = () => {
     history.push("/individuals/edit/" + individualID, individualDetail);

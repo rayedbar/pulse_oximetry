@@ -35,9 +35,24 @@ const link = ApolloLink.from([
   createSubscriptionHandshakeLink({ url, region, auth }),
 ]);
 
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        getIndividual(_, { args, toReference }) {
+          return toReference({
+            __typename: "Individual",
+            id: args.id,
+          });
+        },
+      },
+    },
+  },
+});
+
 const client = new ApolloClient({
   link: link,
-  cache: new InMemoryCache(),
+  cache: cache,
 });
 
 ReactDOM.render(

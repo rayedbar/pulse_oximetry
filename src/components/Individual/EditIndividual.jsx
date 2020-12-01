@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import { gql, useMutation } from "@apollo/client";
 import { useHistory, useLocation } from "react-router-dom";
 import IndividualForm from "./IndividualForm";
 import { format as formatDate } from "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
-import { API, Cache, graphqlOperation } from "aws-amplify";
 import { updateIndividual as UpdateIndividualMutation } from "../../graphql/mutations";
-import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 import FormTemplate from "../Shared/FormTemplate";
 import ProgressBar from "../Shared/ProgressBar";
 
@@ -20,46 +19,39 @@ const EditIndividual = () => {
   const classes = useStyles();
   const location = useLocation();
 
-  const [showProgressBar, setShowProgressBar] = useState(false);
+  const [updateIndividual, { loading, error }] = useMutation(
+    gql(UpdateIndividualMutation)
+  );
 
   const onSubmit = async (formData) => {
-    setShowProgressBar(true);
-
-    Cache.removeItem(location.state.id + INDIVIDUAL_PHOTO);
     const { dob, ...rest } = formData;
-
-    try {
-      await API.graphql(
-        graphqlOperation(UpdateIndividualMutation, {
-          input: {
-            ...rest,
-            dob: formatDate(dob, "yyyy-MM-dd"),
-            id: location.state.id,
-          },
-        })
-      );
-
+    updateIndividual({
+      variables: {
+        input: {
+          ...rest,
+          dob: formatDate(dob, "yyyy-MM-dd"),
+          id: location.state.id,
+        },
+      },
+    });
+    if (!loading) {
       history.goBack();
-    } catch (error) {
-      console.log("Error updating individual ", error);
-      setShowProgressBar(false);
     }
   };
 
+  if (loading) return <ProgressBar />;
+  if (error) return `Error! ${error.message}`;
+
   return (
     <div className={classes.root}>
-      {showProgressBar === true ? (
-        <ProgressBar />
-      ) : (
-        <FormTemplate>
-          <IndividualForm
-            individualDetail={location.state}
-            individualID={location.state.id}
-            formHeader="Edit Individual"
-            onSubmit={onSubmit}
-          />
-        </FormTemplate>
-      )}
+      <FormTemplate>
+        <IndividualForm
+          individualDetail={location.state}
+          individualID={location.state.id}
+          formHeader="Edit Individual"
+          onSubmit={onSubmit}
+        />
+      </FormTemplate>
     </div>
   );
 };
