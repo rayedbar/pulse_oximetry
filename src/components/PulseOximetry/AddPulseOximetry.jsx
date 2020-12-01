@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-
-// import { API, graphqlOperation } from "aws-amplify";
 import { gql, useMutation } from "@apollo/client";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import FormTemplate from "../Shared/FormTemplate";
 import PulseOximetryForm from "./PulseOximetryForm";
 import { createPulseOximetry } from "../../graphql/mutations";
-import { getIndividualWithPulseOximetryCreatedAtDESC } from "../../graphql/custom-queries";
 
 const AddPulseOximetry = () => {
   const history = useHistory();
