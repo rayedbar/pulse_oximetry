@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { API, graphqlOperation } from "aws-amplify";
+import React, { useState } from "react";
+import { useQuery, gql, useMutation } from "@apollo/client";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import {
   Card,
@@ -13,6 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AlertRecipientForm from "./AlertRecipientForm";
 import { createAlertRecipient } from "../../graphql/mutations";
 import { listAlertRecipients } from "../../graphql/queries";
+import ProgressBar from "../Shared/ProgressBar";
 
 const useStyles = makeStyles((theme) => ({
   iconSize: {
@@ -30,39 +31,44 @@ const useStyles = makeStyles((theme) => ({
 
 const AlertRecipient = () => {
   const classes = useStyles();
-  const [recipients, setRecipients] = useState([]);
   const [showFormDialog, setShowFormDialog] = useState(false);
+  const { loading, error, data } = useQuery(gql(listAlertRecipients));
+  const [addAlertRecipient] = useMutation(gql(createAlertRecipient), {
+    update(cache, { data: { createAlertRecipient } }) {
+      cache.modify({
+        fields: {
+          listAlertRecipients(existingAlertRecipients) {
+            const newAlertRecipientRef = cache.writeFragment({
+              data: createAlertRecipient,
+              fragment: gql`
+                fragment NewAlertRecipient on AlertRecipient {
+                  id
+                  type
+                }
+              `,
+            });
 
-  useEffect(() => {
-    const fetchAlertRecipients = async () => {
-      try {
-        const recipientData = await API.graphql(
-          graphqlOperation(listAlertRecipients)
-        );
-        setRecipients(recipientData.data.listAlertRecipients.items);
-      } catch (error) {
-        console.log("Error Fetching AlertRecipient Data!", error);
-      }
-    };
-    fetchAlertRecipients();
-  }, []);
-
-  const onSubmit = async (formData) => {
-    try {
-      const recepientData = await API.graphql(
-        graphqlOperation(createAlertRecipient, {
-          input: {
-            ...formData,
+            return {
+              items: [...existingAlertRecipients.items, newAlertRecipientRef],
+            };
           },
-        })
-      );
-      setShowFormDialog(false);
-      setRecipients(
-        recipients.slice().concat(recepientData.data.createAlertRecipient)
-      );
-    } catch (error) {
-      console.log(error);
-    }
+        },
+      });
+    },
+  });
+
+  if (loading) return <ProgressBar />;
+  if (error) return `Error! ${error.message}`;
+
+  const onSubmit = (formData) => {
+    addAlertRecipient({
+      variables: {
+        input: {
+          ...formData,
+        },
+      },
+    });
+    setShowFormDialog(false);
   };
 
   const RecipientCard = (recipient) => (
@@ -100,9 +106,9 @@ const AlertRecipient = () => {
         </Grid>
       </Grid>
       <Grid item container spacing={2}>
-        {recipients.map((data) => (
-          <Grid item key={data.id} xs={12}>
-            {RecipientCard(data)}
+        {data.listAlertRecipients.items.map((recipient) => (
+          <Grid item key={recipient.id} xs={12}>
+            {RecipientCard(recipient)}
           </Grid>
         ))}
       </Grid>
