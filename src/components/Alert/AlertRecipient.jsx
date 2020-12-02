@@ -1,19 +1,14 @@
 import React, { useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import {
-  Card,
-  CardContent,
-  Grid,
-  IconButton,
-  Typography,
-} from "@material-ui/core";
+import { Grid, IconButton, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import AlertRecipientForm from "./AlertRecipientForm";
+import AlertRecipientCard from "./AlertRecipientCard";
+import ProgressBar from "../Shared/ProgressBar";
 import { createAlertRecipient } from "../../graphql/mutations";
 import { listAlertRecipients } from "../../graphql/queries";
-import ProgressBar from "../Shared/ProgressBar";
 
 const useStyles = makeStyles((theme) => ({
   iconSize: {
@@ -57,9 +52,6 @@ const AlertRecipient = () => {
     },
   });
 
-  if (loading) return <ProgressBar />;
-  if (error) return `Error! ${error.message}`;
-
   const onSubmit = (formData) => {
     addAlertRecipient({
       variables: {
@@ -71,16 +63,8 @@ const AlertRecipient = () => {
     setShowFormDialog(false);
   };
 
-  const RecipientCard = (recipient) => (
-    <Card>
-      <CardContent>
-        <Typography>
-          {recipient.firstName + " " + recipient.lastName}
-        </Typography>
-        <Typography>{recipient.email}</Typography>
-      </CardContent>
-    </Card>
-  );
+  if (loading) return <ProgressBar />;
+  if (error) return `Error! ${error.message}`;
 
   return (
     <Grid container>
@@ -108,7 +92,7 @@ const AlertRecipient = () => {
       <Grid item container spacing={2}>
         {data.listAlertRecipients.items.map((recipient) => (
           <Grid item key={recipient.id} xs={12}>
-            {RecipientCard(recipient)}
+            <AlertRecipientCard recipient={recipient} />
           </Grid>
         ))}
       </Grid>
