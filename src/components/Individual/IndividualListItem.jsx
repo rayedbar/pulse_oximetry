@@ -25,17 +25,17 @@ const IndividualListItem = ({ individual }) => {
   const classes = useStyles();
 
   const getLatestHeartRate = () =>
-    individual.pulseOximetry.items[0]
+    individual.pulseOximetry.items.length > 0
       ? individual.pulseOximetry.items[0].heartRate
       : "Not Available";
 
   const getLatestSpO2 = () =>
-    individual.pulseOximetry.items[0]
+    individual.pulseOximetry.items.length > 0
       ? individual.pulseOximetry.items[0].spO2
       : "Not Available";
 
   const getLastUpdated = () =>
-    individual.pulseOximetry.items[0]
+    individual.pulseOximetry.items.length > 0
       ? formatRelative(
           new Date(individual.pulseOximetry.items[0].createdAt),
           new Date()
@@ -48,7 +48,7 @@ const IndividualListItem = ({ individual }) => {
         elevation={2}
         className={classes.card}
         onClick={() => {
-          history.push(URL.INDIVIDUALS + "/" + individual.id);
+          history.push(`${URL.PULSE_OXIMETRY}/${individual.id}`);
         }}
       >
         <CardContent>

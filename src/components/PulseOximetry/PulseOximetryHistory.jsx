@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Typography, Grid, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -44,16 +44,15 @@ const PulseOximetryHistory = ({ individualDetail }) => {
         </Grid>
         <Grid item>
           <IconButton
-            title="Add 
-          Pulse Oximetry"
+            title="Add Pulse Oximetry"
             variant="contained"
+            color="inherit"
             onClick={() =>
               history.push(
-                URL.PULSE_OXIMETRY + "/" + individualDetail.id,
+                `${URL.PULSE_OXIMETRY_ADD}/${individualDetail.id}`,
                 pulseOximetryRange
               )
             }
-            color="inherit"
           >
             <AddCircleOutlineIcon className={classes.iconSize} />
           </IconButton>

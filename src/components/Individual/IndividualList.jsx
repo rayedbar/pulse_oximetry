@@ -4,8 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
 import IndividualListItem from "./IndividualListItem";
-import { listIndividualsWithLatestPulseOximetry } from "../../graphql/custom-queries";
 import ProgressBar from "../Shared/ProgressBar";
+import GET_INDIVIDUALS from "../../graphql/Individual/GetIndividuals";
 
 const useStyles = makeStyles({
   root: {
@@ -15,9 +15,7 @@ const useStyles = makeStyles({
 
 const IndividualList = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(
-    listIndividualsWithLatestPulseOximetry
-  );
+  const { loading, error, data } = useQuery(GET_INDIVIDUALS);
 
   if (loading) return <ProgressBar />;
   if (error) return `Error! ${error.message}`;

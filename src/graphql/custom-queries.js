@@ -68,3 +68,18 @@ export const listIndividualsWithPulseOximetryRange = gql`
     }
   }
 `;
+
+export const getPulseOximetryRangeByIndividual = gql`
+  query GetPulseOximetryRange($id: ID!) {
+    getPulseOximetryRange(id: $id) {
+      id
+      individualID
+      minSpO2
+      minHeartRate
+      maxHeartRate
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;

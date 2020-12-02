@@ -48,7 +48,7 @@ const AddIndividual = () => {
     }
   );
 
-  const onSubmit = async (formData) => {
+  const onSubmit = (formData) => {
     const { dob, ...rest } = formData;
     addIndividual({
       variables: {
@@ -59,9 +59,7 @@ const AddIndividual = () => {
         },
       },
     });
-    if (!loading) {
-      history.push(URL.HOME);
-    }
+    history.push(URL.HOME);
   };
 
   if (loading) return <ProgressBar />;

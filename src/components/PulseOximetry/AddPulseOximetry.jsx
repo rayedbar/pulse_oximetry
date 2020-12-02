@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import { useHistory, useLocation, useParams } from "react-router-dom";
+
 import FormTemplate from "../Shared/FormTemplate";
 import PulseOximetryForm from "./PulseOximetryForm";
+import ProgressBar from "../Shared/ProgressBar";
+import { URL } from "../../utils/constants";
 import { createPulseOximetry } from "../../graphql/mutations";
 
 const AddPulseOximetry = () => {
@@ -10,33 +13,35 @@ const AddPulseOximetry = () => {
   const location = useLocation();
   const { individualID } = useParams();
   const [pulseOximetry, setPulseOximetry] = useState(null);
-  const [addPulseOximetry] = useMutation(gql(createPulseOximetry), {
-    update(cache, { data: { createPulseOximetry } }) {
-      cache.modify({
-        id: cache.identify({ id: individualID, __typename: "Individual" }),
-        fields: {
-          pulseOximetry(existingPulseOximetry) {
-            const newPulseOximetryRef = cache.writeFragment({
-              data: createPulseOximetry,
-              fragment: gql`
-                fragment NewPulseOximetry on PulseOximetry {
-                  id
-                  type
-                }
-              `,
-            });
-            return {
-              items: [newPulseOximetryRef, ...existingPulseOximetry.items],
-            };
+  const [addPulseOximetry, { loading }] = useMutation(
+    gql(createPulseOximetry),
+    {
+      update(cache, { data: { createPulseOximetry } }) {
+        cache.modify({
+          id: cache.identify({ id: individualID, __typename: "Individual" }),
+          fields: {
+            pulseOximetry(existingPulseOximetry) {
+              const newPulseOximetryRef = cache.writeFragment({
+                data: createPulseOximetry,
+                fragment: gql`
+                  fragment NewPulseOximetry on PulseOximetry {
+                    id
+                    type
+                  }
+                `,
+              });
+              return {
+                items: [newPulseOximetryRef, ...existingPulseOximetry.items],
+              };
+            },
           },
-        },
-      });
-    },
-    onCompleted: () => history.goBack(),
-  });
+        });
+      },
+    }
+  );
 
   const savePulseOximetry = async () => {
-    addPulseOximetry({
+    await addPulseOximetry({
       variables: {
         input: {
           individualID: individualID,
@@ -46,7 +51,10 @@ const AddPulseOximetry = () => {
         },
       },
     });
+    history.push(`${URL.PULSE_OXIMETRY}/${individualID}`);
   };
+
+  if (loading) return <ProgressBar />;
 
   return (
     <FormTemplate>

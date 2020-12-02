@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const AlertRecipient = () => {
   const classes = useStyles();
   const [showFormDialog, setShowFormDialog] = useState(false);
+
   const { loading, error, data } = useQuery(gql(listAlertRecipients));
   const [addAlertRecipient] = useMutation(gql(createAlertRecipient), {
     update(cache, { data: { createAlertRecipient } }) {

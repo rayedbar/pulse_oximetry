@@ -23,7 +23,7 @@ const EditIndividual = () => {
     gql(UpdateIndividualMutation)
   );
 
-  const onSubmit = async (formData) => {
+  const onSubmit = (formData) => {
     const { dob, ...rest } = formData;
     updateIndividual({
       variables: {
@@ -34,9 +34,7 @@ const EditIndividual = () => {
         },
       },
     });
-    if (!loading) {
-      history.goBack();
-    }
+    history.goBack();
   };
 
   if (loading) return <ProgressBar />;

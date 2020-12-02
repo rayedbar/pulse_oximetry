@@ -4,11 +4,11 @@ import { useQuery } from "@apollo/client";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import PulseOximetryWarning from "../PulseOximetry/PulseOximetryWarning";
-import IndividualDetailCard from "./IndividualDetailCard";
-import PulseOximetryHistory from "../PulseOximetry/PulseOximetryHistory";
-import { getIndividualWithPulseOximetryCreatedAtDESC } from "../../graphql/custom-queries";
+import IndividualCard from "../Individual/IndividualCard";
+import PulseOximetryWarning from "./PulseOximetryWarning";
+import PulseOximetryHistory from "./PulseOximetryHistory";
 import ProgressBar from "../Shared/ProgressBar";
+import GET_INDIVIDUAL from "../../graphql/Individual/GetIndividual";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -16,15 +16,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const IndividualDetail = () => {
+const PulseOximetry = () => {
   const classes = useStyles();
   const { individualID } = useParams();
-  const { loading, error, data } = useQuery(
-    getIndividualWithPulseOximetryCreatedAtDESC,
-    {
-      variables: { id: individualID },
-    }
-  );
+  const { loading, error, data } = useQuery(GET_INDIVIDUAL, {
+    variables: { id: individualID },
+  });
 
   if (loading) return <ProgressBar />;
   if (error) return `Error! ${error.message}`;
@@ -33,7 +30,7 @@ const IndividualDetail = () => {
     <Grid container direction="column" spacing={3} className={classes.root}>
       <PulseOximetryWarning individualDetail={data.getIndividual} />
       <Grid item>
-        <IndividualDetailCard individualDetail={data.getIndividual} />
+        <IndividualCard individualDetail={data.getIndividual} />
       </Grid>
       <Grid item>
         <PulseOximetryHistory individualDetail={data.getIndividual} />
@@ -42,4 +39,4 @@ const IndividualDetail = () => {
   );
 };
 
-export default IndividualDetail;
+export default PulseOximetry;
