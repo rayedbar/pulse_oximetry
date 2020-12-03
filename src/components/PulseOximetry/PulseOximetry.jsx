@@ -10,6 +10,7 @@ import PulseOximetryTable from "../PulseOximetry/PulseOximetryTable";
 import PulseOximetryPlot from "./PulseOximetryPlot";
 import ProgressBar from "../Shared/ProgressBar";
 import SubHeaderWithAddButton from "../Shared/SubHeaderWithAddButton";
+import { URL } from "../../utils/constants";
 
 const GET_INDIVIDUAL = gql`
   query GetIndividual(
@@ -77,6 +78,7 @@ const PulseOximetry = () => {
             }
           />
         </Grid>
+
         <Grid item xs={11}>
           <PulseOximetryPlot individualDetail={data.getIndividual} />
         </Grid>
