@@ -1,12 +1,14 @@
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useHistory, useLocation } from "react-router-dom";
+import { Cache } from "aws-amplify";
 import IndividualForm from "./IndividualForm";
 import { format as formatDate } from "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
 import { updateIndividual as UpdateIndividualMutation } from "../../graphql/mutations";
 import FormTemplate from "../Shared/FormTemplate";
 import ProgressBar from "../Shared/ProgressBar";
+import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -24,6 +26,7 @@ const EditIndividual = () => {
   );
 
   const onSubmit = (formData) => {
+    Cache.removeItem(location.state.id + INDIVIDUAL_PHOTO);
     const { dob, ...rest } = formData;
     updateIndividual({
       variables: {
