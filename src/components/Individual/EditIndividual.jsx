@@ -1,6 +1,7 @@
 import React from "react";
-import { gql, useMutation } from "@apollo/client";
-import { useHistory, useLocation } from "react-router-dom";
+
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { useHistory, useParams } from "react-router-dom";
 import { Cache } from "aws-amplify";
 import IndividualForm from "./IndividualForm";
 import { format as formatDate } from "date-fns";
@@ -10,6 +11,18 @@ import FormTemplate from "../Shared/FormTemplate";
 import ProgressBar from "../Shared/ProgressBar";
 import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 
+const GET_INDIVIDUAL = gql`
+  query GetIndividual($id: ID!) {
+    getIndividual(id: $id) {
+      id
+      firstName
+      lastName
+      gender
+      dob
+    }
+  }
+`;
+
 const useStyles = makeStyles(() => ({
   root: {
     flex: 1,
@@ -18,37 +31,41 @@ const useStyles = makeStyles(() => ({
 
 const EditIndividual = () => {
   const history = useHistory();
+  const { individualID } = useParams();
   const classes = useStyles();
-  const location = useLocation();
 
-  const [updateIndividual, { loading, error }] = useMutation(
+  const { loading: queryLoading, data } = useQuery(GET_INDIVIDUAL, {
+    variables: { id: individualID },
+  });
+
+  const [updateIndividual, { loading: mutationLoading, error }] = useMutation(
     gql(UpdateIndividualMutation)
   );
 
   const onSubmit = (formData) => {
-    Cache.removeItem(location.state.id + INDIVIDUAL_PHOTO);
+    Cache.removeItem(data.getIndividual.id + INDIVIDUAL_PHOTO);
     const { dob, ...rest } = formData;
     updateIndividual({
       variables: {
         input: {
           ...rest,
           dob: formatDate(dob, "yyyy-MM-dd"),
-          id: location.state.id,
+          id: data.getIndividual.id,
         },
       },
     });
     history.goBack();
   };
 
-  if (loading) return <ProgressBar />;
+  if (queryLoading || mutationLoading) return <ProgressBar />;
   if (error) return `Error! ${error.message}`;
 
   return (
     <div className={classes.root}>
       <FormTemplate>
         <IndividualForm
-          individualDetail={location.state}
-          individualID={location.state.id}
+          individualDetail={data.getIndividual}
+          individualID={data.getIndividual.id}
           formHeader="Edit Individual"
           onSubmit={onSubmit}
         />
