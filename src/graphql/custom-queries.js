@@ -21,14 +21,18 @@ export const listIndividualsWithLatestPulseOximetry = gql`
 `;
 
 export const getIndividualWithPulseOximetryCreatedAtDESC = gql`
-  query GetIndividual($id: ID!) {
+  query GetIndividual(
+    $id: ID!
+    $pulseOximetrySortDirection: ModelSortDirection = DESC
+    $pulseOximetryRangeSortDirection: ModelSortDirection = DESC
+  ) {
     getIndividual(id: $id) {
       id
       firstName
       lastName
       gender
       dob
-      pulseOximetry(sortDirection: DESC) {
+      pulseOximetry(sortDirection: $pulseOximetrySortDirection) {
         items {
           id
           spO2
@@ -37,7 +41,10 @@ export const getIndividualWithPulseOximetryCreatedAtDESC = gql`
           range
         }
       }
-      pulseOximetryRange(limit: 1, sortDirection: DESC) {
+      pulseOximetryRange(
+        limit: 1
+        sortDirection: $pulseOximetryRangeSortDirection
+      ) {
         items {
           id
           minSpO2

@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
 import {
   Paper,
   TableContainer,
@@ -13,22 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import ProgressBar from "../Shared/ProgressBar";
-import BuildGetIndividualQuery from "../../graphql/Individual/BuildGetIndividualQuery";
-
-const PulseOximetryTable = () => {
-  const { individualID } = useParams();
-  const { data, loading } = useQuery(
-    BuildGetIndividualQuery({
-      includeIndividualInfo: false,
-      includePulseOximetry: true,
-      includePulseOximetryRange: false,
-    }),
-    {
-      variables: { id: individualID },
-    }
-  );
-
+const PulseOximetryTable = ({ pulseOximetryData }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -41,9 +24,7 @@ const PulseOximetryTable = () => {
     setCurrentPage(0);
   };
 
-  if (loading) return <ProgressBar />;
-
-  return data.getIndividual.pulseOximetry.items.length > 0 ? (
+  return pulseOximetryData.length > 0 ? (
     <TableContainer component={Paper}>
       <Table style={{ width: "100%" }} aria-label="SpO2 table">
         <TableHead>
@@ -55,7 +36,7 @@ const PulseOximetryTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.getIndividual.pulseOximetry.items
+          {pulseOximetryData
             .slice(
               currentPage * rowsPerPage,
               currentPage * rowsPerPage + rowsPerPage
@@ -77,7 +58,7 @@ const PulseOximetryTable = () => {
       <TablePagination
         component="div"
         rowsPerPageOptions={[5, 10, 25]}
-        count={data.getIndividual.pulseOximetry.items.length}
+        count={pulseOximetryData.length}
         page={currentPage}
         onChangePage={handleChangePage}
         rowsPerPage={rowsPerPage}

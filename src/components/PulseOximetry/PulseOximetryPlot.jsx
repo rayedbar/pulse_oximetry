@@ -1,14 +1,10 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import Plotly from "plotly.js-basic-dist";
 import createPlotlyComponent from "react-plotly.js/factory";
 import { format } from "date-fns";
 
 import { getPulseOximetryRange } from "../../utils/functions";
-import ProgressBar from "../Shared/ProgressBar";
-import BuildGetIndividualQuery from "../../graphql/Individual/BuildGetIndividualQuery";
 
 const useStyles = makeStyles({
   plot: {
@@ -17,19 +13,8 @@ const useStyles = makeStyles({
   },
 });
 
-const PulseOximetryPlot = () => {
+const PulseOximetryPlot = ({ individualDetail }) => {
   const classes = useStyles();
-  const { individualID } = useParams();
-  const { data, loading } = useQuery(
-    BuildGetIndividualQuery({
-      includeIndividualInfo: false,
-      includePulseOximetry: true,
-      includePulseOximetryRange: true,
-    }),
-    {
-      variables: { id: individualID },
-    }
-  );
 
   const Plot = createPlotlyComponent(Plotly);
   const plotlyConfig = {
@@ -37,15 +22,13 @@ const PulseOximetryPlot = () => {
     modeBarButtonsToRemove: ["sendDataToCloud", "toggleSpikelines", "lasso2d"],
   };
 
-  if (loading) return <ProgressBar />;
-
-  return data.getIndividual.pulseOximetry.items.length > 0 ? (
+  return individualDetail.pulseOximetry.items.length > 0 ? (
     <Plot
       className={classes.plot}
       useResizeHandler={true}
       data={getFormattedPlotData(
-        data.getIndividual.pulseOximetry.items,
-        getPulseOximetryRange(data.getIndividual)
+        individualDetail.pulseOximetry.items,
+        getPulseOximetryRange(individualDetail)
       )}
       layout={{
         grid: { rows: 2, columns: 1 },
