@@ -1,31 +1,15 @@
 import React, { useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import { Grid, IconButton, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 
 import AlertRecipientForm from "./AlertRecipientForm";
 import AlertRecipientCard from "./AlertRecipientCard";
+import SubHeaderWithAddButton from "../Shared/SubHeaderWithAddButton";
 import ProgressBar from "../Shared/ProgressBar";
 import { createAlertRecipient } from "../../graphql/mutations";
 import { listAlertRecipients } from "../../graphql/queries";
 
-const useStyles = makeStyles((theme) => ({
-  iconSize: {
-    fontSize: 30,
-  },
-  addRecipientHeader: {
-    backgroundColor: theme.palette.secondary.main,
-    borderRadius: 5,
-    marginBottom: 20,
-  },
-  addRecipientTitle: {
-    marginLeft: 10,
-  },
-}));
-
 const AlertRecipient = () => {
-  const classes = useStyles();
   const [showFormDialog, setShowFormDialog] = useState(false);
 
   const { loading, error, data } = useQuery(gql(listAlertRecipients));
@@ -69,28 +53,14 @@ const AlertRecipient = () => {
 
   return (
     <Grid container>
-      <Grid
-        item
-        container
-        justify="space-between"
-        alignItems="center"
-        className={classes.addRecipientHeader}
-      >
-        <Grid item className={classes.addRecipientTitle}>
-          <Typography variant="h5">Alert Recipients</Typography>
-        </Grid>
-        <Grid item>
-          <IconButton
-            title="Add Recipient"
-            variant="contained"
-            onClick={() => setShowFormDialog(true)}
-            color="inherit"
-          >
-            <AddCircleOutlineIcon className={classes.iconSize} />
-          </IconButton>
-        </Grid>
+      <Grid item xs={12}>
+        <SubHeaderWithAddButton
+          title="Alert Recipients"
+          buttonDescription="Add Alert Recipient"
+          buttonOnClick={() => setShowFormDialog(true)}
+        />
       </Grid>
-      <Grid item container spacing={2}>
+      <Grid item container spacing={2} style={{ marginTop: 10 }}>
         {data.listAlertRecipients.items.map((recipient) => (
           <Grid item key={recipient.id} xs={12}>
             <AlertRecipientCard recipient={recipient} />
