@@ -1,5 +1,6 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 import {
   Paper,
   TableContainer,
@@ -9,11 +10,27 @@ import {
   TableBody,
   TableCell,
   TablePagination,
+  Typography,
 } from "@material-ui/core";
 
-const PulseOximetryTable = ({ pulseOximetryData }) => {
-  const [currentPage, setCurrentPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+import ProgressBar from "../Shared/ProgressBar";
+import BuildGetIndividualQuery from "../../graphql/Individual/BuildGetIndividualQuery";
+
+const PulseOximetryTable = () => {
+  const { individualID } = useParams();
+  const { data, loading } = useQuery(
+    BuildGetIndividualQuery({
+      includeIndividualInfo: false,
+      includePulseOximetry: true,
+      includePulseOximetryRange: false,
+    }),
+    {
+      variables: { id: individualID },
+    }
+  );
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
@@ -24,7 +41,9 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
     setCurrentPage(0);
   };
 
-  return (
+  if (loading) return <ProgressBar />;
+
+  return data.getIndividual.pulseOximetry.items.length > 0 ? (
     <TableContainer component={Paper}>
       <Table style={{ width: "100%" }} aria-label="SpO2 table">
         <TableHead>
@@ -36,7 +55,7 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {pulseOximetryData
+          {data.getIndividual.pulseOximetry.items
             .slice(
               currentPage * rowsPerPage,
               currentPage * rowsPerPage + rowsPerPage
@@ -58,13 +77,15 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
       <TablePagination
         component="div"
         rowsPerPageOptions={[5, 10, 25]}
-        count={pulseOximetryData.length}
+        count={data.getIndividual.pulseOximetry.items.length}
         page={currentPage}
         onChangePage={handleChangePage}
         rowsPerPage={rowsPerPage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
     </TableContainer>
+  ) : (
+    <Typography>No Data</Typography>
   );
 };
 

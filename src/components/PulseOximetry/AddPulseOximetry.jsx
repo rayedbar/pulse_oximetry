@@ -1,19 +1,30 @@
 import React, { useState } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import FormTemplate from "../Shared/FormTemplate";
 import PulseOximetryForm from "./PulseOximetryForm";
 import ProgressBar from "../Shared/ProgressBar";
 import { URL } from "../../utils/constants";
 import { createPulseOximetry } from "../../graphql/mutations";
+import BuildGetIndividualQuery from "../../graphql/Individual/BuildGetIndividualQuery";
+import { getPulseOximetryRange } from "../../utils/functions";
 
 const AddPulseOximetry = () => {
   const history = useHistory();
-  const location = useLocation();
   const { individualID } = useParams();
   const [pulseOximetry, setPulseOximetry] = useState(null);
-  const [addPulseOximetry, { loading }] = useMutation(
+  const { loading: queryLoading, data } = useQuery(
+    BuildGetIndividualQuery({
+      includeIndividualInfo: false,
+      includePulseOximetry: false,
+      includePulseOximetryRange: true,
+    }),
+    {
+      variables: { id: individualID },
+    }
+  );
+  const [addPulseOximetry, { loading: mutationLoading }] = useMutation(
     gql(createPulseOximetry),
     {
       update(cache, { data: { createPulseOximetry } }) {
@@ -47,14 +58,14 @@ const AddPulseOximetry = () => {
           individualID: individualID,
           heartRate: parseInt(pulseOximetry.heartRate, 10),
           spO2: parseInt(pulseOximetry.spo2, 10),
-          range: JSON.stringify(location.state),
+          range: JSON.stringify(getPulseOximetryRange(data.getIndividual)),
         },
       },
     });
     history.push(`${URL.PULSE_OXIMETRY}/${individualID}`);
   };
 
-  if (loading) return <ProgressBar />;
+  if (queryLoading || mutationLoading) return <ProgressBar />;
 
   return (
     <FormTemplate>

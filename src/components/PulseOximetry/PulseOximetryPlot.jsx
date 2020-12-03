@@ -1,9 +1,14 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import Plotly from "plotly.js-basic-dist";
 import createPlotlyComponent from "react-plotly.js/factory";
 import { format } from "date-fns";
+
 import { getPulseOximetryRange } from "../../utils/functions";
+import ProgressBar from "../Shared/ProgressBar";
+import BuildGetIndividualQuery from "../../graphql/Individual/BuildGetIndividualQuery";
 
 const useStyles = makeStyles({
   plot: {
@@ -12,12 +17,65 @@ const useStyles = makeStyles({
   },
 });
 
-const PulseOximetryPlot = ({ individualDetail }) => {
+const PulseOximetryPlot = () => {
   const classes = useStyles();
-  const Plot = createPlotlyComponent(Plotly);
-  const pulseOximetryRange = getPulseOximetryRange(individualDetail);
-  const pulseOximetryData = individualDetail.pulseOximetry.items;
+  const { individualID } = useParams();
+  const { data, loading } = useQuery(
+    BuildGetIndividualQuery({
+      includeIndividualInfo: false,
+      includePulseOximetry: true,
+      includePulseOximetryRange: true,
+    }),
+    {
+      variables: { id: individualID },
+    }
+  );
 
+  const Plot = createPlotlyComponent(Plotly);
+  const plotlyConfig = {
+    displaylogo: false,
+    modeBarButtonsToRemove: ["sendDataToCloud", "toggleSpikelines", "lasso2d"],
+  };
+
+  if (loading) return <ProgressBar />;
+
+  return data.getIndividual.pulseOximetry.items.length > 0 ? (
+    <Plot
+      className={classes.plot}
+      useResizeHandler={true}
+      data={getFormattedPlotData(
+        data.getIndividual.pulseOximetry.items,
+        getPulseOximetryRange(data.getIndividual)
+      )}
+      layout={{
+        grid: { rows: 2, columns: 1 },
+        title: "SpO2 and Heart Rate Plot",
+        xaxis: {
+          autorange: true,
+          rangeslider: {},
+        },
+        autosize: true,
+        margin: {
+          b: 30,
+        },
+        legend: {
+          x: 1,
+          xanchor: "right",
+          y: 1.2,
+        },
+        yaxis: { domain: [0.6, 1] },
+        yaxis2: { domain: [0, 0.45] },
+      }}
+      config={plotlyConfig}
+    />
+  ) : (
+    "hello"
+  );
+};
+
+export default PulseOximetryPlot;
+
+const getFormattedPlotData = (pulseOximetryData, pulseOximetryRange) => {
   const formattedDateTime = pulseOximetryData.map((data) =>
     format(new Date(data.createdAt), "yyyy-MM-dd HH:mm:ss")
   );
@@ -66,38 +124,5 @@ const PulseOximetryPlot = ({ individualDetail }) => {
     },
   };
 
-  const plotlyConfig = {
-    displaylogo: false,
-    modeBarButtonsToRemove: ["sendDataToCloud", "toggleSpikelines", "lasso2d"],
-  };
-
-  return (
-    <Plot
-      className={classes.plot}
-      useResizeHandler={true}
-      data={[plotData.spO2, plotData.heartRate]}
-      layout={{
-        grid: { rows: 2, columns: 1 },
-        title: "SpO2 and Heart Rate Plot",
-        xaxis: {
-          autorange: true,
-          rangeslider: {},
-        },
-        autosize: true,
-        margin: {
-          b: 30,
-        },
-        legend: {
-          x: 1,
-          xanchor: "right",
-          y: 1.2,
-        },
-        yaxis: { domain: [0.6, 1] },
-        yaxis2: { domain: [0, 0.45] },
-      }}
-      config={plotlyConfig}
-    />
-  );
+  return [plotData.spO2, plotData.heartRate];
 };
-
-export default PulseOximetryPlot;
