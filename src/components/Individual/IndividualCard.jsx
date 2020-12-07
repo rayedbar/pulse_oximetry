@@ -29,12 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const IndividualCard = ({ individualDetail }) => {
+const IndividualCard = ({ individual }) => {
   const classes = useStyles();
   const history = useHistory();
 
-  const { id: individualID, firstName, lastName } = individualDetail;
-  const latestPulseOximetry = individualDetail.pulseOximetry?.items[0];
+  const { id: individualID, firstName, lastName } = individual;
+  const latestPulseOximetry = individual.pulseOximetry?.items[0];
 
   return (
     <Card>
@@ -43,10 +43,7 @@ const IndividualCard = ({ individualDetail }) => {
           title="Edit Information"
           aria-label="Edit Information"
           onClick={() =>
-            history.push(
-              `${URL.INDIVIDUAL_EDIT}/${individualID}`,
-              individualDetail
-            )
+            history.push(`${URL.INDIVIDUAL_EDIT}/${individualID}`, individual)
           }
           className={classes.editButton}
           color="inherit"

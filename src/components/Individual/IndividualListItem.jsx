@@ -24,24 +24,6 @@ const IndividualListItem = ({ individual }) => {
   const history = useHistory();
   const classes = useStyles();
 
-  const getLatestHeartRate = () =>
-    individual.pulseOximetry.items.length > 0
-      ? individual.pulseOximetry.items[0].heartRate
-      : "Not Available";
-
-  const getLatestSpO2 = () =>
-    individual.pulseOximetry.items.length > 0
-      ? individual.pulseOximetry.items[0].spO2
-      : "Not Available";
-
-  const getLastUpdated = () =>
-    individual.pulseOximetry.items.length > 0
-      ? formatRelative(
-          new Date(individual.pulseOximetry.items[0].createdAt),
-          new Date()
-        )
-      : "Not Available";
-
   return (
     <div className={classes.root}>
       <Card
@@ -75,18 +57,18 @@ const IndividualListItem = ({ individual }) => {
               </Grid>
               <Grid item>
                 <Typography>
-                  Latest SpO2: <b>{getLatestSpO2()}</b>
+                  Latest SpO2: <b>{getLatestSpO2(individual)}</b>
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography>
-                  Latest Heart Rate: <b>{getLatestHeartRate()}</b>
+                  Latest Heart Rate: <b>{getLatestHeartRate(individual)}</b>
                 </Typography>
               </Grid>
               <Grid>
                 <Typography color="textSecondary">
                   {"Last updated "}
-                  {getLastUpdated()}
+                  {getLastUpdated(individual)}
                 </Typography>
               </Grid>
             </Grid>
@@ -96,5 +78,23 @@ const IndividualListItem = ({ individual }) => {
     </div>
   );
 };
+
+const getLatestHeartRate = (individual) =>
+  individual.pulseOximetry.items.length > 0
+    ? individual.pulseOximetry.items[0].heartRate
+    : "Not Available";
+
+const getLatestSpO2 = (individual) =>
+  individual.pulseOximetry.items.length > 0
+    ? individual.pulseOximetry.items[0].spO2
+    : "Not Available";
+
+const getLastUpdated = (individual) =>
+  individual.pulseOximetry.items.length > 0
+    ? formatRelative(
+        new Date(individual.pulseOximetry.items[0].createdAt),
+        new Date()
+      )
+    : "Not Available";
 
 export default IndividualListItem;

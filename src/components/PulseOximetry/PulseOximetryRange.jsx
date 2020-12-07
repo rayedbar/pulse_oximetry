@@ -2,21 +2,24 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { gql, useQuery, useMutation } from "@apollo/client";
 
-import { listIndividualsWithPulseOximetryRange } from "../../graphql/custom-queries";
-import { createPulseOximetryRange } from "../../graphql/mutations";
+import ProgressBar from "../Shared/ProgressBar";
 import FormTemplate from "../Shared/FormTemplate";
 import PulseOximetryRangeForm from "./PulseOximetryRangeForm";
+import LIST_INDIVIDUALS_WITH_PULSE_OXIMETRY_RANGE from "../../graphql/Individual/ListIndividualsWithPulseOximetryRange";
+import { createPulseOximetryRange as CREATE_PULSE_OXIMETRY_RANGE } from "../../graphql/mutations";
 import { URL } from "../../utils/constants";
-import ProgressBar from "../Shared/ProgressBar";
 
 const PulseOximetryRange = () => {
   const history = useHistory();
   const { loading, error, data } = useQuery(
-    listIndividualsWithPulseOximetryRange
+    LIST_INDIVIDUALS_WITH_PULSE_OXIMETRY_RANGE
   );
-  const [addPulseOximetryRange] = useMutation(gql(createPulseOximetryRange), {
-    onCompleted: () => history.push(URL.HOME),
-  });
+  const [addPulseOximetryRange] = useMutation(
+    gql(CREATE_PULSE_OXIMETRY_RANGE),
+    {
+      onCompleted: () => history.push(URL.HOME),
+    }
+  );
 
   const onSubmit = async (formData) => {
     const { minSpO2, minHeartRate, maxHeartRate, individualID } = formData;
@@ -36,7 +39,7 @@ const PulseOximetryRange = () => {
             __typename: "Individual",
           }),
           fields: {
-            pulseOximetryRange(existingPulseOximetryRange) {
+            pulseOximetryRange() {
               const newPulseOximetryRangeRef = cache.writeFragment({
                 data: createPulseOximetryRange,
                 fragment: gql`
@@ -47,10 +50,7 @@ const PulseOximetryRange = () => {
                 `,
               });
               return {
-                items: [
-                  newPulseOximetryRangeRef,
-                  ...existingPulseOximetryRange.items,
-                ],
+                items: [newPulseOximetryRangeRef],
               };
             },
           },

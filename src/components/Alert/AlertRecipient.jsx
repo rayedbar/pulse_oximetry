@@ -6,14 +6,14 @@ import AlertRecipientForm from "./AlertRecipientForm";
 import AlertRecipientCard from "./AlertRecipientCard";
 import SubHeaderWithAddButton from "../Shared/SubHeaderWithAddButton";
 import ProgressBar from "../Shared/ProgressBar";
-import { createAlertRecipient } from "../../graphql/mutations";
-import { listAlertRecipients } from "../../graphql/queries";
+import { listAlertRecipients as LIST_ALERT_RECIPIENTS } from "../../graphql/queries";
+import { createAlertRecipient as CREATE_ALERT_RECIPIENT } from "../../graphql/mutations";
 
 const AlertRecipient = () => {
   const [showFormDialog, setShowFormDialog] = useState(false);
 
-  const { loading, error, data } = useQuery(gql(listAlertRecipients));
-  const [addAlertRecipient] = useMutation(gql(createAlertRecipient), {
+  const { loading, error, data } = useQuery(gql(LIST_ALERT_RECIPIENTS));
+  const [addAlertRecipient] = useMutation(gql(CREATE_ALERT_RECIPIENT), {
     update(cache, { data: { createAlertRecipient } }) {
       cache.modify({
         fields: {

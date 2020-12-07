@@ -10,40 +10,8 @@ import PulseOximetryTable from "../PulseOximetry/PulseOximetryTable";
 import PulseOximetryPlot from "./PulseOximetryPlot";
 import ProgressBar from "../Shared/ProgressBar";
 import SubHeaderWithAddButton from "../Shared/SubHeaderWithAddButton";
+import LIST_PULSE_OXIMETRY_BY_INDIVIDUAL from "../../graphql/PulseOximetry/ListPulseOximetryByIndividual";
 import { URL } from "../../utils/constants";
-
-const GET_INDIVIDUAL = gql`
-  query GetIndividual(
-    $id: ID!
-    $pulseOximetryLimit: Int
-    $pulseOximetryRangeLimit: Int = 1
-  ) {
-    getIndividual(id: $id) {
-      id
-      firstName
-      lastName
-      gender
-      dob
-      pulseOximetry(limit: $pulseOximetryLimit, sortDirection: DESC) {
-        items {
-          id
-          spO2
-          heartRate
-          createdAt
-          range
-        }
-      }
-      pulseOximetryRange(limit: $pulseOximetryRangeLimit, sortDirection: DESC) {
-        items {
-          id
-          minSpO2
-          minHeartRate
-          maxHeartRate
-        }
-      }
-    }
-  }
-`;
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -55,18 +23,20 @@ const PulseOximetry = () => {
   const classes = useStyles();
   const history = useHistory();
   const { individualID } = useParams();
-  const { loading, error, data } = useQuery(GET_INDIVIDUAL, {
+  const { loading, error, data } = useQuery(LIST_PULSE_OXIMETRY_BY_INDIVIDUAL, {
     variables: { id: individualID },
   });
 
   if (loading) return <ProgressBar />;
   if (error) return `Error! ${error.message}`;
 
+  const individual = data.getIndividual;
+
   return (
     <Grid container direction="column" spacing={3} className={classes.root}>
-      <PulseOximetryWarning individualDetail={data.getIndividual} />
+      <PulseOximetryWarning individual={individual} />
       <Grid item>
-        <IndividualCard individualDetail={data.getIndividual} />
+        <IndividualCard individual={individual} />
       </Grid>
       <Grid item container direction="column" spacing={1}>
         <Grid item xs={12}>
@@ -80,12 +50,10 @@ const PulseOximetry = () => {
         </Grid>
 
         <Grid item xs={11}>
-          <PulseOximetryPlot individualDetail={data.getIndividual} />
+          <PulseOximetryPlot individual={individual} />
         </Grid>
         <Grid item xs={12}>
-          <PulseOximetryTable
-            pulseOximetryData={data.getIndividual.pulseOximetry.items}
-          />
+          <PulseOximetryTable pulseOximetry={individual.pulseOximetry.items} />
         </Grid>
       </Grid>
     </Grid>

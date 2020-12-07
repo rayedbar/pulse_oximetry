@@ -4,11 +4,12 @@ import { useHistory } from "react-router-dom";
 import { format as formatDate } from "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
 import { v4 as uuidv4 } from "uuid";
-import { createIndividual } from "../../graphql/mutations";
+
 import IndividualForm from "./IndividualForm";
-import { URL } from "../../utils/constants";
 import FormTemplate from "../Shared/FormTemplate";
 import ProgressBar from "../Shared/ProgressBar";
+import { createIndividual as CREATE_INDIVIDUAL } from "../../graphql/mutations";
+import { URL } from "../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,7 +23,7 @@ const AddIndividual = () => {
 
   const [individualID] = useState(uuidv4());
   const [addIndividual, { loading, error }] = useMutation(
-    gql(createIndividual),
+    gql(CREATE_INDIVIDUAL),
     {
       update(cache, { data: { createIndividual } }) {
         cache.modify({

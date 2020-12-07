@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-const PulseOximetryTable = ({ pulseOximetryData }) => {
+const PulseOximetryTable = ({ pulseOximetry }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -24,7 +24,7 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
     setCurrentPage(0);
   };
 
-  return pulseOximetryData.length > 0 ? (
+  return pulseOximetry.length > 0 ? (
     <TableContainer component={Paper}>
       <Table style={{ width: "100%" }} aria-label="SpO2 table">
         <TableHead>
@@ -36,7 +36,7 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {pulseOximetryData
+          {pulseOximetry
             .slice(
               currentPage * rowsPerPage,
               currentPage * rowsPerPage + rowsPerPage
@@ -58,7 +58,7 @@ const PulseOximetryTable = ({ pulseOximetryData }) => {
       <TablePagination
         component="div"
         rowsPerPageOptions={[5, 10, 25]}
-        count={pulseOximetryData.length}
+        count={pulseOximetry.length}
         page={currentPage}
         onChangePage={handleChangePage}
         rowsPerPage={rowsPerPage}

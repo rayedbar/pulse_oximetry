@@ -6,31 +6,16 @@ import FormTemplate from "../Shared/FormTemplate";
 import PulseOximetryForm from "./PulseOximetryForm";
 import ProgressBar from "../Shared/ProgressBar";
 import { URL } from "../../utils/constants";
+import GET_PULSE_OXIMETRY_RANGE_BY_INDIVIDUAL from "../../graphql/PulseOximetry/GetPulseOximetryRangeByIndividual";
 import { createPulseOximetry } from "../../graphql/mutations";
 import { getPulseOximetryRange } from "../../utils/functions";
-
-const GET_INDIVIDUAL_PULSE_OXIMETRY_RANGE = gql`
-  query GetIndividual($id: ID!, $pulseOximetryRangeLimit: Int = 1) {
-    getIndividual(id: $id) {
-      id
-      pulseOximetryRange(limit: $pulseOximetryRangeLimit, sortDirection: DESC) {
-        items {
-          id
-          minSpO2
-          minHeartRate
-          maxHeartRate
-        }
-      }
-    }
-  }
-`;
 
 const AddPulseOximetry = () => {
   const history = useHistory();
   const { individualID } = useParams();
   const [pulseOximetry, setPulseOximetry] = useState(null);
   const { loading: queryLoading, data } = useQuery(
-    GET_INDIVIDUAL_PULSE_OXIMETRY_RANGE,
+    GET_PULSE_OXIMETRY_RANGE_BY_INDIVIDUAL,
     {
       variables: { id: individualID },
     }

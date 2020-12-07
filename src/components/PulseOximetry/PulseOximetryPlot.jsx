@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PulseOximetryPlot = ({ individualDetail }) => {
+const PulseOximetryPlot = ({ individual }) => {
   const classes = useStyles();
 
   const Plot = createPlotlyComponent(Plotly);
@@ -22,13 +22,13 @@ const PulseOximetryPlot = ({ individualDetail }) => {
     modeBarButtonsToRemove: ["sendDataToCloud", "toggleSpikelines", "lasso2d"],
   };
 
-  return individualDetail.pulseOximetry.items.length > 0 ? (
+  return individual.pulseOximetry.items.length > 0 ? (
     <Plot
       className={classes.plot}
       useResizeHandler={true}
       data={getFormattedPlotData(
-        individualDetail.pulseOximetry.items,
-        getPulseOximetryRange(individualDetail)
+        individual.pulseOximetry.items,
+        getPulseOximetryRange(individual)
       )}
       layout={{
         grid: { rows: 2, columns: 1 },

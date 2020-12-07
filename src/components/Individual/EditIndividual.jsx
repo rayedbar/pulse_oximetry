@@ -1,27 +1,16 @@
 import React from "react";
-
-import { gql, useQuery, useMutation } from "@apollo/client";
 import { useHistory, useParams } from "react-router-dom";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import { Cache } from "aws-amplify";
-import IndividualForm from "./IndividualForm";
 import { format as formatDate } from "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
-import { updateIndividual as UpdateIndividualMutation } from "../../graphql/mutations";
 import FormTemplate from "../Shared/FormTemplate";
 import ProgressBar from "../Shared/ProgressBar";
-import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 
-const GET_INDIVIDUAL = gql`
-  query GetIndividual($id: ID!) {
-    getIndividual(id: $id) {
-      id
-      firstName
-      lastName
-      gender
-      dob
-    }
-  }
-`;
+import IndividualForm from "./IndividualForm";
+import GET_INDIVIDUAL from "../../graphql/Individual/GetIndividual";
+import { updateIndividual as UPDATE_INDIVIDUAL } from "../../graphql/mutations";
+import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -39,7 +28,7 @@ const EditIndividual = () => {
   });
 
   const [updateIndividual, { loading: mutationLoading, error }] = useMutation(
-    gql(UpdateIndividualMutation)
+    gql(UPDATE_INDIVIDUAL)
   );
 
   const onSubmit = (formData) => {

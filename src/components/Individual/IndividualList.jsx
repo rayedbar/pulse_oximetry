@@ -3,9 +3,9 @@ import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
-import IndividualListItem from "./IndividualListItem";
 import ProgressBar from "../Shared/ProgressBar";
-import GET_INDIVIDUALS from "../../graphql/Individual/GetIndividuals";
+import IndividualListItem from "./IndividualListItem";
+import LIST_INDIVIDUALS from "../../graphql/Individual/ListIndividuals";
 
 const useStyles = makeStyles({
   root: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 
 const IndividualList = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(GET_INDIVIDUALS);
+  const { loading, error, data } = useQuery(LIST_INDIVIDUALS);
 
   if (loading) return <ProgressBar />;
   if (error) return `Error! ${error.message}`;
