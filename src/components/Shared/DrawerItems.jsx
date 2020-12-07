@@ -38,7 +38,7 @@ const DrawerItems = ({ toggleDrawer }) => {
         <ListItem
           button
           onClick={() => {
-            history.push(URL.INDIVIDUALS + "/add");
+            history.push(URL.INDIVIDUAL_ADD);
           }}
         >
           <ListItemIcon>

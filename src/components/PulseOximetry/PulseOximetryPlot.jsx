@@ -4,6 +4,8 @@ import Plotly from "plotly.js-basic-dist";
 import createPlotlyComponent from "react-plotly.js/factory";
 import { format } from "date-fns";
 
+import { getPulseOximetryRange } from "../../utils/functions";
+
 const useStyles = makeStyles({
   plot: {
     height: "100%",
@@ -11,10 +13,50 @@ const useStyles = makeStyles({
   },
 });
 
-const PulseOximetryPlot = ({ pulseOximetryData, pulseOximetryRange }) => {
+const PulseOximetryPlot = ({ individual }) => {
   const classes = useStyles();
-  const Plot = createPlotlyComponent(Plotly);
 
+  const Plot = createPlotlyComponent(Plotly);
+  const plotlyConfig = {
+    displaylogo: false,
+    modeBarButtonsToRemove: ["sendDataToCloud", "toggleSpikelines", "lasso2d"],
+  };
+
+  return individual.pulseOximetry.items.length > 0 ? (
+    <Plot
+      className={classes.plot}
+      useResizeHandler={true}
+      data={getFormattedPlotData(
+        individual.pulseOximetry.items,
+        getPulseOximetryRange(individual)
+      )}
+      layout={{
+        grid: { rows: 2, columns: 1 },
+        title: "SpO2 and Heart Rate Plot",
+        xaxis: {
+          autorange: true,
+          rangeslider: {},
+        },
+        autosize: true,
+        margin: {
+          b: 30,
+        },
+        legend: {
+          x: 1,
+          xanchor: "right",
+          y: 1.2,
+        },
+        yaxis: { domain: [0.6, 1] },
+        yaxis2: { domain: [0, 0.45] },
+      }}
+      config={plotlyConfig}
+    />
+  ) : null;
+};
+
+export default PulseOximetryPlot;
+
+const getFormattedPlotData = (pulseOximetryData, pulseOximetryRange) => {
   const formattedDateTime = pulseOximetryData.map((data) =>
     format(new Date(data.createdAt), "yyyy-MM-dd HH:mm:ss")
   );
@@ -63,38 +105,5 @@ const PulseOximetryPlot = ({ pulseOximetryData, pulseOximetryRange }) => {
     },
   };
 
-  const plotlyConfig = {
-    displaylogo: false,
-    modeBarButtonsToRemove: ["sendDataToCloud", "toggleSpikelines", "lasso2d"],
-  };
-
-  return (
-    <Plot
-      className={classes.plot}
-      useResizeHandler={true}
-      data={[plotData.spO2, plotData.heartRate]}
-      layout={{
-        grid: { rows: 2, columns: 1 },
-        title: "SpO2 and Heart Rate Plot",
-        xaxis: {
-          autorange: true,
-          rangeslider: {},
-        },
-        autosize: true,
-        margin: {
-          b: 30,
-        },
-        legend: {
-          x: 1,
-          xanchor: "right",
-          y: 1.2,
-        },
-        yaxis: { domain: [0.6, 1] },
-        yaxis2: { domain: [0, 0.45] },
-      }}
-      config={plotlyConfig}
-    />
-  );
+  return [plotData.spO2, plotData.heartRate];
 };
-
-export default PulseOximetryPlot;

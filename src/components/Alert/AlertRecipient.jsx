@@ -1,108 +1,69 @@
-import React, { useState, useEffect } from "react";
-import { API, graphqlOperation } from "aws-amplify";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import {
-  Card,
-  CardContent,
-  Grid,
-  IconButton,
-  Typography,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
+import { useQuery, gql, useMutation } from "@apollo/client";
+import { Grid } from "@material-ui/core";
 
 import AlertRecipientForm from "./AlertRecipientForm";
-import { createAlertRecipient } from "../../graphql/mutations";
-import { listAlertRecipients } from "../../graphql/queries";
-
-const useStyles = makeStyles((theme) => ({
-  iconSize: {
-    fontSize: 30,
-  },
-  addRecipientHeader: {
-    backgroundColor: theme.palette.secondary.main,
-    borderRadius: 5,
-    marginBottom: 20,
-  },
-  addRecipientTitle: {
-    marginLeft: 10,
-  },
-}));
+import AlertRecipientCard from "./AlertRecipientCard";
+import SubHeaderWithAddButton from "../Shared/SubHeaderWithAddButton";
+import ProgressBar from "../Shared/ProgressBar";
+import { listAlertRecipients as LIST_ALERT_RECIPIENTS } from "../../graphql/queries";
+import { createAlertRecipient as CREATE_ALERT_RECIPIENT } from "../../graphql/mutations";
 
 const AlertRecipient = () => {
-  const classes = useStyles();
-  const [recipients, setRecipients] = useState([]);
   const [showFormDialog, setShowFormDialog] = useState(false);
 
-  useEffect(() => {
-    const fetchAlertRecipients = async () => {
-      try {
-        const recipientData = await API.graphql(
-          graphqlOperation(listAlertRecipients)
-        );
-        setRecipients(recipientData.data.listAlertRecipients.items);
-      } catch (error) {
-        console.log("Error Fetching AlertRecipient Data!", error);
-      }
-    };
-    fetchAlertRecipients();
-  }, []);
+  const { loading, error, data } = useQuery(gql(LIST_ALERT_RECIPIENTS));
+  const [addAlertRecipient] = useMutation(gql(CREATE_ALERT_RECIPIENT), {
+    update(cache, { data: { createAlertRecipient } }) {
+      cache.modify({
+        fields: {
+          listAlertRecipients(existingAlertRecipients) {
+            const newAlertRecipientRef = cache.writeFragment({
+              data: createAlertRecipient,
+              fragment: gql`
+                fragment NewAlertRecipient on AlertRecipient {
+                  id
+                  type
+                }
+              `,
+            });
 
-  const onSubmit = async (formData) => {
-    try {
-      const recepientData = await API.graphql(
-        graphqlOperation(createAlertRecipient, {
-          input: {
-            ...formData,
+            return {
+              items: [...existingAlertRecipients.items, newAlertRecipientRef],
+            };
           },
-        })
-      );
-      setShowFormDialog(false);
-      setRecipients(
-        recipients.slice().concat(recepientData.data.createAlertRecipient)
-      );
-    } catch (error) {
-      console.log(error);
-    }
+        },
+      });
+    },
+  });
+
+  const onSubmit = (formData) => {
+    addAlertRecipient({
+      variables: {
+        input: {
+          ...formData,
+        },
+      },
+    });
+    setShowFormDialog(false);
   };
 
-  const RecipientCard = (recipient) => (
-    <Card>
-      <CardContent>
-        <Typography>
-          {recipient.firstName + " " + recipient.lastName}
-        </Typography>
-        <Typography>{recipient.email}</Typography>
-      </CardContent>
-    </Card>
-  );
+  if (loading) return <ProgressBar />;
+  if (error) return `Error! ${error.message}`;
 
   return (
     <Grid container>
-      <Grid
-        item
-        container
-        justify="space-between"
-        alignItems="center"
-        className={classes.addRecipientHeader}
-      >
-        <Grid item className={classes.addRecipientTitle}>
-          <Typography variant="h5">Alert Recipients</Typography>
-        </Grid>
-        <Grid item>
-          <IconButton
-            title="Add Recipient"
-            variant="contained"
-            onClick={() => setShowFormDialog(true)}
-            color="inherit"
-          >
-            <AddCircleOutlineIcon className={classes.iconSize} />
-          </IconButton>
-        </Grid>
+      <Grid item xs={12}>
+        <SubHeaderWithAddButton
+          title="Alert Recipients"
+          buttonDescription="Add Alert Recipient"
+          buttonOnClick={() => setShowFormDialog(true)}
+        />
       </Grid>
-      <Grid item container spacing={2}>
-        {recipients.map((data) => (
-          <Grid item key={data.id} xs={12}>
-            {RecipientCard(data)}
+      <Grid item container spacing={2} style={{ marginTop: 10 }}>
+        {data.listAlertRecipients.items.map((recipient) => (
+          <Grid item key={recipient.id} xs={12}>
+            <AlertRecipientCard recipient={recipient} />
           </Grid>
         ))}
       </Grid>

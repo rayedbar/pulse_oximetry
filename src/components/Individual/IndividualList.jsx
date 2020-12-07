@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { API, graphqlOperation } from "aws-amplify";
+import React from "react";
+import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import { Grid } from "@material-ui/core";
 
+import ProgressBar from "../Shared/ProgressBar";
 import IndividualListItem from "./IndividualListItem";
-import { listIndividualsWithLatestPulseOximetry } from "../../graphql/custom-queries";
+import LIST_INDIVIDUALS from "../../graphql/Individual/ListIndividuals";
 
 const useStyles = makeStyles({
   root: {
@@ -14,25 +15,14 @@ const useStyles = makeStyles({
 
 const IndividualList = () => {
   const classes = useStyles();
-  const [individuals, setIndividuals] = useState([]);
+  const { loading, error, data } = useQuery(LIST_INDIVIDUALS);
 
-  useEffect(() => {
-    const fetchIndiviuals = async () => {
-      try {
-        const individualData = await API.graphql(
-          graphqlOperation(listIndividualsWithLatestPulseOximetry)
-        );
-        setIndividuals(individualData.data.listIndividuals.items);
-      } catch (error) {
-        console.log("Error Fetching Data!", error);
-      }
-    };
-    fetchIndiviuals();
-  }, []);
+  if (loading) return <ProgressBar />;
+  if (error) return `Error! ${error.message}`;
 
   return (
     <Grid container direction="row" spacing={2} className={classes.root}>
-      {individuals.map((individual) => (
+      {data.listIndividuals.items.map((individual) => (
         <Grid item key={individual.id} xs={12} sm={6} md={4} lg={3} xl={2}>
           <IndividualListItem individual={individual} />
         </Grid>

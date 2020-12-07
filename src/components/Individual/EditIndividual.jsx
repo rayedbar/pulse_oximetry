@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import IndividualForm from "./IndividualForm";
+import React from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { Cache } from "aws-amplify";
 import { format as formatDate } from "date-fns";
-import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { API, Cache, graphqlOperation } from "aws-amplify";
-import { updateIndividual as UpdateIndividualMutation } from "../../graphql/mutations";
-import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 import FormTemplate from "../Shared/FormTemplate";
+import ProgressBar from "../Shared/ProgressBar";
+
+import IndividualForm from "./IndividualForm";
+import GET_INDIVIDUAL from "../../graphql/Individual/GetIndividual";
+import { updateIndividual as UPDATE_INDIVIDUAL } from "../../graphql/mutations";
+import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -17,49 +20,45 @@ const useStyles = makeStyles(() => ({
 
 const EditIndividual = () => {
   const history = useHistory();
+  const { individualID } = useParams();
   const classes = useStyles();
-  const location = useLocation();
 
-  const [showProgressBar, setShowProgressBar] = useState(false);
+  const { loading: queryLoading, data } = useQuery(GET_INDIVIDUAL, {
+    variables: { id: individualID },
+  });
 
-  const onSubmit = async (formData) => {
-    setShowProgressBar(true);
+  const [updateIndividual, { loading: mutationLoading, error }] = useMutation(
+    gql(UPDATE_INDIVIDUAL)
+  );
 
-    Cache.removeItem(location.state.id + INDIVIDUAL_PHOTO);
+  const onSubmit = (formData) => {
+    Cache.removeItem(data.getIndividual.id + INDIVIDUAL_PHOTO);
     const { dob, ...rest } = formData;
-
-    try {
-      await API.graphql(
-        graphqlOperation(UpdateIndividualMutation, {
-          input: {
-            ...rest,
-            dob: formatDate(dob, "yyyy-MM-dd"),
-            id: location.state.id,
-          },
-        })
-      );
-
-      history.goBack();
-    } catch (error) {
-      console.log("Error updating individual ", error);
-      setShowProgressBar(false);
-    }
+    updateIndividual({
+      variables: {
+        input: {
+          ...rest,
+          dob: formatDate(dob, "yyyy-MM-dd"),
+          id: data.getIndividual.id,
+        },
+      },
+    });
+    history.goBack();
   };
+
+  if (queryLoading || mutationLoading) return <ProgressBar />;
+  if (error) return `Error! ${error.message}`;
 
   return (
     <div className={classes.root}>
-      {showProgressBar === true ? (
-        <CircularProgress />
-      ) : (
-        <FormTemplate>
-          <IndividualForm
-            individualDetail={location.state}
-            individualID={location.state.id}
-            formHeader="Edit Individual"
-            onSubmit={onSubmit}
-          />
-        </FormTemplate>
-      )}
+      <FormTemplate>
+        <IndividualForm
+          individualDetail={data.getIndividual}
+          individualID={data.getIndividual.id}
+          formHeader="Edit Individual"
+          onSubmit={onSubmit}
+        />
+      </FormTemplate>
     </div>
   );
 };

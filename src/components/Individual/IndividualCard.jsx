@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 
 import IndividualAvatar from "./IndividualAvatar";
+import { URL } from "../../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
   individualInfo: {
@@ -28,15 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
+const IndividualCard = ({ individual }) => {
   const classes = useStyles();
   const history = useHistory();
 
-  const { id: individualID, firstName, lastName } = individualDetail;
-
-  const handleEdit = () => {
-    history.push("/individuals/edit/" + individualID, individualDetail);
-  };
+  const { id: individualID, firstName, lastName } = individual;
+  const latestPulseOximetry = individual.pulseOximetry?.items[0];
 
   return (
     <Card>
@@ -44,7 +42,9 @@ const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
         <IconButton
           title="Edit Information"
           aria-label="Edit Information"
-          onClick={handleEdit}
+          onClick={() =>
+            history.push(`${URL.INDIVIDUAL_EDIT}/${individualID}`, individual)
+          }
           className={classes.editButton}
           color="inherit"
           size="small"
@@ -112,4 +112,4 @@ const IndividualDetailCard = ({ individualDetail, latestPulseOximetry }) => {
   );
 };
 
-export default IndividualDetailCard;
+export default IndividualCard;
