@@ -51,9 +51,7 @@ const PulseOximetryPlot = ({ individual }) => {
       }}
       config={plotlyConfig}
     />
-  ) : (
-    "hello"
-  );
+  ) : null;
 };
 
 export default PulseOximetryPlot;

@@ -65,9 +65,7 @@ const PulseOximetryTable = ({ pulseOximetry }) => {
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
     </TableContainer>
-  ) : (
-    <Typography>No Data</Typography>
-  );
+  ) : null;
 };
 
 export default PulseOximetryTable;
