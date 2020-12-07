@@ -31,7 +31,6 @@ const IndividualAvatar = ({ individualID, individualName }) => {
           if (imageUrlResponse.status !== 200) {
             imageUrl = "Unavailable";
           }
-          console.log(imageUrl);
           Cache.setItem(individualID + INDIVIDUAL_PHOTO, imageUrl, {
             expires: new Date().getTime() + 1000 * 60 * 15,
           });
