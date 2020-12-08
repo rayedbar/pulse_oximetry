@@ -49,26 +49,6 @@ const AddAlertRecipient = () => {
     <FormTemplate>
       <AlertRecipientForm onSubmit={onSubmit} />
     </FormTemplate>
-    // <Grid container>
-    //   <Grid item xs={12}>
-    //     <SubHeaderWithAddButton
-    //       title="Alert Recipients"
-    //       buttonDescription="Add Alert Recipient"
-    //       buttonOnClick={() => setShowFormDialog(true)}
-    //     />
-    //   </Grid>
-    //   <Grid item container spacing={2} style={{ marginTop: 10 }}>
-    //     {data.listAlertRecipients.items.map((recipient) => (
-    //       <Grid item key={recipient.id} xs={12}>
-    //         <AlertRecipientCard recipient={recipient} />
-    //       </Grid>
-    //     ))}
-    //   </Grid>
-    //   <AlertRecipientForm
-    //     formDialogState={[showFormDialog, setShowFormDialog]}
-    //     onSubmit={onSubmit}
-    //   />
-    // </Grid>
   );
 };
 
