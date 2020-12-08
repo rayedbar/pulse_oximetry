@@ -33,10 +33,6 @@ const AlertRecipient = () => {
           </Grid>
         ))}
       </Grid>
-      {/* <AlertRecipientForm
-        formDialogState={[showFormDialog, setShowFormDialog]}
-        onSubmit={onSubmit}
-      /> */}
     </Grid>
   );
 };

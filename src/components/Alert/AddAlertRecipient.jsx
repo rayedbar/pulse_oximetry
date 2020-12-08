@@ -32,6 +32,9 @@ const AddAlertRecipient = () => {
         },
       });
     },
+    onError(error) {
+      history.push(URL.ERROR, error.message);
+    },
   });
 
   const onSubmit = (formData) => {

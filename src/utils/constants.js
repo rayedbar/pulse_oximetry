@@ -13,6 +13,7 @@ export const URL = {
   PULSE_OXIMETRY_RANGE: "/pulseOximetryRange",
   ALERT_RECIPIENTS: "/alertRecipients",
   ALERT_RECIPIENTS_ADD: "/alertRecipients/add",
+  ERROR: "/error",
 };
 export const PULSE_OXIMETRY_DEFAULT_RANGE = {
   MIN_SPO2: 95,
