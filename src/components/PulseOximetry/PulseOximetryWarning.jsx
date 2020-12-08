@@ -17,7 +17,7 @@ const PulseOximetryWarning = ({ individual }) => {
           <Alert severity="error">
             <AlertTitle>SpO2 Warning</AlertTitle>
             The latest SpO2 suggests a medical issue may be present. Please
-            report to an <Link to={URL.ALERT_RECIPIENTS}>Alert Recipient</Link>
+            report to <Link to={URL.ALERT_RECIPIENTS}>Alert Recipients</Link>
           </Alert>
         </Grid>
       ) : null}
@@ -28,7 +28,7 @@ const PulseOximetryWarning = ({ individual }) => {
           <Alert severity="error">
             <AlertTitle>Heart Rate Warning</AlertTitle>
             The latest Heart Rate suggests a medical issue may be present.Please
-            report to an <Link to={URL.ALERT_RECIPIENTS}>Alert Recipient</Link>
+            report to <Link to={URL.ALERT_RECIPIENTS}>Alert Recipients</Link>
           </Alert>
         </Grid>
       ) : null}
