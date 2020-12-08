@@ -1,7 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
+
 import { getPulseOximetryRange } from "../../utils/functions";
+import { URL } from "../../utils/constants";
 
 const PulseOximetryWarning = ({ individual }) => {
   const latestPulseOximetry = individual?.pulseOximetry.items[0];
@@ -14,7 +17,7 @@ const PulseOximetryWarning = ({ individual }) => {
           <Alert severity="error">
             <AlertTitle>SpO2 Warning</AlertTitle>
             The latest SpO2 suggests a medical issue may be present. Please
-            report to Nathan at <strong>203-231-0849</strong>
+            report to <Link to={URL.ALERT_RECIPIENTS}>Alert Recipients</Link>
           </Alert>
         </Grid>
       ) : null}
@@ -24,8 +27,8 @@ const PulseOximetryWarning = ({ individual }) => {
         <Grid item>
           <Alert severity="error">
             <AlertTitle>Heart Rate Warning</AlertTitle>
-            The latest Heart Rate suggests a medical issue may be present.
-            Please report to Nathan at <strong>203-231-0849</strong>
+            The latest Heart Rate suggests a medical issue may be present.Please
+            report to <Link to={URL.ALERT_RECIPIENTS}>Alert Recipients</Link>
           </Alert>
         </Grid>
       ) : null}

@@ -243,6 +243,7 @@ export const createAlertRecipient = /* GraphQL */ `
       firstName
       lastName
       email
+      phone
       createdAt
       updatedAt
     }
@@ -259,6 +260,7 @@ export const updateAlertRecipient = /* GraphQL */ `
       firstName
       lastName
       email
+      phone
       createdAt
       updatedAt
     }
@@ -275,6 +277,7 @@ export const deleteAlertRecipient = /* GraphQL */ `
       firstName
       lastName
       email
+      phone
       createdAt
       updatedAt
     }

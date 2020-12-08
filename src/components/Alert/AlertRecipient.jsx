@@ -1,52 +1,18 @@
-import React, { useState } from "react";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { useQuery, gql } from "@apollo/client";
 import { Grid } from "@material-ui/core";
 
-import AlertRecipientForm from "./AlertRecipientForm";
 import AlertRecipientCard from "./AlertRecipientCard";
 import SubHeaderWithAddButton from "../Shared/SubHeaderWithAddButton";
 import ProgressBar from "../Shared/ProgressBar";
+import { URL } from "../../utils/constants";
 import { listAlertRecipients as LIST_ALERT_RECIPIENTS } from "../../graphql/queries";
-import { createAlertRecipient as CREATE_ALERT_RECIPIENT } from "../../graphql/mutations";
 
 const AlertRecipient = () => {
-  const [showFormDialog, setShowFormDialog] = useState(false);
+  const history = useHistory();
 
   const { loading, error, data } = useQuery(gql(LIST_ALERT_RECIPIENTS));
-  const [addAlertRecipient] = useMutation(gql(CREATE_ALERT_RECIPIENT), {
-    update(cache, { data: { createAlertRecipient } }) {
-      cache.modify({
-        fields: {
-          listAlertRecipients(existingAlertRecipients) {
-            const newAlertRecipientRef = cache.writeFragment({
-              data: createAlertRecipient,
-              fragment: gql`
-                fragment NewAlertRecipient on AlertRecipient {
-                  id
-                  type
-                }
-              `,
-            });
-
-            return {
-              items: [...existingAlertRecipients.items, newAlertRecipientRef],
-            };
-          },
-        },
-      });
-    },
-  });
-
-  const onSubmit = (formData) => {
-    addAlertRecipient({
-      variables: {
-        input: {
-          ...formData,
-        },
-      },
-    });
-    setShowFormDialog(false);
-  };
 
   if (loading) return <ProgressBar />;
   if (error) return `Error! ${error.message}`;
@@ -57,7 +23,7 @@ const AlertRecipient = () => {
         <SubHeaderWithAddButton
           title="Alert Recipients"
           buttonDescription="Add Alert Recipient"
-          buttonOnClick={() => setShowFormDialog(true)}
+          buttonOnClick={() => history.push(URL.ALERT_RECIPIENTS_ADD)}
         />
       </Grid>
       <Grid item container spacing={2} style={{ marginTop: 10 }}>
@@ -67,10 +33,6 @@ const AlertRecipient = () => {
           </Grid>
         ))}
       </Grid>
-      <AlertRecipientForm
-        formDialogState={[showFormDialog, setShowFormDialog]}
-        onSubmit={onSubmit}
-      />
     </Grid>
   );
 };

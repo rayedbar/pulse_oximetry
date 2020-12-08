@@ -13,6 +13,8 @@ import AddPulseOximetry from "./PulseOximetry/AddPulseOximetry";
 import { URL } from "../utils/constants";
 import AlertRecipient from "./Alert/AlertRecipient";
 import PulseOximetryRange from "./PulseOximetry/PulseOximetryRange";
+import AddAlertRecipient from "./Alert/AddAlertRecipient";
+import Error from "./Shared/Error";
 
 const useStyles = makeStyles({
   root: {
@@ -66,9 +68,15 @@ const App = () => {
           </Route>
           <Route exact path={URL.ALERT_RECIPIENTS}>
             <AlertRecipient />
-          </Route>{" "}
+          </Route>
+          <Route exact path={URL.ALERT_RECIPIENTS_ADD}>
+            <AddAlertRecipient />
+          </Route>
           <Route exact path={URL.PULSE_OXIMETRY_RANGE}>
             <PulseOximetryRange />
+          </Route>
+          <Route exact path={URL.ERROR}>
+            <Error />
           </Route>
         </Switch>
       </Grid>

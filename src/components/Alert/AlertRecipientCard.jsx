@@ -6,6 +6,7 @@ const RecipientCard = ({ recipient }) => (
     <CardContent>
       <Typography>{recipient.firstName + " " + recipient.lastName}</Typography>
       <Typography>{recipient.email}</Typography>
+      <Typography>{recipient.phone}</Typography>
     </CardContent>
   </Card>
 );

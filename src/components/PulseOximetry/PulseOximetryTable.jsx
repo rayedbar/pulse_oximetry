@@ -8,7 +8,6 @@ import {
   TableBody,
   TableCell,
   TablePagination,
-  Typography,
 } from "@material-ui/core";
 
 const PulseOximetryTable = ({ pulseOximetry }) => {
