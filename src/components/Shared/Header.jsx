@@ -1,13 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Auth } from "aws-amplify";
-import { AppBar, Toolbar, IconButton, Drawer } from "@material-ui/core";
+import { AppBar, Toolbar, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { URL } from "../../utils/constants";
-import DrawerItems from "./DrawerItems";
+import Drawer from "./Drawer";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -64,9 +64,7 @@ const Header = () => {
         >
           <MenuIcon />
         </IconButton>
-        <Drawer anchor={"left"} open={drawerOpen} onClose={toggleDrawer(false)}>
-          <DrawerItems toggleDrawer={toggleDrawer} />
-        </Drawer>
+        <Drawer drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} />
         <img
           src={process.env.PUBLIC_URL + "/logo.png"}
           className={classes.logo}

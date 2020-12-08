@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Storage } from "aws-amplify";
+import { Storage, Cache } from "aws-amplify";
 import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+import { INDIVIDUAL_PHOTO } from "../../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -14,12 +16,26 @@ const useStyles = makeStyles((theme) => ({
 
 const IndividualAvatar = ({ individualID, individualName }) => {
   const classes = useStyles();
+
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
     const fetchImageUrl = async () => {
       try {
-        setImageUrl(await Storage.get(individualID));
+        let imageUrl = Cache.getItem(individualID + INDIVIDUAL_PHOTO);
+        if (!imageUrl) {
+          // set expires to 15 minutes
+          imageUrl = await Storage.get(individualID, { expires: 60 * 15 });
+
+          let imageUrlResponse = await fetch(new Request(imageUrl));
+          if (imageUrlResponse.status !== 200) {
+            imageUrl = "Unavailable";
+          }
+          Cache.setItem(individualID + INDIVIDUAL_PHOTO, imageUrl, {
+            expires: new Date().getTime() + 1000 * 60 * 15,
+          });
+        }
+        setImageUrl(imageUrl);
       } catch (error) {
         console.log(error);
       }

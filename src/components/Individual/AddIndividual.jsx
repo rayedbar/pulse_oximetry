@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
-import IndividualForm from "./IndividualForm";
 import { format as formatDate } from "date-fns";
-import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { v4 as uuidv4 } from "uuid";
-import { API, graphqlOperation } from "aws-amplify";
-import { createIndividual as AddIndividualMutation } from "../../graphql/mutations";
-import { URL } from "../../utils/constants";
+
+import IndividualForm from "./IndividualForm";
 import FormTemplate from "../Shared/FormTemplate";
+import ProgressBar from "../Shared/ProgressBar";
+import { createIndividual as CREATE_INDIVIDUAL } from "../../graphql/mutations";
+import { URL } from "../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -20,44 +21,60 @@ const AddIndividual = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [showProgressBar, setShowProgressBar] = useState(false);
   const [individualID] = useState(uuidv4());
+  const [addIndividual, { loading, error }] = useMutation(
+    gql(CREATE_INDIVIDUAL),
+    {
+      update(cache, { data: { createIndividual } }) {
+        cache.modify({
+          fields: {
+            listIndividuals(existingIndividuals) {
+              const newIndividualRef = cache.writeFragment({
+                data: createIndividual,
+                fragment: gql`
+                  fragment NewIndividual on Individual {
+                    id
+                    type
+                  }
+                `,
+              });
 
-  const onSubmit = async (formData) => {
-    setShowProgressBar(true);
-    const { dob, ...rest } = formData;
-
-    try {
-      await API.graphql(
-        graphqlOperation(AddIndividualMutation, {
-          input: {
-            ...rest,
-            dob: formatDate(dob, "yyyy-MM-dd"),
-            id: individualID,
+              return {
+                items: [...existingIndividuals.items, newIndividualRef],
+              };
+            },
           },
-        })
-      );
-    } catch {
-      console.log("Error creating individual");
+        });
+      },
     }
+  );
 
-    setShowProgressBar(false);
+  const onSubmit = (formData) => {
+    const { dob, ...rest } = formData;
+    addIndividual({
+      variables: {
+        input: {
+          ...rest,
+          dob: formatDate(dob, "yyyy-MM-dd"),
+          id: individualID,
+        },
+      },
+    });
     history.push(URL.HOME);
   };
 
+  if (loading) return <ProgressBar />;
+  if (error) return `Error! ${error.message}`;
+
   return (
     <div className={classes.root}>
-      {showProgressBar === true ? (
-        <CircularProgress />
-      ) : (
-        <FormTemplate>
-          <IndividualForm
-            individualID={individualID}
-            formHeader="Add Individual"
-            onSubmit={onSubmit}
-          />
-        </FormTemplate>
-      )}
+      <FormTemplate>
+        <IndividualForm
+          individualID={individualID}
+          formHeader="Add Individual"
+          onSubmit={onSubmit}
+        />
+      </FormTemplate>
     </div>
   );
 };

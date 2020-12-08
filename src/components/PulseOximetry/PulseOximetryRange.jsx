@@ -1,56 +1,72 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
-import { API, graphqlOperation } from "aws-amplify";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
-import { listIndividualsWithPulseOximetryRange } from "../../graphql/custom-queries";
-import { createPulseOximetryRange } from "../../graphql/mutations";
+import ProgressBar from "../Shared/ProgressBar";
 import FormTemplate from "../Shared/FormTemplate";
 import PulseOximetryRangeForm from "./PulseOximetryRangeForm";
+import LIST_INDIVIDUALS_WITH_PULSE_OXIMETRY_RANGE from "../../graphql/Individual/ListIndividualsWithPulseOximetryRange";
+import { createPulseOximetryRange as CREATE_PULSE_OXIMETRY_RANGE } from "../../graphql/mutations";
 import { URL } from "../../utils/constants";
 
 const PulseOximetryRange = () => {
   const history = useHistory();
-  const [individuals, setIndividuals] = useState([]);
-
-  useEffect(() => {
-    const fetchIndiviuals = async () => {
-      try {
-        const individualData = await API.graphql(
-          graphqlOperation(listIndividualsWithPulseOximetryRange)
-        );
-        setIndividuals(individualData.data.listIndividuals.items);
-      } catch (error) {
-        console.log("Error Fetching Data!", error);
-      }
-    };
-    fetchIndiviuals();
-  }, []);
+  const { loading, error, data } = useQuery(
+    LIST_INDIVIDUALS_WITH_PULSE_OXIMETRY_RANGE
+  );
+  const [addPulseOximetryRange] = useMutation(
+    gql(CREATE_PULSE_OXIMETRY_RANGE),
+    {
+      onCompleted: () => history.push(URL.HOME),
+    }
+  );
 
   const onSubmit = async (formData) => {
-    try {
-      const { minSpO2, minHeartRate, maxHeartRate, ...rest } = formData;
-
-      await API.graphql(
-        graphqlOperation(createPulseOximetryRange, {
-          input: {
-            ...rest,
-            minSpO2: parseInt(minSpO2, 10),
-            minHeartRate: parseInt(minHeartRate, 10),
-            maxHeartRate: parseInt(maxHeartRate, 10),
+    const { minSpO2, minHeartRate, maxHeartRate, individualID } = formData;
+    addPulseOximetryRange({
+      variables: {
+        input: {
+          individualID: individualID,
+          minSpO2: parseInt(minSpO2, 10),
+          minHeartRate: parseInt(minHeartRate, 10),
+          maxHeartRate: parseInt(maxHeartRate, 10),
+        },
+      },
+      update(cache, { data: { createPulseOximetryRange } }) {
+        cache.modify({
+          id: cache.identify({
+            id: individualID,
+            __typename: "Individual",
+          }),
+          fields: {
+            pulseOximetryRange() {
+              const newPulseOximetryRangeRef = cache.writeFragment({
+                data: createPulseOximetryRange,
+                fragment: gql`
+                  fragment NewPulseOximetryRange on PulseOximetryRange {
+                    id
+                    type
+                  }
+                `,
+              });
+              return {
+                items: [newPulseOximetryRangeRef],
+              };
+            },
           },
-        })
-      );
-      history.push(URL.HOME);
-    } catch (error) {
-      console.log("Error setting pulse oximetry range", error);
-    }
+        });
+      },
+    });
   };
+
+  if (loading) return <ProgressBar />;
+  if (error) return `Error! ${error.message}`;
 
   return (
     <FormTemplate>
       <PulseOximetryRangeForm
         formHeader="Pulse Oximetry Range"
-        individuals={individuals}
+        individuals={data.listIndividuals.items}
         onSubmit={onSubmit}
       />
     </FormTemplate>

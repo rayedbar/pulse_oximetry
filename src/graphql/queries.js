@@ -150,6 +150,7 @@ export const getAlertRecipient = /* GraphQL */ `
       firstName
       lastName
       email
+      phone
       createdAt
       updatedAt
     }
@@ -168,6 +169,7 @@ export const listAlertRecipients = /* GraphQL */ `
         firstName
         lastName
         email
+        phone
         createdAt
         updatedAt
       }

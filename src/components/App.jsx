@@ -6,13 +6,15 @@ import { AmplifyAuthenticator, AmplifySignUp } from "@aws-amplify/ui-react";
 
 import Header from "./Shared/Header";
 import IndividualList from "./Individual/IndividualList";
-import IndividualDetail from "./Individual/IndividualDetail";
+import PulseOximetry from "./PulseOximetry/PulseOximetry";
 import AddIndividual from "./Individual/AddIndividual";
 import EditIndividual from "./Individual/EditIndividual";
-import AddOximeter from "./PulseOximetry/AddPulseOximetry";
+import AddPulseOximetry from "./PulseOximetry/AddPulseOximetry";
 import { URL } from "../utils/constants";
 import AlertRecipient from "./Alert/AlertRecipient";
 import PulseOximetryRange from "./PulseOximetry/PulseOximetryRange";
+import AddAlertRecipient from "./Alert/AddAlertRecipient";
+import Error from "./Shared/Error";
 
 const useStyles = makeStyles({
   root: {
@@ -52,26 +54,29 @@ const App = () => {
           <Route exact path={URL.HOME}>
             <IndividualList />
           </Route>
-          <Route exact path={URL.INDIVIDUALS}>
-            <IndividualList />
-          </Route>
-          <Route path={`${URL.INDIVIDUALS}/add`}>
+          <Route path={`${URL.INDIVIDUAL_ADD}`}>
             <AddIndividual />
           </Route>
-          <Route path={`${URL.INDIVIDUALS}/edit/:individualID`}>
+          <Route path={`${URL.INDIVIDUAL_EDIT}/:individualID`}>
             <EditIndividual />
           </Route>
-          <Route path={`${URL.INDIVIDUALS}/:individualID`}>
-            <IndividualDetail />
+          <Route path={`${URL.PULSE_OXIMETRY_ADD}/:individualID`}>
+            <AddPulseOximetry />
+          </Route>
+          <Route path={`${URL.PULSE_OXIMETRY}/:individualID`}>
+            <PulseOximetry />
+          </Route>
+          <Route exact path={URL.ALERT_RECIPIENTS}>
+            <AlertRecipient />
+          </Route>
+          <Route exact path={URL.ALERT_RECIPIENTS_ADD}>
+            <AddAlertRecipient />
           </Route>
           <Route exact path={URL.PULSE_OXIMETRY_RANGE}>
             <PulseOximetryRange />
           </Route>
-          <Route exact path={`${URL.PULSE_OXIMETRY}/:individualID`}>
-            <AddOximeter />
-          </Route>
-          <Route exact path={URL.ALERT_RECIPIENTS}>
-            <AlertRecipient />
+          <Route exact path={URL.ERROR}>
+            <Error />
           </Route>
         </Switch>
       </Grid>

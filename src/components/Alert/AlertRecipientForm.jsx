@@ -1,76 +1,82 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@material-ui/core";
-import FormInput from "../Shared/FormInput";
+import { Typography, Grid } from "@material-ui/core";
 
-const AlertRecipientForm = ({
-  formDialogState: [showFormDialog, setShowFormDialog],
-  onSubmit,
-}) => {
+import FormInput from "../Shared/FormInput";
+import FormButton from "../Shared/FormButton";
+
+const AlertRecipientForm = ({ onSubmit }) => {
+  const history = useHistory();
   const { register, errors, handleSubmit } = useForm();
 
   return (
     <div>
-      <Dialog
-        open={showFormDialog}
-        onClose={() => setShowFormDialog(false)}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Add Alert Recipient</DialogTitle>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogContent>
-            <DialogContentText>
-              To subscribe to pulse oximetry alerts, please enter your
-              information here.
-            </DialogContentText>
-            <FormInput
-              name="firstName"
-              label="First Name"
-              type="text"
-              inputRef={register({
-                required: true,
-              })}
-              errors={errors.firstName}
-              errorText={"Required"}
-            />
-            <FormInput
-              name="lastName"
-              label="Last Name"
-              type="text"
-              inputRef={register({
-                required: true,
-              })}
-              errors={errors.lastName}
-              errorText={"Required"}
-            />
-            <FormInput
-              name="email"
-              label="Email"
-              type="email"
-              inputRef={register({
-                required: "Required",
-              })}
-              errors={errors.email}
-              errorText={"Required"}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setShowFormDialog(false)} color="primary">
-              Cancel
-            </Button>
-            <Button type="submit" color="primary">
-              Save
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid item>
+          <Typography variant="h4">Alert Recipient</Typography>
+        </Grid>
+        <Grid item>
+          <FormInput
+            name="firstName"
+            label="First Name"
+            type="text"
+            inputRef={register({
+              required: true,
+            })}
+            errors={errors.firstName}
+            errorText={"Required"}
+          />
+        </Grid>
+        <Grid item>
+          <FormInput
+            name="lastName"
+            label="Last Name"
+            type="text"
+            inputRef={register({
+              required: true,
+            })}
+            errors={errors.lastName}
+            errorText={"Required"}
+          />
+        </Grid>
+        <Grid item>
+          <FormInput
+            name="email"
+            label="Email"
+            type="text"
+            inputRef={register({
+              required: "Required",
+              pattern: {
+                value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                message: "Enter a valid email address",
+              },
+            })}
+            errors={errors.email}
+            errorText={errors.email?.message}
+          />
+        </Grid>
+        <Grid item>
+          <FormInput
+            name="phone"
+            label="Phone Number"
+            type="tel"
+            inputRef={register({
+              required: "Required",
+              pattern: {
+                value: /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
+                message: "Enter a valid phone number. Format: xxx-xxx-xxxx",
+              },
+            })}
+            errors={errors.phone}
+            errorText={errors.phone?.message}
+          />
+        </Grid>
+        <Grid item container justify="space-between">
+          <FormButton label="Cancel" onClick={() => history.goBack()} />
+          <FormButton label="Save" type="submit" />
+        </Grid>
+      </form>
     </div>
   );
 };
