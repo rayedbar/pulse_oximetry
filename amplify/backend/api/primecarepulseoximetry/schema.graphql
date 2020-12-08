@@ -43,5 +43,5 @@ type AlertRecipient
   firstName: String!
   lastName: String!
   email: AWSEmail!
-  phone: AWSPhone
+  phone: AWSPhone!
 }

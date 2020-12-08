@@ -44,12 +44,16 @@ const AlertRecipientForm = ({ onSubmit }) => {
           <FormInput
             name="email"
             label="Email"
-            type="email"
+            type="text"
             inputRef={register({
               required: "Required",
+              pattern: {
+                value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                message: "Enter a valid email address",
+              },
             })}
             errors={errors.email}
-            errorText={"Required"}
+            errorText={errors.email?.message}
           />
         </Grid>
         <Grid item>
@@ -59,9 +63,13 @@ const AlertRecipientForm = ({ onSubmit }) => {
             type="tel"
             inputRef={register({
               required: "Required",
+              pattern: {
+                value: /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
+                message: "Enter a valid phone number. Format: xxx-xxx-xxxx",
+              },
             })}
             errors={errors.phone}
-            errorText={"Required"}
+            errorText={errors.phone?.message}
           />
         </Grid>
         <Grid item container justify="space-between">
