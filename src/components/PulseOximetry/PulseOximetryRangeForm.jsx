@@ -10,7 +10,7 @@ import { PULSE_OXIMETRY_DEFAULT_RANGE, URL } from "../../utils/constants";
 
 const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
   const history = useHistory();
-  const { register, errors, setValue, handleSubmit } = useForm();
+  const { register, errors, clearErrors, setValue, handleSubmit } = useForm();
 
   const [selectedIndividual, setSelectedIndividual] = useState(null);
 
@@ -19,7 +19,8 @@ const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
   }, [register]);
 
   useEffect(() => {
-    if (selectedIndividual)
+    if (selectedIndividual) {
+      clearErrors();
       if (selectedIndividual.pulseOximetryRange.items[0]) {
         const formFields = ["minSpO2", "minHeartRate", "maxHeartRate"];
         for (let field of formFields) {
@@ -33,6 +34,7 @@ const PulseOximetryRangeForm = ({ individuals, formHeader, onSubmit }) => {
         setValue("minHeartRate", PULSE_OXIMETRY_DEFAULT_RANGE.MIN_HEART_RATE);
         setValue("maxHeartRate", PULSE_OXIMETRY_DEFAULT_RANGE.MAX_HEART_RATE);
       }
+    }
   }, [selectedIndividual, setValue]);
 
   const handleSelectedIndividualChange = (event) => {
