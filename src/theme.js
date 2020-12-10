@@ -38,7 +38,7 @@ const theme = createMuiTheme({
     },
     MuiButton: {
       label: {
-        color: grey[700],
+        color: grey[900],
       },
     },
   },
