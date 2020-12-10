@@ -64,8 +64,8 @@ const AlertRecipientForm = ({ onSubmit }) => {
             inputRef={register({
               required: "Required",
               pattern: {
-                value: /^[0-9]{3} [0-9]{3} [0-9]{4}$/,
-                message: "Enter a valid phone number. Format: xxx xxx xxxx",
+                value: /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
+                message: "Enter a valid phone number. Format: xxx-xxx-xxxx",
               },
             })}
             errors={errors.phone}
