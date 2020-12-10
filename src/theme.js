@@ -36,6 +36,11 @@ const theme = createMuiTheme({
         marginBottom: "0.3rem",
       },
     },
+    MuiButton: {
+      label: {
+        color: "black",
+      },
+    },
   },
 });
 

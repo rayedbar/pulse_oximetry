@@ -24,15 +24,15 @@ const IndividualAvatar = ({ individualID, individualName }) => {
       try {
         let imageUrl = Cache.getItem(individualID + INDIVIDUAL_PHOTO);
         if (!imageUrl) {
-          // set expires to 15 minutes
-          imageUrl = await Storage.get(individualID, { expires: 60 * 15 });
+          // set expires to 1 hour
+          imageUrl = await Storage.get(individualID, { expires: 60 * 60 });
 
           let imageUrlResponse = await fetch(new Request(imageUrl));
           if (imageUrlResponse.status !== 200) {
             imageUrl = "Unavailable";
           }
           Cache.setItem(individualID + INDIVIDUAL_PHOTO, imageUrl, {
-            expires: new Date().getTime() + 1000 * 60 * 15,
+            expires: new Date().getTime() + 1000 * 60 * 60,
           });
         }
         setImageUrl(imageUrl);

@@ -62,7 +62,7 @@ const Header = () => {
           aria-label="menu"
           onClick={toggleDrawer(true)}
         >
-          <MenuIcon />
+          <MenuIcon className={classes.iconSize} />
         </IconButton>
         <Drawer drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} />
         <img
@@ -73,6 +73,7 @@ const Header = () => {
         />
         <div className={classes.grow} />
         <IconButton
+          edge="end"
           title="Sign Out"
           variant="contained"
           onClick={handleSignOut}
